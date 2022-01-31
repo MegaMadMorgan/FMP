@@ -49,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
         //float TargetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Cam.eulerAngles.y;
 
+        Physics.gravity = new Vector3(0, -30F, 0);
+
         if (MoveDirection != new Vector3(0, 0, 0))
         {
             //float Angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, TargetAngle, ref TurnSmoothVelocity, TurnSmoothTime);
