@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 203037937}
   - component: {fileID: 203037936}
   - component: {fileID: 203037935}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TestFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 448154063}
   - component: {fileID: 448154062}
   - component: {fileID: 448154061}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BC2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -894,7 +894,7 @@ GameObject:
   - component: {fileID: 522012136}
   - component: {fileID: 522012135}
   - component: {fileID: 522012134}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RC1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1006,6 +1006,7 @@ GameObject:
   - component: {fileID: 586701689}
   - component: {fileID: 586701690}
   - component: {fileID: 586701691}
+  - component: {fileID: 586701692}
   m_Layer: 0
   m_Name: Third-Person Player
   m_TagString: Player
@@ -1054,7 +1055,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 586701686}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da37002ee11943a40b35dce86f47865a, type: 3}
   m_Name: 
@@ -1078,7 +1079,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &586701691
 CapsuleCollider:
@@ -1094,6 +1095,30 @@ CapsuleCollider:
   m_Height: 2.2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &586701692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586701686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74e7d2c97994974181b2143027bd5a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cam: {fileID: 0}
+  speed: 3
+  JumpForce: 2
+  CheckDistance: 0
+  GroundCheck: {fileID: 0}
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  PlayerMesh: {fileID: 586701687}
+  canJump: 0
+  canMove: 1
+  TurnSmoothTime: 0.1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,7 +1299,7 @@ GameObject:
   - component: {fileID: 824821367}
   - component: {fileID: 824821366}
   - component: {fileID: 824821365}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BC1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1765,7 +1790,7 @@ GameObject:
   - component: {fileID: 1241299556}
   - component: {fileID: 1241299555}
   - component: {fileID: 1241299554}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RC2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1951,7 +1976,7 @@ GameObject:
   - component: {fileID: 1501911296}
   - component: {fileID: 1501911295}
   - component: {fileID: 1501911299}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GC1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2130,7 +2155,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17268
+  m_Name: pb_Mesh24266
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2427,7 +2452,7 @@ GameObject:
   - component: {fileID: 1831871498}
   - component: {fileID: 1831871497}
   - component: {fileID: 1831871496}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GC2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
