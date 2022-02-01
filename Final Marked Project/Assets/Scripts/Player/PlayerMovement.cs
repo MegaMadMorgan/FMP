@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public float TurnSmoothTime = 0.1f;
     float TurnSmoothVelocity;
 
+    public GameObject Attack1;
+
     void FixedUpdate()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -54,5 +56,17 @@ public class PlayerMovement : MonoBehaviour
 
             PlayerMesh.rotation = Quaternion.LookRotation(MoveDirection);
         }
+
+        Vector3 playerPos = this.transform.position;
+        Vector3 playerDirection = this.transform.forward;
+        Quaternion playerRotation = this.transform.rotation;
+        Vector3 spawnPos = playerPos + playerDirection * 1;
+
+        if (Input.GetKeyDown("space"))
+        {
+            Instantiate(Attack1, spawnPos, playerRotation);
+        }
+
+
     }
 }

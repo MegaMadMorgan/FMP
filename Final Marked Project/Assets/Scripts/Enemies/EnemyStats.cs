@@ -25,7 +25,15 @@ public class EnemyStats : MonoBehaviour
 
         if (collision.tag == "PlayerAttack")
         {
-            rb.velocity = (transform.up + transform.right) * 6;
+            //rb.rotation = GetComponent<PlayerAttackAngle>().AttackMesh.rotation;
+
+            Vector3 direction = collision.transform.position - transform.position;
+            direction = -direction.normalized;
+            //direction.y = -5;
+            
+
+            rb.AddForce(direction * 6, ForceMode.Impulse);
+            rb.AddForce(0, 5, 0, ForceMode.Impulse);
             health = 5;
         }
     }
