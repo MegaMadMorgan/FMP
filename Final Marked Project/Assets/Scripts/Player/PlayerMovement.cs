@@ -9,15 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float JumpForce;
 
-    [Space(15)]
     public float CheckDistance;
     public Transform GroundCheck;
     public LayerMask GroundMask;
 
-    [Space(15)]
     public Transform PlayerMesh;
 
-    [Space(15)]
     public bool canJump;
     public bool canMove;
 
