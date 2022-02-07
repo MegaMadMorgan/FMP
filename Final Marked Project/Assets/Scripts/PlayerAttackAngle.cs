@@ -6,6 +6,7 @@ public class PlayerAttackAngle : MonoBehaviour
 {
     public Transform AttackMesh;
     public float ExistTimer;
+    public float AttackAngle;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +17,7 @@ public class PlayerAttackAngle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        AttackAngle = AttackMesh.rotation.y;
         if (ExistTimer > 0)
         {
             ExistTimer -= Time.deltaTime;
