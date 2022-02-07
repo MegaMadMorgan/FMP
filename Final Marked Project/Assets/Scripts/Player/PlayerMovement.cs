@@ -19,7 +19,10 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove;
 
     public float TurnSmoothTime = 0.1f;
-    float TurnSmoothVelocity;
+    //float TurnSmoothVelocity;
+
+    public float AttackCooldown = 0;
+    public float AttackCancel = 0;
 
     public GameObject Attack1;
 
@@ -56,17 +59,29 @@ public class PlayerMovement : MonoBehaviour
 
             PlayerMesh.rotation = Quaternion.LookRotation(MoveDirection);
         }
+    }
 
+    private void Update()
+    {
         Vector3 playerPos = this.transform.position;
         Vector3 playerDirection = this.transform.forward;
         Quaternion playerRotation = this.transform.rotation;
         Vector3 spawnPos = playerPos + playerDirection * 1;
 
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") && GameObject.Find("AttackTest(Clone)") == null && AttackCooldown <= 0)
         {
             Instantiate(Attack1, spawnPos, playerRotation);
+            AttackCooldown = 0.5f;
+            AttackCancel = 0.3f;
         }
 
-
+        if (AttackCooldown > 0)
+        {
+            AttackCooldown -= Time.deltaTime;
+        }
+        if (AttackCancel > 0)
+        {
+            AttackCancel -= Time.deltaTime;
+        }
     }
 }
