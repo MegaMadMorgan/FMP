@@ -49,6 +49,70 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Super1"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ad80288-f276-49cc-8685-083bb69c76ef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Super2"",
+                    ""type"": ""Button"",
+                    ""id"": ""cdfbf204-f3e1-4f6e-ac7e-5056e8d6e218"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Super3"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f5b616c-be22-4646-bd53-5f9ea878998e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Super4"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e932055-f81c-4f15-a6ce-799aa44d414d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact/Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""7887ad73-8d65-45ea-926b-f9f8cf6541dd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dodge"",
+                    ""type"": ""Button"",
+                    ""id"": ""609ad033-4dee-49d1-9adf-d68e08ec0134"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Kick"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce809615-7009-4bc6-a082-432b3ba158cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Counter"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0da6003-38a4-4df8-9f4a-139cbb504a8d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -59,6 +123,17 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Attack1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9ebafb25-191e-4c99-a925-dcd779e2e5a1"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Attack1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -139,6 +214,215 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""action"": ""Attack2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db653d50-8572-49c7-acef-3eb283ce8e06"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Attack2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62f0c6e0-35f6-4db0-a3cb-af1073870b4c"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Super1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79e58ad3-8093-4451-b037-27724b951db9"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Super1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5019612-24fb-466b-b9c6-1fd1080b52c4"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Super2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""094cf6ff-55e7-4612-809e-518d440cfd2a"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Super2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39c11047-64f2-4c52-8cab-bc7a2c79527d"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Super3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7791c5e7-7bb4-4577-9c4f-c3a3aa632330"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Super3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0944bc9e-68b3-48b7-b0d0-1586d9718241"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Super4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b9b45439-ec98-411e-8f37-cd8d80c18f31"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Super4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8837c95b-b326-416b-8fc9-b4ac171286c7"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Interact/Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5701e96b-b475-49c6-88f5-44e2089230b7"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Interact/Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f6363ca-96c8-4a3a-b4b7-b2d5973c8530"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7166f1a5-24d7-41e9-8d18-bf63a73f553b"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8c0f5e3-0276-42d7-abaa-3bc79d430e4f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Kick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d905be97-e333-4fbd-b9cf-914cf0a21742"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Kick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef389adc-56ac-4690-8a53-c4aa59e47f0d"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Kick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7153b43-bfda-4726-b92c-7a47f5fdaedf"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Counter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0935ca5d-6ea8-4bca-b0e9-5617dd594649"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Counter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""628a56b9-cf17-4143-8b19-8e0120e1ca62"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Counter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -179,6 +463,14 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         m_PlayerCon_Attack2 = m_PlayerCon.FindAction("Attack2", throwIfNotFound: true);
         m_PlayerCon_Movement = m_PlayerCon.FindAction("Movement", throwIfNotFound: true);
         m_PlayerCon_MouseLook = m_PlayerCon.FindAction("MouseLook", throwIfNotFound: true);
+        m_PlayerCon_Super1 = m_PlayerCon.FindAction("Super1", throwIfNotFound: true);
+        m_PlayerCon_Super2 = m_PlayerCon.FindAction("Super2", throwIfNotFound: true);
+        m_PlayerCon_Super3 = m_PlayerCon.FindAction("Super3", throwIfNotFound: true);
+        m_PlayerCon_Super4 = m_PlayerCon.FindAction("Super4", throwIfNotFound: true);
+        m_PlayerCon_InteractThrow = m_PlayerCon.FindAction("Interact/Throw", throwIfNotFound: true);
+        m_PlayerCon_Dodge = m_PlayerCon.FindAction("Dodge", throwIfNotFound: true);
+        m_PlayerCon_Kick = m_PlayerCon.FindAction("Kick", throwIfNotFound: true);
+        m_PlayerCon_Counter = m_PlayerCon.FindAction("Counter", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -232,6 +524,14 @@ public class @PlayerActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerCon_Attack2;
     private readonly InputAction m_PlayerCon_Movement;
     private readonly InputAction m_PlayerCon_MouseLook;
+    private readonly InputAction m_PlayerCon_Super1;
+    private readonly InputAction m_PlayerCon_Super2;
+    private readonly InputAction m_PlayerCon_Super3;
+    private readonly InputAction m_PlayerCon_Super4;
+    private readonly InputAction m_PlayerCon_InteractThrow;
+    private readonly InputAction m_PlayerCon_Dodge;
+    private readonly InputAction m_PlayerCon_Kick;
+    private readonly InputAction m_PlayerCon_Counter;
     public struct PlayerConActions
     {
         private @PlayerActions m_Wrapper;
@@ -240,6 +540,14 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         public InputAction @Attack2 => m_Wrapper.m_PlayerCon_Attack2;
         public InputAction @Movement => m_Wrapper.m_PlayerCon_Movement;
         public InputAction @MouseLook => m_Wrapper.m_PlayerCon_MouseLook;
+        public InputAction @Super1 => m_Wrapper.m_PlayerCon_Super1;
+        public InputAction @Super2 => m_Wrapper.m_PlayerCon_Super2;
+        public InputAction @Super3 => m_Wrapper.m_PlayerCon_Super3;
+        public InputAction @Super4 => m_Wrapper.m_PlayerCon_Super4;
+        public InputAction @InteractThrow => m_Wrapper.m_PlayerCon_InteractThrow;
+        public InputAction @Dodge => m_Wrapper.m_PlayerCon_Dodge;
+        public InputAction @Kick => m_Wrapper.m_PlayerCon_Kick;
+        public InputAction @Counter => m_Wrapper.m_PlayerCon_Counter;
         public InputActionMap Get() { return m_Wrapper.m_PlayerCon; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -261,6 +569,30 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @MouseLook.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMouseLook;
                 @MouseLook.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMouseLook;
                 @MouseLook.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMouseLook;
+                @Super1.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper1;
+                @Super1.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper1;
+                @Super1.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper1;
+                @Super2.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper2;
+                @Super2.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper2;
+                @Super2.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper2;
+                @Super3.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper3;
+                @Super3.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper3;
+                @Super3.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper3;
+                @Super4.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper4;
+                @Super4.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper4;
+                @Super4.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnSuper4;
+                @InteractThrow.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnInteractThrow;
+                @InteractThrow.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnInteractThrow;
+                @InteractThrow.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnInteractThrow;
+                @Dodge.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnDodge;
+                @Dodge.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnDodge;
+                @Dodge.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnDodge;
+                @Kick.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnKick;
+                @Kick.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnKick;
+                @Kick.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnKick;
+                @Counter.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnCounter;
+                @Counter.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnCounter;
+                @Counter.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnCounter;
             }
             m_Wrapper.m_PlayerConActionsCallbackInterface = instance;
             if (instance != null)
@@ -277,6 +609,30 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @MouseLook.started += instance.OnMouseLook;
                 @MouseLook.performed += instance.OnMouseLook;
                 @MouseLook.canceled += instance.OnMouseLook;
+                @Super1.started += instance.OnSuper1;
+                @Super1.performed += instance.OnSuper1;
+                @Super1.canceled += instance.OnSuper1;
+                @Super2.started += instance.OnSuper2;
+                @Super2.performed += instance.OnSuper2;
+                @Super2.canceled += instance.OnSuper2;
+                @Super3.started += instance.OnSuper3;
+                @Super3.performed += instance.OnSuper3;
+                @Super3.canceled += instance.OnSuper3;
+                @Super4.started += instance.OnSuper4;
+                @Super4.performed += instance.OnSuper4;
+                @Super4.canceled += instance.OnSuper4;
+                @InteractThrow.started += instance.OnInteractThrow;
+                @InteractThrow.performed += instance.OnInteractThrow;
+                @InteractThrow.canceled += instance.OnInteractThrow;
+                @Dodge.started += instance.OnDodge;
+                @Dodge.performed += instance.OnDodge;
+                @Dodge.canceled += instance.OnDodge;
+                @Kick.started += instance.OnKick;
+                @Kick.performed += instance.OnKick;
+                @Kick.canceled += instance.OnKick;
+                @Counter.started += instance.OnCounter;
+                @Counter.performed += instance.OnCounter;
+                @Counter.canceled += instance.OnCounter;
             }
         }
     }
@@ -305,5 +661,13 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         void OnAttack2(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
+        void OnSuper1(InputAction.CallbackContext context);
+        void OnSuper2(InputAction.CallbackContext context);
+        void OnSuper3(InputAction.CallbackContext context);
+        void OnSuper4(InputAction.CallbackContext context);
+        void OnInteractThrow(InputAction.CallbackContext context);
+        void OnDodge(InputAction.CallbackContext context);
+        void OnKick(InputAction.CallbackContext context);
+        void OnCounter(InputAction.CallbackContext context);
     }
 }
