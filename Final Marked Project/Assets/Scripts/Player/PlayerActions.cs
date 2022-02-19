@@ -19,12 +19,20 @@ public class @PlayerActions : IInputActionCollection, IDisposable
             ""id"": ""11368c2b-5dc6-4687-b34b-08c5f432d869"",
             ""actions"": [
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Attack1"",
                     ""type"": ""Button"",
                     ""id"": ""a3a15c64-6707-4728-82f9-d1876c15287e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Attack2"",
+                    ""type"": ""Button"",
+                    ""id"": ""22acb434-2147-4fc6-b8e0-61a601bd9888"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Movement"",
@@ -51,7 +59,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Attack"",
+                    ""action"": ""Attack1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -120,6 +128,17 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""action"": ""MouseLook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3e2e859-777d-4721-bb7c-669060b4fc80"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Attack2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -156,7 +175,8 @@ public class @PlayerActions : IInputActionCollection, IDisposable
 }");
         // PlayerCon
         m_PlayerCon = asset.FindActionMap("PlayerCon", throwIfNotFound: true);
-        m_PlayerCon_Attack = m_PlayerCon.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerCon_Attack1 = m_PlayerCon.FindAction("Attack1", throwIfNotFound: true);
+        m_PlayerCon_Attack2 = m_PlayerCon.FindAction("Attack2", throwIfNotFound: true);
         m_PlayerCon_Movement = m_PlayerCon.FindAction("Movement", throwIfNotFound: true);
         m_PlayerCon_MouseLook = m_PlayerCon.FindAction("MouseLook", throwIfNotFound: true);
     }
@@ -208,14 +228,16 @@ public class @PlayerActions : IInputActionCollection, IDisposable
     // PlayerCon
     private readonly InputActionMap m_PlayerCon;
     private IPlayerConActions m_PlayerConActionsCallbackInterface;
-    private readonly InputAction m_PlayerCon_Attack;
+    private readonly InputAction m_PlayerCon_Attack1;
+    private readonly InputAction m_PlayerCon_Attack2;
     private readonly InputAction m_PlayerCon_Movement;
     private readonly InputAction m_PlayerCon_MouseLook;
     public struct PlayerConActions
     {
         private @PlayerActions m_Wrapper;
         public PlayerConActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Attack => m_Wrapper.m_PlayerCon_Attack;
+        public InputAction @Attack1 => m_Wrapper.m_PlayerCon_Attack1;
+        public InputAction @Attack2 => m_Wrapper.m_PlayerCon_Attack2;
         public InputAction @Movement => m_Wrapper.m_PlayerCon_Movement;
         public InputAction @MouseLook => m_Wrapper.m_PlayerCon_MouseLook;
         public InputActionMap Get() { return m_Wrapper.m_PlayerCon; }
@@ -227,9 +249,12 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_PlayerConActionsCallbackInterface != null)
             {
-                @Attack.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack;
-                @Attack.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack;
-                @Attack.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack;
+                @Attack1.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack1;
+                @Attack1.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack1;
+                @Attack1.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack1;
+                @Attack2.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack2;
+                @Attack2.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack2;
+                @Attack2.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack2;
                 @Movement.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMovement;
@@ -240,9 +265,12 @@ public class @PlayerActions : IInputActionCollection, IDisposable
             m_Wrapper.m_PlayerConActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Attack.started += instance.OnAttack;
-                @Attack.performed += instance.OnAttack;
-                @Attack.canceled += instance.OnAttack;
+                @Attack1.started += instance.OnAttack1;
+                @Attack1.performed += instance.OnAttack1;
+                @Attack1.canceled += instance.OnAttack1;
+                @Attack2.started += instance.OnAttack2;
+                @Attack2.performed += instance.OnAttack2;
+                @Attack2.canceled += instance.OnAttack2;
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
@@ -273,7 +301,8 @@ public class @PlayerActions : IInputActionCollection, IDisposable
     }
     public interface IPlayerConActions
     {
-        void OnAttack(InputAction.CallbackContext context);
+        void OnAttack1(InputAction.CallbackContext context);
+        void OnAttack2(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
     }

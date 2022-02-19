@@ -6,12 +6,20 @@
             "id": "11368c2b-5dc6-4687-b34b-08c5f432d869",
             "actions": [
                 {
-                    "name": "Attack",
+                    "name": "Attack1",
                     "type": "Button",
                     "id": "a3a15c64-6707-4728-82f9-d1876c15287e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Attack2",
+                    "type": "Button",
+                    "id": "22acb434-2147-4fc6-b8e0-61a601bd9888",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 },
                 {
                     "name": "Movement",
@@ -38,7 +46,7 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Attack",
+                    "action": "Attack1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -105,6 +113,17 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "MouseLook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f3e2e859-777d-4721-bb7c-669060b4fc80",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Attack2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
