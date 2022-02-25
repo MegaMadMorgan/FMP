@@ -31,7 +31,7 @@ public class WaveManager : MonoBehaviour
 
         if (CurrentScene.name == "CityCenter")
         {
-            // set size of arena and spawn locations
+            // set size of arena and spawn locationss
         }
 
         if (CurrentScene.name == "Main")
