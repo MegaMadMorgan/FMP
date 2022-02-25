@@ -14,7 +14,7 @@ public class EnemyStats : MonoBehaviour
         if (Stun > 0)
         {
             Stun -= Time.deltaTime;
-            gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            //gameObject.GetComponent<NavMeshAgent>().enabled = false;
         }
 
         if (health <= 0) { Destroy(gameObject); }

@@ -40,7 +40,7 @@ public class EnemyNav : MonoBehaviour
 
         if (!PlayerInSightRange && !PlayerInAttackRange) { Patroling(); }
         if (PlayerInSightRange && !PlayerInAttackRange) { ChasePlayer(); }
-        if (!PlayerInSightRange && PlayerInAttackRange) { AttackPlayer(); }
+        if (PlayerInSightRange && PlayerInAttackRange) { AttackPlayer(); }
     }
 
     private void Patroling()
@@ -64,7 +64,7 @@ public class EnemyNav : MonoBehaviour
             }
 
             State = "Patroling";
-            gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            //gameObject.GetComponent<NavMeshAgent>().enabled = true;
         }
     }
 
@@ -89,7 +89,7 @@ public class EnemyNav : MonoBehaviour
         {
             agent.SetDestination(player.position);
             State = "Chasing";
-            gameObject.GetComponent<NavMeshAgent>().enabled = true;
+           // gameObject.GetComponent<NavMeshAgent>().enabled = true;
         }
     }
 
@@ -101,7 +101,7 @@ public class EnemyNav : MonoBehaviour
 
             // stop enemy from moving
             agent.SetDestination(transform.position);
-            gameObject.GetComponent<NavMeshAgent>().enabled = false;
+           // gameObject.GetComponent<NavMeshAgent>().enabled = false;
 
             transform.LookAt(player);
 
@@ -122,3 +122,6 @@ public class EnemyNav : MonoBehaviour
         AlreadyAttacked = false;
     }
 }
+
+// https://www.codegrepper.com/code-examples/csharp/follow+path+with+rigidbody+in+unity //
+//this should help make rigidbody movement
