@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public float AttackCancel = 0;
 
     public GameObject Attack1;
+    public GameObject Attack2;
 
     private InputAction Movement;
     //[Space] [SerializeField] private InputActionAsset playerControls;
@@ -102,17 +103,34 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void attack()
+    public void attack1()
     {
         Vector3 playerPos = this.transform.position;
         Vector3 playerDirection = this.transform.forward;
         Quaternion playerRotation = this.transform.rotation;
         Vector3 spawnPos = playerPos + playerDirection * 1;
 
-        if (GameObject.Find("AttackTest(Clone)") == null && AttackCooldown <= 0)
+        if (GameObject.Find("AttackTest1(Clone)") == null && AttackCooldown <= 0)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             Instantiate(Attack1, spawnPos, playerRotation);
+            AttackCooldown = 0.5f;
+            AttackCancel = 0.3f;
+            rb.velocity = new Vector3(0, 0, 0);
+        }
+    }
+
+    public void attack2()
+    {
+        Vector3 playerPos = this.transform.position;
+        Vector3 playerDirection = this.transform.forward;
+        Quaternion playerRotation = this.transform.rotation;
+        Vector3 spawnPos = playerPos + playerDirection * 1;
+
+        if (GameObject.Find("AttackTest2(Clone)") == null && AttackCooldown <= 0)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            Instantiate(Attack2, spawnPos, playerRotation);
             AttackCooldown = 0.5f;
             AttackCancel = 0.3f;
             rb.velocity = new Vector3(0, 0, 0);
