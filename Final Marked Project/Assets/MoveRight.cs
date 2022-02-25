@@ -17,4 +17,4 @@ public class MoveRight : MonoBehaviour
 
         rb.velocity = transform.right;
     }
-}
+} // egg
