@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyStats : MonoBehaviour
 {
     public float health;
     public float Stun;
+    public NavMeshAgent agent;
 
     void Update()
     {
         if (Stun > 0)
         {
             Stun -= Time.deltaTime;
+            gameObject.GetComponent<NavMeshAgent>().enabled = false;
         }
 
         if (health <= 0) { Destroy(gameObject); }

@@ -48,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log("Movement Values " + Movement.ReadValue<Vector2>());
         Vector2 MoveVec = Movement.ReadValue<Vector2>();
 
         Vector2 inputVector = controls.PlayerCon.Movement.ReadValue<Vector2>();
