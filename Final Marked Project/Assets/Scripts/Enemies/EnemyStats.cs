@@ -28,6 +28,7 @@ public class EnemyStats : MonoBehaviour
             //rb.rotation = GetComponent<PlayerAttackAngle>().AttackMesh.rotation;
 
             //collision.GetComponent<PlayerAttackAngle>().AttackAngle
+            health -= 1;
 
             Vector3 knockback = collision.transform.forward;
 
@@ -35,10 +36,8 @@ public class EnemyStats : MonoBehaviour
             direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
             direction = -direction.normalized;
 
-
             rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
             rb.AddForce(0, 5, 0, ForceMode.Impulse);
-            health = 5;
         }
     }
 
