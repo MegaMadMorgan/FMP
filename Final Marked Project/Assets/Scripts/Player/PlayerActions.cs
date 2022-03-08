@@ -88,7 +88,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""7887ad73-8d65-45ea-926b-f9f8cf6541dd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Dodge"",
