@@ -7,7 +7,7 @@ public class ItemCollision : MonoBehaviour
 {
     private GameObject ItemParent;
     private PlayerMovement ItemParentScript;
-    bool triggerrange = false;
+    public bool triggerrange = false;
     public int weaponnum;
 
     private void Awake()
@@ -88,7 +88,7 @@ public class ItemCollision : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.tag == "Player")
         {
@@ -96,7 +96,13 @@ public class ItemCollision : MonoBehaviour
             PlayerMovement PlayerMovementScript = ItemParent.transform.GetComponent<PlayerMovement>();
             PlayerMovementScript.CollidingWithItem = true;
         }
-        else { triggerrange = false; PlayerMovement PlayerMovementScript = ItemParent.transform.GetComponent<PlayerMovement>(); PlayerMovementScript.CollidingWithItem = false; }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        triggerrange = false; 
+        PlayerMovement PlayerMovementScript = ItemParent.transform.GetComponent<PlayerMovement>(); 
+        PlayerMovementScript.CollidingWithItem = false;
     }
 
     public void pickup()
