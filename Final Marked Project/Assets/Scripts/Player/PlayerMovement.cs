@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public Transform Cam;
 
+    private Animator PlayerAnimator;
+
     public float speed;
     public float JumpForce;
 
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         controls = new PlayerActions();
+        PlayerAnimator = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -84,7 +87,9 @@ public class PlayerMovement : MonoBehaviour
             if (MoveDirection != new Vector3(0, 0, 0))
             {
                 PlayerMesh.rotation = Quaternion.LookRotation(MoveDirection);
+                PlayerAnimator.SetBool("Moving", true);
             }
+            else { PlayerAnimator.SetBool("Moving", false); }
         }
 
     }
