@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public Transform Cam;
 
-    private Animator PlayerAnimator;
+    public Animator PlayerAnimator;
 
     public float speed;
     public float JumpForce;
@@ -35,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         controls = new PlayerActions();
-        PlayerAnimator = GetComponent<Animator>();
+
+        PlayerAnimator.applyRootMotion = false;
     }
 
     private void OnEnable()
