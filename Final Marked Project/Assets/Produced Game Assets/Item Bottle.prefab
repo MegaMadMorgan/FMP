@@ -150,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 3970007913107092313}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.02215283, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.49999997, z: 0.49999997}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 3500128505182153884}
   m_RootOrder: 8
@@ -227,9 +227,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3500128505182153884}
   - component: {fileID: 3970007912527796731}
-  - component: {fileID: 3970007912527796729}
-  - component: {fileID: 3970007912527796730}
   - component: {fileID: 3970007912527796732}
+  - component: {fileID: 3970007912527796730}
   m_Layer: 0
   m_Name: Item Bottle
   m_TagString: Untagged
@@ -276,20 +275,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &3970007912527796729
-CapsuleCollider:
+--- !u!114 &3970007912527796732
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4312518766310831654}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.02
-  m_Height: 0.08
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.03, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ffaa61c600c46c4f853ccbafa2a006d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerrange: 0
+  weaponnum: 0
 --- !u!114 &3970007912527796730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,19 +379,6 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerCon
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3970007912527796732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4312518766310831654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ffaa61c600c46c4f853ccbafa2a006d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponnum: 0
 --- !u!1 &4522300903796600356
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +543,7 @@ GameObject:
   - component: {fileID: 4359799812300013994}
   - component: {fileID: 4124082813533237000}
   - component: {fileID: 1209701176430751404}
+  - component: {fileID: 6883279410936261276}
   m_Layer: 0
   m_Name: pCube8
   m_TagString: Untagged
@@ -629,6 +616,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &6883279410936261276
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7163583253588154059}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.02
+  m_Height: 0.08
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7830710818961856053
 GameObject:
   m_ObjectHideFlags: 0
