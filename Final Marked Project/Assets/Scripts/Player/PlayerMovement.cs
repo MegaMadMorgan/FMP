@@ -429,7 +429,7 @@ public class PlayerMovement : MonoBehaviour
                 #endregion
                 break;
             case 14:
-                #region Stop Sign Pizza Varient Active
+                #region Stop Sign Pizza Variant Active
                 AR.SetActive(false);
                 BB.SetActive(false);
                 B.SetActive(false);

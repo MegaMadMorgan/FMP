@@ -70,7 +70,7 @@ public class ItemCollision : MonoBehaviour
         {
             weaponnum = 13;
         }
-        if (this.name == "Item Stop Sign Pizza Varient")
+        if (this.name == "Item Stop Sign Pizza Variant")
         {
             weaponnum = 14;
         }
