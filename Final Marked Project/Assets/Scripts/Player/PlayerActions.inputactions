@@ -30,6 +30,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "MovementLockOn",
+                    "type": "Value",
+                    "id": "c84850a3-92e1-4397-9d48-56a9b435098f",
+                    "expectedControlType": "Dpad",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "MouseLook",
                     "type": "PassThrough",
                     "id": "698f67ce-616b-4d3d-ae03-6d87c81a755c",
@@ -94,12 +102,12 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Counter",
+                    "name": "LockOn",
                     "type": "Button",
                     "id": "f0da6003-38a4-4df8-9f4a-139cbb504a8d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -326,7 +334,7 @@
                 {
                     "name": "",
                     "id": "4f6363ca-96c8-4a3a-b4b7-b2d5973c8530",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
@@ -385,18 +393,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Counter",
+                    "action": "LockOn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "0935ca5d-6ea8-4bca-b0e9-5617dd594649",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Counter",
+                    "action": "LockOn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -407,9 +415,42 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Counter",
+                    "action": "LockOn",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "SubHorizontal",
+                    "id": "f7f14e0d-8f99-45a0-b7c7-f8220badbc27",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementLockOn",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "b9352f2e-9cac-4347-ae5f-ca147b5532cc",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementLockOn",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "387f2d07-8536-4a99-bbe3-b5b227f27dc7",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementLockOn",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

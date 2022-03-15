@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Transform Cam;
+    //public Transform Cam;
 
     public Animator PlayerAnimator;
 
@@ -31,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
 
     private InputAction Movement;
     PlayerActions controls;
+
+    private Camera Cam;
+    public Vector3 camForward;
+    public Vector3 camRight;
 
     public bool CollidingWithItem = false;
     public int WeaponActiveNum;
@@ -62,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controls = new PlayerActions();
         PlayerAnimator.applyRootMotion = false;
+        Cam = Camera.main;
     }
 
     private void OnEnable()
@@ -513,6 +518,13 @@ public class PlayerMovement : MonoBehaviour
                 #endregion
                 break;
         }
+
+        camForward = Cam.transform.forward;
+        camRight = Cam.transform.right;
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
     }
 
     public void attack1()
@@ -561,8 +573,8 @@ public class PlayerMovement : MonoBehaviour
     //    }
     //}
 
-    public void Move(Vector2 direction)
-    {
+    //public void Move(Vector2 direction)
+    //{
 
-    }
+    //}
 }

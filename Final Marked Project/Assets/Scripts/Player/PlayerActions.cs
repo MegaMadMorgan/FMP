@@ -43,6 +43,14 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""MovementLockOn"",
+                    ""type"": ""Value"",
+                    ""id"": ""c84850a3-92e1-4397-9d48-56a9b435098f"",
+                    ""expectedControlType"": ""Dpad"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""MouseLook"",
                     ""type"": ""PassThrough"",
                     ""id"": ""698f67ce-616b-4d3d-ae03-6d87c81a755c"",
@@ -107,12 +115,12 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Counter"",
+                    ""name"": ""LockOn"",
                     ""type"": ""Button"",
                     ""id"": ""f0da6003-38a4-4df8-9f4a-139cbb504a8d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -339,7 +347,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4f6363ca-96c8-4a3a-b4b7-b2d5973c8530"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
@@ -398,18 +406,18 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Counter"",
+                    ""action"": ""LockOn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""0935ca5d-6ea8-4bca-b0e9-5617dd594649"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Counter"",
+                    ""action"": ""LockOn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -420,9 +428,42 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Counter"",
+                    ""action"": ""LockOn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""SubHorizontal"",
+                    ""id"": ""f7f14e0d-8f99-45a0-b7c7-f8220badbc27"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementLockOn"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""b9352f2e-9cac-4347-ae5f-ca147b5532cc"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementLockOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""387f2d07-8536-4a99-bbe3-b5b227f27dc7"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementLockOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -462,6 +503,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         m_PlayerCon_Attack1 = m_PlayerCon.FindAction("Attack1", throwIfNotFound: true);
         m_PlayerCon_Attack2 = m_PlayerCon.FindAction("Attack2", throwIfNotFound: true);
         m_PlayerCon_Movement = m_PlayerCon.FindAction("Movement", throwIfNotFound: true);
+        m_PlayerCon_MovementLockOn = m_PlayerCon.FindAction("MovementLockOn", throwIfNotFound: true);
         m_PlayerCon_MouseLook = m_PlayerCon.FindAction("MouseLook", throwIfNotFound: true);
         m_PlayerCon_Super1 = m_PlayerCon.FindAction("Super1", throwIfNotFound: true);
         m_PlayerCon_Super2 = m_PlayerCon.FindAction("Super2", throwIfNotFound: true);
@@ -470,7 +512,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         m_PlayerCon_InteractThrow = m_PlayerCon.FindAction("Interact/Throw", throwIfNotFound: true);
         m_PlayerCon_Dodge = m_PlayerCon.FindAction("Dodge", throwIfNotFound: true);
         m_PlayerCon_Kick = m_PlayerCon.FindAction("Kick", throwIfNotFound: true);
-        m_PlayerCon_Counter = m_PlayerCon.FindAction("Counter", throwIfNotFound: true);
+        m_PlayerCon_LockOn = m_PlayerCon.FindAction("LockOn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -523,6 +565,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerCon_Attack1;
     private readonly InputAction m_PlayerCon_Attack2;
     private readonly InputAction m_PlayerCon_Movement;
+    private readonly InputAction m_PlayerCon_MovementLockOn;
     private readonly InputAction m_PlayerCon_MouseLook;
     private readonly InputAction m_PlayerCon_Super1;
     private readonly InputAction m_PlayerCon_Super2;
@@ -531,7 +574,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerCon_InteractThrow;
     private readonly InputAction m_PlayerCon_Dodge;
     private readonly InputAction m_PlayerCon_Kick;
-    private readonly InputAction m_PlayerCon_Counter;
+    private readonly InputAction m_PlayerCon_LockOn;
     public struct PlayerConActions
     {
         private @PlayerActions m_Wrapper;
@@ -539,6 +582,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         public InputAction @Attack1 => m_Wrapper.m_PlayerCon_Attack1;
         public InputAction @Attack2 => m_Wrapper.m_PlayerCon_Attack2;
         public InputAction @Movement => m_Wrapper.m_PlayerCon_Movement;
+        public InputAction @MovementLockOn => m_Wrapper.m_PlayerCon_MovementLockOn;
         public InputAction @MouseLook => m_Wrapper.m_PlayerCon_MouseLook;
         public InputAction @Super1 => m_Wrapper.m_PlayerCon_Super1;
         public InputAction @Super2 => m_Wrapper.m_PlayerCon_Super2;
@@ -547,7 +591,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         public InputAction @InteractThrow => m_Wrapper.m_PlayerCon_InteractThrow;
         public InputAction @Dodge => m_Wrapper.m_PlayerCon_Dodge;
         public InputAction @Kick => m_Wrapper.m_PlayerCon_Kick;
-        public InputAction @Counter => m_Wrapper.m_PlayerCon_Counter;
+        public InputAction @LockOn => m_Wrapper.m_PlayerCon_LockOn;
         public InputActionMap Get() { return m_Wrapper.m_PlayerCon; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -566,6 +610,9 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMovement;
+                @MovementLockOn.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMovementLockOn;
+                @MovementLockOn.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMovementLockOn;
+                @MovementLockOn.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMovementLockOn;
                 @MouseLook.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMouseLook;
                 @MouseLook.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMouseLook;
                 @MouseLook.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnMouseLook;
@@ -590,9 +637,9 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @Kick.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnKick;
                 @Kick.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnKick;
                 @Kick.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnKick;
-                @Counter.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnCounter;
-                @Counter.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnCounter;
-                @Counter.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnCounter;
+                @LockOn.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnLockOn;
+                @LockOn.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnLockOn;
+                @LockOn.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnLockOn;
             }
             m_Wrapper.m_PlayerConActionsCallbackInterface = instance;
             if (instance != null)
@@ -606,6 +653,9 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @MovementLockOn.started += instance.OnMovementLockOn;
+                @MovementLockOn.performed += instance.OnMovementLockOn;
+                @MovementLockOn.canceled += instance.OnMovementLockOn;
                 @MouseLook.started += instance.OnMouseLook;
                 @MouseLook.performed += instance.OnMouseLook;
                 @MouseLook.canceled += instance.OnMouseLook;
@@ -630,9 +680,9 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @Kick.started += instance.OnKick;
                 @Kick.performed += instance.OnKick;
                 @Kick.canceled += instance.OnKick;
-                @Counter.started += instance.OnCounter;
-                @Counter.performed += instance.OnCounter;
-                @Counter.canceled += instance.OnCounter;
+                @LockOn.started += instance.OnLockOn;
+                @LockOn.performed += instance.OnLockOn;
+                @LockOn.canceled += instance.OnLockOn;
             }
         }
     }
@@ -660,6 +710,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         void OnAttack1(InputAction.CallbackContext context);
         void OnAttack2(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnMovementLockOn(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
         void OnSuper1(InputAction.CallbackContext context);
         void OnSuper2(InputAction.CallbackContext context);
@@ -668,6 +719,6 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         void OnInteractThrow(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
         void OnKick(InputAction.CallbackContext context);
-        void OnCounter(InputAction.CallbackContext context);
+        void OnLockOn(InputAction.CallbackContext context);
     }
 }
