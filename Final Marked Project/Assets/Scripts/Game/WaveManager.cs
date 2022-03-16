@@ -10,9 +10,9 @@ public class WaveManager : MonoBehaviour
     public bool EnemiesCleared;
     Scene CurrentScene;
     string SceneName;
-    float SpawnRangeX;
-    float SpawnRangeY;
-    float SpawnRangeZ;
+    private float SpawnRangeX;
+    private float SpawnRangeY;
+    private float SpawnRangeZ;
 
     public GameObject enemy;
 

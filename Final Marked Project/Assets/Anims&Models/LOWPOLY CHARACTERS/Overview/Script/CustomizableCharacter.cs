@@ -11,11 +11,11 @@ public class CustomizableCharacter : MonoBehaviour
     {
         if (skinColorPicker)
         {
-            ColorPicker.SkinChangeEvent += SetSkinColor; // subscribing to the event. 
+            //ColorPicker.SkinChangeEvent += SetSkinColor; // subscribing to the event. 
         }
         if (hairColorPicker)
         {
-            ColorPicker.HairChangeEvent += SetHairColor; // subscribing to the event. 
+            //ColorPicker.HairChangeEvent += SetHairColor; // subscribing to the event. 
         }
     }
     void SetSkinColor(Texture newTex)

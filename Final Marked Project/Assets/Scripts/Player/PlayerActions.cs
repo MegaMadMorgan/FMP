@@ -24,7 +24,15 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""a3a15c64-6707-4728-82f9-d1876c15287e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press""
+                    ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""Attack3"",
+                    ""type"": ""Button"",
+                    ""id"": ""91e359e8-8cf6-496f-a819-e0bfaedef46b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.75,pressPoint=0.75)""
                 },
                 {
                     ""name"": ""Attack2"",
@@ -32,7 +40,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""22acb434-2147-4fc6-b8e0-61a601bd9888"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""Movement"",
@@ -128,7 +136,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""6974f7ba-81c4-496a-80e1-61b54584a270"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Attack1"",
@@ -139,7 +147,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""9ebafb25-191e-4c99-a925-dcd779e2e5a1"",
                     ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Attack1"",
@@ -209,28 +217,6 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""MouseLook"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f3e2e859-777d-4721-bb7c-669060b4fc80"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Attack2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""db653d50-8572-49c7-acef-3eb283ce8e06"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Attack2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -464,6 +450,50 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""action"": ""MovementLockOn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3e2e859-777d-4721-bb7c-669060b4fc80"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Attack2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db653d50-8572-49c7-acef-3eb283ce8e06"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Attack2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ea4527f-3098-40df-9a2d-93e09cc55b8d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Attack3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f558594-7cfa-4b20-acc7-e9d81fc745ed"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Attack3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -501,6 +531,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         // PlayerCon
         m_PlayerCon = asset.FindActionMap("PlayerCon", throwIfNotFound: true);
         m_PlayerCon_Attack1 = m_PlayerCon.FindAction("Attack1", throwIfNotFound: true);
+        m_PlayerCon_Attack3 = m_PlayerCon.FindAction("Attack3", throwIfNotFound: true);
         m_PlayerCon_Attack2 = m_PlayerCon.FindAction("Attack2", throwIfNotFound: true);
         m_PlayerCon_Movement = m_PlayerCon.FindAction("Movement", throwIfNotFound: true);
         m_PlayerCon_MovementLockOn = m_PlayerCon.FindAction("MovementLockOn", throwIfNotFound: true);
@@ -563,6 +594,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
     private readonly InputActionMap m_PlayerCon;
     private IPlayerConActions m_PlayerConActionsCallbackInterface;
     private readonly InputAction m_PlayerCon_Attack1;
+    private readonly InputAction m_PlayerCon_Attack3;
     private readonly InputAction m_PlayerCon_Attack2;
     private readonly InputAction m_PlayerCon_Movement;
     private readonly InputAction m_PlayerCon_MovementLockOn;
@@ -580,6 +612,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         private @PlayerActions m_Wrapper;
         public PlayerConActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Attack1 => m_Wrapper.m_PlayerCon_Attack1;
+        public InputAction @Attack3 => m_Wrapper.m_PlayerCon_Attack3;
         public InputAction @Attack2 => m_Wrapper.m_PlayerCon_Attack2;
         public InputAction @Movement => m_Wrapper.m_PlayerCon_Movement;
         public InputAction @MovementLockOn => m_Wrapper.m_PlayerCon_MovementLockOn;
@@ -604,6 +637,9 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @Attack1.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack1;
                 @Attack1.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack1;
                 @Attack1.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack1;
+                @Attack3.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack3;
+                @Attack3.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack3;
+                @Attack3.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack3;
                 @Attack2.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack2;
                 @Attack2.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack2;
                 @Attack2.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnAttack2;
@@ -647,6 +683,9 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @Attack1.started += instance.OnAttack1;
                 @Attack1.performed += instance.OnAttack1;
                 @Attack1.canceled += instance.OnAttack1;
+                @Attack3.started += instance.OnAttack3;
+                @Attack3.performed += instance.OnAttack3;
+                @Attack3.canceled += instance.OnAttack3;
                 @Attack2.started += instance.OnAttack2;
                 @Attack2.performed += instance.OnAttack2;
                 @Attack2.canceled += instance.OnAttack2;
@@ -708,6 +747,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
     public interface IPlayerConActions
     {
         void OnAttack1(InputAction.CallbackContext context);
+        void OnAttack3(InputAction.CallbackContext context);
         void OnAttack2(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnMovementLockOn(InputAction.CallbackContext context);

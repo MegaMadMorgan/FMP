@@ -9,8 +9,8 @@ public class ColorPicker : MonoBehaviour
 
 
     public delegate void ChangeEvent(Texture newTexture); //I do declare!
-    public static event ChangeEvent SkinChangeEvent;  // create an event variable 
-    public static event ChangeEvent HairChangeEvent;
+    //public static event ChangeEvent SkinChangeEvent;  // create an event variable 
+    //public static event ChangeEvent HairChangeEvent;
 
     public void SendColor(Texture image)
     {

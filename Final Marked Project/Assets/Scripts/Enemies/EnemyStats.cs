@@ -31,16 +31,61 @@ public class EnemyStats : MonoBehaviour
             //rb.rotation = GetComponent<PlayerAttackAngle>().AttackMesh.rotation;
 
             //collision.GetComponent<PlayerAttackAngle>().AttackAngle
-            health -= 1;
+            if (collision.name == "BBA1(Clone)")
+            {
+                health -= 1;
 
-            Vector3 knockback = collision.transform.forward;
+                Vector3 knockback = collision.transform.forward;
 
-            Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
-            direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
-            direction = -direction.normalized;
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
 
-            rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
-            rb.AddForce(0, 5, 0, ForceMode.Impulse);
+                rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 3, 0, ForceMode.Impulse);
+            }
+
+            if (collision.name == "BBA11(Clone)")
+            {
+                health -= 1;
+
+                Vector3 knockback = collision.transform.forward;
+
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
+
+                rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 6, 0, ForceMode.Impulse);
+            }
+
+            if (collision.name == "BBA2(Clone)")
+            {
+                health -= 1;
+
+                Vector3 knockback = collision.transform.forward;
+
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
+
+                rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 12, 0, ForceMode.Impulse);
+            }
+
+            if (collision.name == "BBA3(Clone)")
+            {
+                health -= 1;
+
+                Vector3 knockback = collision.transform.forward;
+
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
+
+                rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 12, 0, ForceMode.Impulse);
+            }
         }
     }
 

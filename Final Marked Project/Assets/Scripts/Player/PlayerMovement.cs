@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -25,11 +26,25 @@ public class PlayerMovement : MonoBehaviour
 
     public float AttackCooldown = 0;
     public float AttackCancel = 0;
+    public float Attack2Held = 0;
+    public bool Attack2Charging;
+    public float AttackChargeTime = 0.75f;
 
-    public GameObject Attack1;
-    public GameObject Attack2;
+    public float attackstringtimer = 0;
+    public float attackstringdelaytimer = 0.1f;
+    public bool AttackStringOn;
+    GameObject clone;
+    
+    public float DodgeTimer = 0.45f;
+    private bool dodge = false;
+
+    public GameObject BBAttack1;
+    public GameObject BBAttack11;
+    public GameObject BBAttack2;
+    public GameObject BBAttack3;
 
     private InputAction Movement;
+    private InputAction a2;
     PlayerActions controls;
 
     private Camera Cam;
@@ -37,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 camRight;
 
     public bool CollidingWithItem = false;
-    public int WeaponActiveNum;
+    public int WeaponActiveNum = 0;
 
 
     #region items
@@ -72,12 +87,15 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         Movement = controls.PlayerCon.Movement;
+        a2 = controls.PlayerCon.Attack2;
         Movement.Enable();
+        a2.Enable();
     }
 
     private void OnDisable()
     {
         Movement.Disable();
+        a2.Disable();
     }
 
     void FixedUpdate()
@@ -92,24 +110,26 @@ public class PlayerMovement : MonoBehaviour
 
         Rigidbody rb = GetComponent<Rigidbody>();
 
-        if (AttackCooldown <= 0)
-        {
             //float HorizontalInput = Input.GetAxis("Horizontal");
             //float VerticalInput = Input.GetAxis("Vertical");
-            float HorizontalInput = MoveVec.x;
-            float VerticalInput = MoveVec.y;
+        float HorizontalInput = MoveVec.x;
+        float VerticalInput = MoveVec.y;
             //Vector3 direction = new Vector3(HorizontalInput, 0f, VerticalInput).normalized;
 
-            Vector3 forward = Camera.main.transform.forward;
-            Vector3 right = Camera.main.transform.right;
+        Vector3 forward = Camera.main.transform.forward;
+        Vector3 right = Camera.main.transform.right;
 
-            forward.y = 0;
-            right.y = 0;
+        forward.y = 0;
+        right.y = 0;
 
-            forward.Normalize();
-            right.Normalize();
+        forward.Normalize();
+        right.Normalize();
 
-            Vector3 MoveDirection = forward * VerticalInput + right * HorizontalInput;
+        Vector3 MoveDirection = forward * VerticalInput + right * HorizontalInput;
+        Vector3 DMoveDirection = forward;
+
+        if (AttackCooldown <= 0 && Attack2Charging == false && dodge == false)
+        {
 
             rb.velocity = new Vector3(MoveDirection.x * speed, rb.velocity.y, MoveDirection.z * speed);
 
@@ -123,11 +143,31 @@ public class PlayerMovement : MonoBehaviour
             else { PlayerAnimator.SetBool("Moving", false); }
         }
 
+        if (dodge == true)
+        {
+            PlayerMesh.rotation = Quaternion.LookRotation(MoveDirection);
+            rb.velocity = new Vector3(MoveDirection.x * speed*2, rb.velocity.y, MoveDirection.z * speed*2);
+        }
+
     }
 
 
     private void Update()
     {
+        if (AttackStringOn == true)
+        {
+            attackstringtimer -= Time.deltaTime;
+            attackstringdelaytimer -= Time.deltaTime;
+
+            if (attackstringtimer <= 0)
+            {
+                AttackStringOn = false;
+                attackstringtimer = 0;
+                attackstringdelaytimer = 0.1f;
+
+            }
+        }
+
         if (AttackCooldown > 0)
         {
             AttackCooldown -= Time.deltaTime;
@@ -179,6 +219,7 @@ public class PlayerMovement : MonoBehaviour
                 UB.SetActive(false);
                 WAMH.SetActive(false);
                 D.SetActive(false);
+                AttackChargeTime = 0.75f;
                 #endregion
                 break;
             case 2:
@@ -525,24 +566,107 @@ public class PlayerMovement : MonoBehaviour
         camRight.y = 0f;
         camForward.Normalize();
         camRight.Normalize();
+
+        a2.started += ctx =>
+        {
+            if (ctx.interaction is HoldInteraction)
+            {
+                //charging
+                Attack2Charging = true;
+            }
+        };
+
+        if (Attack2Charging == true)
+        {
+            Attack2Held += Time.deltaTime;
+            Vector3 playerPos = this.transform.position;
+            Vector3 playerDirection = this.transform.forward;
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 spawnPos = playerPos + playerDirection * 1;
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.velocity = new Vector3(0, 0, 0);
+            PlayerAnimator.SetBool("Moving", false);
+        }
+
+        a2.canceled += ctx =>
+        {
+            if (ctx.interaction is HoldInteraction)
+            {
+                Attack2Charging = false;
+                if (Attack2Held < AttackChargeTime)
+                {
+                    attack2();
+                    Attack2Held = 0;
+                }
+                else
+                {
+                    attack3();
+                    Attack2Held = 0;
+                }
+            }
+        };
+
+        if (DodgeTimer <= 0)
+        {
+            dodge = false;
+            DodgeTimer = 0.45f;
+            PlayerAnimator.SetBool("Dodging", false);
+        }
+        else
+        {
+            DodgeTimer -= Time.deltaTime;
+        }
+
     }
 
     public void attack1()
     {
-        Vector3 playerPos = this.transform.position;
-        Vector3 playerDirection = this.transform.forward;
-        Quaternion playerRotation = this.transform.rotation;
-        Vector3 spawnPos = playerPos + playerDirection * 1;
-
-        if (GameObject.Find("AttackTest1(Clone)") == null && AttackCooldown <= 0)
+        if (Attack2Charging == false)
         {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            Instantiate(Attack1, spawnPos, playerRotation);
-            AttackCooldown = 0.5f;
-            AttackCancel = 0.3f;
-            rb.velocity = new Vector3(0, 0, 0);
+            Vector3 playerPos = this.transform.position;
+            Vector3 playerDirection = this.transform.forward;
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 spawnPos = playerPos + playerDirection * 1;
+
+            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true)
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                //Instantiate(BBAttack1, spawnPos, playerRotation);
+                clone = (GameObject)Instantiate(BBAttack1, spawnPos, playerRotation);
+                AttackCooldown = 0.5f;
+                AttackCancel = 0.3f;
+                AttackStringOn = true;
+                rb.velocity = new Vector3(0, 0, 0);
+                attackstringtimer = 0.45f;
+            }
+
+            if (BB.activeSelf == true && attackstringtimer >= 0 && AttackStringOn == true && attackstringdelaytimer <= 0)
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                Instantiate(BBAttack11, spawnPos, playerRotation);
+                AttackCooldown = 0.5f;
+                AttackCancel = 0.3f;
+                rb.velocity = new Vector3(0, 0, 0);
+                attackstringtimer = 0;
+                attackstringdelaytimer = 0.1f;
+                AttackStringOn = false;
+                Destroy(clone);
+            }
+
+            
+
+
+
+
+
+
+
+
+
         }
     }
+
 
     public void attack2()
     {
@@ -551,30 +675,57 @@ public class PlayerMovement : MonoBehaviour
         Quaternion playerRotation = this.transform.rotation;
         Vector3 spawnPos = playerPos + playerDirection * 1;
 
-        if (GameObject.Find("AttackTest2(Clone)") == null && AttackCooldown <= 0)
+        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
-            Instantiate(Attack2, spawnPos, playerRotation);
+            Instantiate(BBAttack2, spawnPos, playerRotation);
             AttackCooldown = 0.5f;
             AttackCancel = 0.3f;
             rb.velocity = new Vector3(0, 0, 0);
         }
     }
 
-    //private void OnTriggerStay(Collider collision)
-    //{
-    //    if (collision.tag == "ItemHitBox")
-    //    {
-    //        CollidingWithItem = true;
-    //    }
-    //    else
-    //    {
-    //        CollidingWithItem = false;
-    //    }
-    //}
 
-    //public void Move(Vector2 direction)
-    //{
+    public void attack3()
+    {
+        Vector3 playerPos = this.transform.position;
+        Vector3 playerDirection = this.transform.forward;
+        Quaternion playerRotation = this.transform.rotation;
+        Vector3 spawnPos = playerPos + playerDirection * 1;
 
-    //}
-}
+        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            Instantiate(BBAttack3, spawnPos, playerRotation);
+            AttackCooldown = 0.5f;
+            AttackCancel = 0.3f;
+            rb.velocity = new Vector3(0, 0, 0);
+        }
+    }
+
+    public void Dodge()
+    {
+        PlayerAnimator.SetBool("Moving", false);
+        PlayerAnimator.SetBool("Dodging", true);
+        dodge = true;
+    }
+
+
+
+        //private void OnTriggerStay(Collider collision)
+        //{
+        //    if (collision.tag == "ItemHitBox")
+        //    {
+        //        CollidingWithItem = true;
+        //    }
+        //    else
+        //    {
+        //        CollidingWithItem = false;
+        //    }
+        //}
+
+        //public void Move(Vector2 direction)
+        //{
+
+        //}
+    }

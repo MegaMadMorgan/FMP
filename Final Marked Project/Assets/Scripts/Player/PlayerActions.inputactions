@@ -11,7 +11,15 @@
                     "id": "a3a15c64-6707-4728-82f9-d1876c15287e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "Attack3",
+                    "type": "Button",
+                    "id": "91e359e8-8cf6-496f-a819-e0bfaedef46b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.75,pressPoint=0.75)"
                 },
                 {
                     "name": "Attack2",
@@ -19,7 +27,7 @@
                     "id": "22acb434-2147-4fc6-b8e0-61a601bd9888",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Hold"
                 },
                 {
                     "name": "Movement",
@@ -115,7 +123,7 @@
                     "name": "",
                     "id": "6974f7ba-81c4-496a-80e1-61b54584a270",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Press",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "Attack1",
@@ -126,7 +134,7 @@
                     "name": "",
                     "id": "9ebafb25-191e-4c99-a925-dcd779e2e5a1",
                     "path": "<Gamepad>/buttonWest",
-                    "interactions": "Press",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Attack1",
@@ -196,28 +204,6 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "MouseLook",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f3e2e859-777d-4721-bb7c-669060b4fc80",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard and Mouse",
-                    "action": "Attack2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "db653d50-8572-49c7-acef-3eb283ce8e06",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Attack2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -451,6 +437,50 @@
                     "action": "MovementLockOn",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f3e2e859-777d-4721-bb7c-669060b4fc80",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Attack2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db653d50-8572-49c7-acef-3eb283ce8e06",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Attack2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ea4527f-3098-40df-9a2d-93e09cc55b8d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Attack3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f558594-7cfa-4b20-acc7-e9d81fc745ed",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Attack3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
