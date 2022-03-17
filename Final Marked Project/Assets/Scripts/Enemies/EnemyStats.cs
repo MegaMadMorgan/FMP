@@ -42,6 +42,20 @@ public class EnemyStats : MonoBehaviour
             //rb.rotation = GetComponent<PlayerAttackAngle>().AttackMesh.rotation;
 
             //collision.GetComponent<PlayerAttackAngle>().AttackAngle
+            if (collision.name == "KickHB(Clone)")
+            {
+                health -= 1;
+
+                Vector3 knockback = collision.transform.forward;
+
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
+
+                rb.AddForce(knockback * 16, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 4, 0, ForceMode.Impulse);
+            }
+
             if (collision.name == "BBA1(Clone)")
             {
                 health -= 1;
@@ -97,6 +111,8 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
             }
+
+
         }
     }
 

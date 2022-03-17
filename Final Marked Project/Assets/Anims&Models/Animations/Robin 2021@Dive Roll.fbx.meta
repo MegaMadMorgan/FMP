@@ -38,7 +38,7 @@ ModelImporter:
       name: Dive Roll
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
+      firstFrame: 7
       lastFrame: 70
       wrapMode: 0
       orientationOffsetY: 0

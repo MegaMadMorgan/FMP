@@ -17,6 +17,14 @@ public class PlayerAttackAngle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+        Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+        Quaternion HBRotation = GameObject.Find("Third-Person Player").transform.rotation;
+        Vector3 HBPos = playerPos + playerDirection * 0.6f;
+
+        transform.position = HBPos;
+
         AttackAngle = AttackMesh.rotation.y;
         if (ExistTimer > 0)
         {
