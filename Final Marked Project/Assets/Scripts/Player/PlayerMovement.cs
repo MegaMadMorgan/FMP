@@ -34,8 +34,11 @@ public class PlayerMovement : MonoBehaviour
     public float attackstringdelaytimer = 0.01f;
     public bool AttackStringOn;
     GameObject clone;
+
+    public float KickTimer = 0.45f;
+    public bool kick = false;
     
-    public float DodgeTimer = 0.45f;
+    public float DodgeTimer = 0.85f;
     private bool dodge = false;
 
     public GameObject BBAttack1;
@@ -131,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 MoveDirection = forward * VerticalInput + right * HorizontalInput;
         Vector3 DMoveDirection = forward;
 
-        if (AttackCooldown <= 0 && Attack2Charging == false && dodge == false)
+        if (AttackCooldown <= 0 && Attack2Charging == false && dodge == false && kick == false)
         {
 
             rb.velocity = new Vector3(MoveDirection.x * speed, rb.velocity.y, MoveDirection.z * speed);
@@ -146,10 +149,16 @@ public class PlayerMovement : MonoBehaviour
             else { PlayerAnimator.SetBool("Moving", false); }
         }
 
-        if (dodge == true)
+        if (dodge == true && kick == false)
         {
             PlayerMesh.rotation = Quaternion.LookRotation(MoveDirection);
             rb.velocity = new Vector3(MoveDirection.x * speed*2, rb.velocity.y, MoveDirection.z * speed*2);
+        }
+
+        if (kick == true && dodge == false)
+        {
+            PlayerMesh.rotation = Quaternion.LookRotation(MoveDirection);
+            rb.velocity = new Vector3(MoveDirection.x * speed * 1.5f, rb.velocity.y, MoveDirection.z * speed * 1.5f);
         }
 
     }
@@ -621,12 +630,25 @@ public class PlayerMovement : MonoBehaviour
         if (DodgeTimer <= 0)
         {
             dodge = false;
-            DodgeTimer = 0.45f;
+            DodgeTimer = 0.85f;
             PlayerAnimator.SetBool("Dodging", false);
         }
         else
         {
             DodgeTimer -= Time.deltaTime;
+            kick = false;
+        }
+
+        if (KickTimer <= 0)
+        {
+            kick = false;
+            KickTimer = 0.45f;
+            PlayerAnimator.SetBool("Kicking", false);
+        }
+        else
+        {
+            KickTimer -= Time.deltaTime;
+            dodge = false;
         }
 
     }
@@ -640,7 +662,7 @@ public class PlayerMovement : MonoBehaviour
             Quaternion playerRotation = this.transform.rotation;
             Vector3 spawnPos = playerPos + playerDirection * 1;
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true)
+            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true && kick != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 //Instantiate(BBAttack1, spawnPos, playerRotation);
@@ -652,7 +674,7 @@ public class PlayerMovement : MonoBehaviour
                 attackstringtimer = 0.45f;
             }
 
-            if (BB.activeSelf == true && attackstringtimer >= 0 && AttackStringOn == true && attackstringdelaytimer <= 0 && dodge != true)
+            if (BB.activeSelf == true && attackstringtimer >= 0 && AttackStringOn == true && attackstringdelaytimer <= 0 && dodge != true && kick != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 Instantiate(BBAttack11, spawnPos, playerRotation);
@@ -686,7 +708,7 @@ public class PlayerMovement : MonoBehaviour
         Quaternion playerRotation = this.transform.rotation;
         Vector3 spawnPos = playerPos + playerDirection * 1;
 
-        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true)
+        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true && kick != true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             Instantiate(BBAttack2, spawnPos, playerRotation);
@@ -704,7 +726,7 @@ public class PlayerMovement : MonoBehaviour
         Quaternion playerRotation = this.transform.rotation;
         Vector3 spawnPos = playerPos + playerDirection * 1;
 
-        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true)
+        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true && kick != true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             Instantiate(BBAttack3, spawnPos, playerRotation);
@@ -716,11 +738,25 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dodge()
     {
-        PlayerAnimator.SetBool("Moving", false);
-        PlayerAnimator.SetBool("Dodging", true);
-        dodge = true;
+        if (kick == false)
+        {
+            PlayerAnimator.SetBool("Moving", false);
+            PlayerAnimator.SetBool("Kicking", false);
+            PlayerAnimator.SetBool("Dodging", true);
+            dodge = true;
+        }
     }
 
+    public void Kicking()
+    {
+        if (dodge == false)
+        {
+            PlayerAnimator.SetBool("Moving", false);
+            PlayerAnimator.SetBool("Kicking", true);
+            PlayerAnimator.SetBool("Dodging", false);
+            kick = true;
+        }
+    }
 
 
         //private void OnTriggerStay(Collider collision)

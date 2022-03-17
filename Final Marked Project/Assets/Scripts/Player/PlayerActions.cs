@@ -112,7 +112,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""609ad033-4dee-49d1-9adf-d68e08ec0134"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Tap(duration=0.1)""
                 },
                 {
                     ""name"": ""Kick"",
@@ -120,7 +120,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""ce809615-7009-4bc6-a082-432b3ba158cf"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Tap(duration=0.01)""
                 },
                 {
                     ""name"": ""LockOn"",
@@ -345,7 +345,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""7166f1a5-24d7-41e9-8d18-bf63a73f553b"",
                     ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Dodge"",
