@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float JumpForce;
 
+    public bool nomoves = true;
+
     public float CheckDistance;
     public Transform GroundCheck;
     public LayerMask GroundMask;
@@ -37,10 +39,10 @@ public class PlayerMovement : MonoBehaviour
     public bool AttackStringOn;
     GameObject clone;
 
-    public float KickTimer = 0.45f;
+    public float KickTimer = 0.6f;
     public bool kick = false;
     
-    public float DodgeTimer = 0.85f;
+    public float DodgeTimer = 0.6f;
     public bool dodge = false;
 
 
@@ -163,6 +165,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerAnimator.GetInteger("Anim") == 0 || PlayerAnimator.GetInteger("Anim") == 1)
+        {
+            nomoves = true;
+        }
+        else
+        {
+            nomoves = false;
+        }
+
         LockedOn = GetComponent<EnemyLockOn>().LockOn;
 
         if (AttackStringOn == true)
@@ -217,9 +228,9 @@ public class PlayerMovement : MonoBehaviour
             if (MoveDirection != new Vector3(0, 0, 0))
             {
                 PlayerMesh.rotation = Quaternion.LookRotation(MoveDirection);
-                PlayerAnimator.SetBool("Moving", true);
+                PlayerAnimator.SetInteger("Anim", 1);
             }
-            else { PlayerAnimator.SetBool("Moving", false); }
+            else { PlayerAnimator.SetInteger("Anim", 0); }
         }
 
         ///////////////////////////
@@ -641,7 +652,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 spawnPos = playerPos + playerDirection * 1;
 
             rb.velocity = new Vector3(0, 0, 0);
-            PlayerAnimator.SetBool("Moving", false);
+            //PlayerAnimator.SetBool("Moving", false);
         }
 
         a2.canceled += ctx =>
@@ -672,14 +683,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (dodge == false)
         {
-            DodgeTimer = 0.56f;
-            PlayerAnimator.SetBool("Dodging", false);
+            DodgeTimer = 0.6f;
         }
         else
         {
             DodgeTimer -= Time.deltaTime;
-            PlayerAnimator.SetBool("Kicking", false);
             rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 1.5f, rb.velocity.y, PlayerMesh.forward.z * speed * 1.5f);
+            if (DodgeTimer <= 0.25f)
+            {
+                PlayerAnimator.SetInteger("Anim", 0);
+            }
             if (DodgeTimer <= 0)
             {
                 dodge = false;
@@ -688,13 +701,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (kick == false)
         {
-            KickTimer = 0.4f;
-            PlayerAnimator.SetBool("Kicking", false);
+            KickTimer = 0.6f;
         }
         else
         {
             KickTimer -= Time.deltaTime;
-            PlayerAnimator.SetBool("Dodging", false);
             if (LockedOn == true)
             {
                 PlayerMesh.rotation = Quaternion.LookRotation(forward);
@@ -715,9 +726,15 @@ public class PlayerMovement : MonoBehaviour
                 Instantiate(KickHB, spawnPos, playerRotation);
             }
 
+            if (KickTimer <= 0.15)
+            {
+                PlayerAnimator.SetInteger("Anim", 0);
+            }
+
             if (KickTimer <= 0)
             {
                 kick = false;
+                PlayerAnimator.SetInteger("Anim", 0);
             }
         }
 
@@ -808,24 +825,20 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dodge()
     {
-        if (kick == false && dodge == false)
+        if (nomoves == true && dodge == false)
         {
-            PlayerAnimator.SetBool("Moving", false);
-            PlayerAnimator.SetBool("Kicking", false);
-            PlayerAnimator.SetBool("Dodging", true);
             dodge = true;
+            PlayerAnimator.SetInteger("Anim", 3);
         }
     }
 
     public void Kicking()
     {
-        if (dodge == false && kick == false)
-        {
-            PlayerAnimator.SetBool("Moving", false);
-            PlayerAnimator.SetBool("Kicking", true);
-            PlayerAnimator.SetBool("Dodging", false);
+            if (nomoves == true && kick == false)
+            {
             kick = true;
-        }
+            PlayerAnimator.SetInteger("Anim", 2);
+            }
     }
 
 
