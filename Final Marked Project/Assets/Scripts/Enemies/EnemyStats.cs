@@ -21,12 +21,12 @@ public class EnemyStats : MonoBehaviour
         {
             if (transform.Find("TargetingConePivot"))
             {
-                //GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = false;
+                GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = false;
             }
             else
             {
                 Destroy(gameObject);
-                //GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().RunEnemySearchSphereCollider();
+                GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().RunEnemySearchSphereCollider();
             }
         }
     }
