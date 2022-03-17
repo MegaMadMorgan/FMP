@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public float AttackChargeTime = 0.75f;
 
     public float attackstringtimer = 0;
-    public float attackstringdelaytimer = 0.1f;
+    public float attackstringdelaytimer = 0.01f;
     public bool AttackStringOn;
     GameObject clone;
     
@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject BBAttack3;
 
     private InputAction Movement;
+    private InputAction a1;
     private InputAction a2;
     PlayerActions controls;
 
@@ -87,8 +88,10 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         Movement = controls.PlayerCon.Movement;
+        a1 = controls.PlayerCon.Attack1;
         a2 = controls.PlayerCon.Attack2;
         Movement.Enable();
+        a1.Enable();
         a2.Enable();
     }
 
@@ -163,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 AttackStringOn = false;
                 attackstringtimer = 0;
-                attackstringdelaytimer = 0.1f;
+                attackstringdelaytimer = 0.01f;
 
             }
         }
@@ -607,6 +610,14 @@ public class PlayerMovement : MonoBehaviour
             }
         };
 
+        a1.started += ctx =>
+        {
+            if (ctx.interaction is TapInteraction)
+            {
+                attack1();
+            }
+        };
+
         if (DodgeTimer <= 0)
         {
             dodge = false;
@@ -629,7 +640,7 @@ public class PlayerMovement : MonoBehaviour
             Quaternion playerRotation = this.transform.rotation;
             Vector3 spawnPos = playerPos + playerDirection * 1;
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true)
+            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 //Instantiate(BBAttack1, spawnPos, playerRotation);
@@ -641,7 +652,7 @@ public class PlayerMovement : MonoBehaviour
                 attackstringtimer = 0.45f;
             }
 
-            if (BB.activeSelf == true && attackstringtimer >= 0 && AttackStringOn == true && attackstringdelaytimer <= 0)
+            if (BB.activeSelf == true && attackstringtimer >= 0 && AttackStringOn == true && attackstringdelaytimer <= 0 && dodge != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 Instantiate(BBAttack11, spawnPos, playerRotation);
@@ -649,7 +660,7 @@ public class PlayerMovement : MonoBehaviour
                 AttackCancel = 0.3f;
                 rb.velocity = new Vector3(0, 0, 0);
                 attackstringtimer = 0;
-                attackstringdelaytimer = 0.1f;
+                attackstringdelaytimer = 0.01f;
                 AttackStringOn = false;
                 Destroy(clone);
             }
@@ -675,7 +686,7 @@ public class PlayerMovement : MonoBehaviour
         Quaternion playerRotation = this.transform.rotation;
         Vector3 spawnPos = playerPos + playerDirection * 1;
 
-        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true)
+        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             Instantiate(BBAttack2, spawnPos, playerRotation);
@@ -693,7 +704,7 @@ public class PlayerMovement : MonoBehaviour
         Quaternion playerRotation = this.transform.rotation;
         Vector3 spawnPos = playerPos + playerDirection * 1;
 
-        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true)
+        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             Instantiate(BBAttack3, spawnPos, playerRotation);

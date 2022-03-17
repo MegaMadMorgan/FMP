@@ -29,9 +29,9 @@ public class EnemyLockOn : MonoBehaviour
     private bool parentChangeInitialisationPerformed;
 
     public bool canShoot;
-    private bool temp;
+    public bool temp;
 
-    private TargetLockCamera cam;
+    public TargetLockCamera cam;
     private PlayerMovement characterMovement;
     private TargetingConeTrigger trigger;
 
@@ -84,7 +84,7 @@ public class EnemyLockOn : MonoBehaviour
     }
 
     //change sphere to capsule
-    private void RunEnemySearchSphereCollider()
+    public void RunEnemySearchSphereCollider()
     {
         Collider[] enemyDetect = Physics.OverlapCapsule(transform.position, transform.position, range);
         enemiesToLock = new List<Transform>();
@@ -129,7 +129,7 @@ public class EnemyLockOn : MonoBehaviour
         group.m_Targets[1].radius = enemy.radius;
     }
 
-    private void InitialiseTargetGroup()
+    public void InitialiseTargetGroup()
     {
         CinemachineTargetGroup.Target defaultTarget;
         defaultTarget.target = emptyTarget;
@@ -176,7 +176,7 @@ public class EnemyLockOn : MonoBehaviour
         }
     }
 
-    private void InitializeConeParent()
+    public void InitializeConeParent()
     {
         targetingConePivot.transform.SetParent(coneHolder);
         targetingConePivot.transform.localPosition = Vector3.zero;
@@ -184,7 +184,7 @@ public class EnemyLockOn : MonoBehaviour
         parentChangeInitialisationPerformed = false;
     }
 
-    private void ResetTargetingCone()
+    public void ResetTargetingCone()
     {
         trigger.selectedEnemy = null;
         targetingCone.SetActive(false);

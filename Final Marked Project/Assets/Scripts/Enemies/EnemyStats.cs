@@ -17,7 +17,18 @@ public class EnemyStats : MonoBehaviour
             //gameObject.GetComponent<NavMeshAgent>().enabled = false;
         }
 
-        if (health <= 0) { Destroy(gameObject); }
+        if (health <= 0) 
+        {
+            if (transform.Find("TargetingConePivot"))
+            {
+                GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = false;
+            }
+            else
+            {
+                Destroy(gameObject);
+                GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = true;
+            }
+        }
     }
 
     void OnTriggerEnter(Collider collision)

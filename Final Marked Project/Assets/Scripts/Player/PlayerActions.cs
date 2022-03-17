@@ -24,7 +24,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""a3a15c64-6707-4728-82f9-d1876c15287e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Tap""
+                    ""interactions"": ""Tap(duration=0.01)""
                 },
                 {
                     ""name"": ""Attack3"",
@@ -136,7 +136,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""6974f7ba-81c4-496a-80e1-61b54584a270"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Tap"",
+                    ""interactions"": ""Tap(duration=0.01)"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Attack1"",
@@ -147,7 +147,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""9ebafb25-191e-4c99-a925-dcd779e2e5a1"",
                     ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": ""Tap"",
+                    ""interactions"": ""Tap(duration=0.01)"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Attack1"",
