@@ -24,7 +24,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""a3a15c64-6707-4728-82f9-d1876c15287e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Tap(duration=0.01)""
+                    ""interactions"": ""Tap(duration=0.01,pressPoint=0.01)""
                 },
                 {
                     ""name"": ""Attack3"",

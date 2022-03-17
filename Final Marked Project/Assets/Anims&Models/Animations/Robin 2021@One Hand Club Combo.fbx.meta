@@ -38,7 +38,7 @@ ModelImporter:
       name: One Hand Club Combo
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
+      firstFrame: 6
       lastFrame: 103
       wrapMode: 0
       orientationOffsetY: 290

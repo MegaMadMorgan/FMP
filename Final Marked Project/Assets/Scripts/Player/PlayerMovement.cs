@@ -10,6 +10,11 @@ public class PlayerMovement : MonoBehaviour
 
     public Animator PlayerAnimator;
 
+    public bool hit1;
+    public int attackhit = 0;
+    public float taptimer = 0;
+    public float attackfullstring;
+
     public float speed;
     public float JumpForce;
 
@@ -165,6 +170,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        taptimer -= Time.deltaTime;
+        attackfullstring -= Time.deltaTime;
+
         if (PlayerAnimator.GetInteger("Anim") == 0 || PlayerAnimator.GetInteger("Anim") == 1)
         {
             nomoves = true;
@@ -238,6 +246,10 @@ public class PlayerMovement : MonoBehaviour
         if (AttackCooldown > 0)
         {
             AttackCooldown -= Time.deltaTime;
+        }
+        else
+        {
+            attackhit = 0;
         }
         if (AttackCancel > 0)
         {
@@ -681,6 +693,7 @@ public class PlayerMovement : MonoBehaviour
             }
         };
 
+
         if (dodge == false)
         {
             DodgeTimer = 0.6f;
@@ -716,7 +729,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 1.25f, rb.velocity.y, PlayerMesh.forward.z * speed * 1.25f);
             }
 
-            if (KickTimer <= 0.2 && KickTimer >= 0.1 && GameObject.Find("KickHB(Clone)") == null)
+            if (KickTimer <= 0.45 && KickTimer >= 0.35 && GameObject.Find("KickHB(Clone)") == null)
             {
                 Vector3 playerPos = this.transform.position;
                 Vector3 playerDirection = this.transform.forward;
@@ -738,6 +751,81 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (PlayerAnimator.GetInteger("Anim") == 4)
+        {
+            if (attackhit <= 3)
+            {
+                if (LockedOn == true)
+                {
+                    PlayerMesh.rotation = Quaternion.LookRotation(forward);
+                    rb.velocity = new Vector3(forward.x * speed * 0.75f, rb.velocity.y, forward.z * speed * 0.75f);
+                }
+                else
+                {
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
+                }
+            }
+            if (attackhit == 4 && AttackCooldown <= 0.2f)
+            {
+                if (LockedOn == true)
+                {
+                    PlayerMesh.rotation = Quaternion.LookRotation(forward);
+                    rb.velocity = new Vector3(forward.x * speed * -0.75f, rb.velocity.y, forward.z * speed * -0.75f);
+                }
+                else
+                {
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * -0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * -0.75f);
+                }
+            }
+            else
+            {
+                if (LockedOn == true)
+                {
+                    PlayerMesh.rotation = Quaternion.LookRotation(forward);
+                    rb.velocity = new Vector3(forward.x * speed * 0.75f, rb.velocity.y, forward.z * speed * 0.75f);
+                }
+                else
+                {
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
+                }
+            }
+        }
+
+        if (attackfullstring >= 1 && attackfullstring <= 1.05 && PlayerAnimator.GetInteger("Anim") == 4)
+        {
+            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(3).gameObject.SetActive(true);
+        }
+        else
+        {
+            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(3).gameObject.SetActive(false);
+        }
+
+        if (attackfullstring >= 0.8 && attackfullstring <= 0.9 && PlayerAnimator.GetInteger("Anim") == 4)
+        {
+            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(4).gameObject.SetActive(true);
+        }
+        else
+        {
+            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(4).gameObject.SetActive(false);
+        }
+        if (attackfullstring >= 0.4 && attackfullstring <= 0.6 && PlayerAnimator.GetInteger("Anim") == 4)
+        {
+            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(5).gameObject.SetActive(true);
+        }
+        else
+        {
+            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(5).gameObject.SetActive(false);
+        }
+        if (attackfullstring >= 0.01 && attackfullstring <= 0.2 && PlayerAnimator.GetInteger("Anim") == 4)
+        {
+            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(6).gameObject.SetActive(true);
+        }
+        else
+        {
+            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(6).gameObject.SetActive(false);
+        }
+
+        hit1 = this.transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(3).gameObject.activeInHierarchy;
     }
 
     public void attack1()
@@ -749,41 +837,40 @@ public class PlayerMovement : MonoBehaviour
             Quaternion playerRotation = this.transform.rotation;
             Vector3 spawnPos = playerPos + playerDirection * 1;
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true && kick != true)
+            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 4 && attackhit == 0 && taptimer <= 0)
             {
-                Rigidbody rb = GetComponent<Rigidbody>();
-                //Instantiate(BBAttack1, spawnPos, playerRotation);
-                clone = (GameObject)Instantiate(BBAttack1, spawnPos, playerRotation);
-                AttackCooldown = 0.5f;
+                AttackCooldown = 0.2f;
                 AttackCancel = 0.3f;
+                attackfullstring = 1.2f;
                 AttackStringOn = true;
-                rb.velocity = new Vector3(0, 0, 0);
-                attackstringtimer = 0.45f;
+                PlayerAnimator.SetInteger("Anim", 4);
+                attackhit = 1;
+                taptimer = 0.1f;
             }
 
-            if (BB.activeSelf == true && attackstringtimer >= 0 && AttackStringOn == true && attackstringdelaytimer <= 0 && dodge != true && kick != true)
+            if (BB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 4 && attackhit == 1 && taptimer <= 0)
             {
-                Rigidbody rb = GetComponent<Rigidbody>();
-                Instantiate(BBAttack11, spawnPos, playerRotation);
-                AttackCooldown = 0.5f;
-                AttackCancel = 0.3f;
-                rb.velocity = new Vector3(0, 0, 0);
-                attackstringtimer = 0;
-                attackstringdelaytimer = 0.01f;
-                AttackStringOn = false;
-                Destroy(clone);
+                attackhit = 2;
+                AttackCooldown += 0.2f;
+                AttackCancel += 0.3f;
+                taptimer = 0.1f;
             }
 
-            
+            if (BB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 4 && attackhit == 2 && taptimer <= 0)
+            {
+                attackhit = 3;
+                AttackCooldown += 0.4f;
+                AttackCancel += 0.3f;
+                taptimer = 0.1f;
+            }
 
-
-
-
-
-
-
-
-
+            if (BB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 4 && attackhit == 3 && taptimer <= 0)
+            {
+                attackhit = 4;
+                AttackCooldown += 0.4f;
+                AttackCancel += 0.3f;
+                taptimer = 0.1f;
+            }
         }
     }
 

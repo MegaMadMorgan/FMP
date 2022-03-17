@@ -26,6 +26,8 @@ public class PlayerAttackAngle : MonoBehaviour
         transform.position = HBPos;
 
         AttackAngle = AttackMesh.rotation.y;
+
+        if (name != "BBHB1")
         if (ExistTimer > 0)
         {
             ExistTimer -= Time.deltaTime;
