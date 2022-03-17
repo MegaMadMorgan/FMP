@@ -28,7 +28,7 @@ public class EnemyLockOn : MonoBehaviour
     private Vector3 selectorDirection;
     private bool parentChangeInitialisationPerformed;
 
-    public bool canShoot;
+    public bool LockOn;
     public bool temp;
 
     public TargetLockCamera cam;
@@ -67,7 +67,7 @@ public class EnemyLockOn : MonoBehaviour
             priorityEnemy = null;
             InitializeConeParent();
             ResetTargetingCone();
-            canShoot = false;
+            LockOn = false;
         }
 
         //Main Chunk
@@ -79,7 +79,7 @@ public class EnemyLockOn : MonoBehaviour
             SwitchTarget();
             if (selectedEnemy != null) SetPriorityEnemy(selectedEnemy);
             if (priorityEnemy != null) BuildTargetGroup();
-            canShoot = true;
+            LockOn = true;
         }
     }
 

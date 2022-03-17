@@ -156,7 +156,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74e7d2c97994974181b2143027bd5a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cam: {fileID: 0}
+  PlayerAnimator: {fileID: 0}
   speed: 6
   JumpForce: 2
   CheckDistance: 0
@@ -184,10 +184,45 @@ MonoBehaviour:
   canJump: 0
   canMove: 1
   TurnSmoothTime: 0.1
+  LockedOn: 0
   AttackCooldown: 0
   AttackCancel: 0
-  Attack1: {fileID: 0}
-  Attack2: {fileID: 0}
+  Attack2Held: 0
+  Attack2Charging: 0
+  AttackChargeTime: 0.75
+  attackstringtimer: 0
+  attackstringdelaytimer: 0.01
+  AttackStringOn: 0
+  KickTimer: 0.45
+  kick: 0
+  DodgeTimer: 0.85
+  dodge: 0
+  KickHB: {fileID: 0}
+  BBAttack1: {fileID: 0}
+  BBAttack11: {fileID: 0}
+  BBAttack2: {fileID: 0}
+  BBAttack3: {fileID: 0}
+  camForward: {x: 0, y: 0, z: 0}
+  camRight: {x: 0, y: 0, z: 0}
+  CollidingWithItem: 0
+  WeaponActiveNum: 0
+  AR: {fileID: 0}
+  BB: {fileID: 0}
+  B: {fileID: 0}
+  C: {fileID: 0}
+  FF: {fileID: 0}
+  FP: {fileID: 0}
+  GC: {fileID: 0}
+  KK: {fileID: 0}
+  LDLS: {fileID: 0}
+  S: {fileID: 0}
+  SBB: {fileID: 0}
+  SH: {fileID: 0}
+  SS: {fileID: 0}
+  SSPV: {fileID: 0}
+  UB: {fileID: 0}
+  WAMH: {fileID: 0}
+  D: {fileID: 0}
 --- !u!1 &1133729685835195762
 GameObject:
   m_ObjectHideFlags: 0
