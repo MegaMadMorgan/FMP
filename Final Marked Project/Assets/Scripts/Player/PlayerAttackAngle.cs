@@ -38,6 +38,12 @@ public class PlayerAttackAngle : MonoBehaviour
             HBPos.y -= 0.5f;
             transform.position = HBPos;
         }
+        else if (this.gameObject.name == "SSA12(Clone)")
+        {
+            Vector3 HBPos = playerPos + (playerDirection * 0.6f);
+            HBPos.y += 1f;
+            transform.position = HBPos;
+        }
         else
         {
             Vector3 HBPos = playerPos + (playerDirection * 0.6f);

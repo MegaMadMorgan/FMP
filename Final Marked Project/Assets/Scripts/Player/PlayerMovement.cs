@@ -269,6 +269,7 @@ public class PlayerMovement : MonoBehaviour
                 UB.SetActive(false);
                 WAMH.SetActive(false);
                 D.SetActive(false);
+                AttackChargeTime = 0.55f;
                 #endregion
                 break;
             case 3:
@@ -500,6 +501,7 @@ public class PlayerMovement : MonoBehaviour
                 UB.SetActive(false);
                 WAMH.SetActive(false);
                 D.SetActive(false);
+                AttackChargeTime = 0.3f;
                 #endregion
                 break;
             case 14:
@@ -667,10 +669,21 @@ public class PlayerMovement : MonoBehaviour
             if (ctx.interaction is HoldInteraction && AttackCooldown <= 0 && nomoves == true && Attack2Charging == false)
             {
                 //charging
-                Attack2Charging = true;
-                if (BB.activeSelf == true)
+                if (BB.activeSelf == true && attackhit == 0)
                 {
+                    Attack2Charging = true;
                     PlayerAnimator.SetInteger("Anim", 5);
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                }
+                if (SS.activeSelf == true && attackhit == 0)
+                {
+                    Attack2Charging = true;
+                    PlayerAnimator.SetInteger("Anim", 8);
                     if (LockedOn == true)
                     {
                         Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
@@ -688,6 +701,12 @@ public class PlayerMovement : MonoBehaviour
             a2.canceled += ctx =>
             {
                 if (ctx.interaction is HoldInteraction && AttackCancel <= 0 && Attack2Held < AttackChargeTime && PlayerAnimator.GetInteger("Anim") == 5)
+                {
+                    Attack2Charging = false;
+                    Attack2Held = 0;
+                    attack2();
+                }
+                if (ctx.interaction is HoldInteraction && AttackCancel <= 0 && Attack2Held < AttackChargeTime && PlayerAnimator.GetInteger("Anim") == 8)
                 {
                     Attack2Charging = false;
                     Attack2Held = 0;
@@ -767,6 +786,47 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         #endregion
+
+        #region Assault Rifle
+
+        #endregion
+
+        #region Stop Sign
+        if (PlayerAnimator.GetInteger("Anim") == 7 && (SS.activeSelf == true || SSPV.activeSelf == true))
+        {
+            if (attackfullstring >= 0.01)
+            {
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.5f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.5f);
+                }
+                else
+                {
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.5f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.5f);
+                }
+            }
+        }
+
+        if (PlayerAnimator.GetInteger("Anim") == 8)
+        {
+            if (LockedOn == true)
+            {
+                Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                lockedenemy.y = 0;
+                PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+
+                rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 1.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 1.75f);
+            }
+            else
+            {
+                rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 1.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 1.75f);
+            }
+        }
+        #endregion
     }
 
     public void attack1()
@@ -777,6 +837,8 @@ public class PlayerMovement : MonoBehaviour
             Vector3 playerDirection = this.transform.forward;
             Quaternion playerRotation = this.transform.rotation;
             Vector3 spawnPos = playerPos + playerDirection * 1;
+
+            #region BaseBall Bat
 
             if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 4 && attackhit == 0 && taptimer <= 0)
             {
@@ -812,6 +874,38 @@ public class PlayerMovement : MonoBehaviour
                 AttackCancel += 0.3f;
                 taptimer = 0.1f;
             }
+            #endregion
+
+            #region
+
+            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && SS.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 7 && attackhit == 0 && taptimer <= 0)
+            {
+                AttackCooldown = 0.85f;
+                AttackCancel = 0.85f;
+                attackfullstring = 3.2f;
+                AttackStringOn = true;
+                PlayerAnimator.SetInteger("Anim", 7);
+                attackhit = 1;
+                taptimer = 0.1f;
+            }
+
+            if (SS.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 7 && attackhit == 1 && taptimer <= 0)
+            {
+                attackhit = 2;
+                AttackCooldown += 0.8f;
+                AttackCancel += 0.3f;
+                taptimer = 0.1f;
+            }
+
+            if (SS.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 7 && attackhit == 2 && taptimer <= 0)
+            {
+                attackhit = 3;
+                AttackCooldown += 0.3f;
+                AttackCancel += 0.3f;
+                taptimer = 0.1f;
+            }
+            #endregion
+
         }
     }
 
@@ -824,6 +918,14 @@ public class PlayerMovement : MonoBehaviour
             AttackCancel = 0.3f;
             Attack2Held = 0;
             PlayerAnimator.SetInteger("Anim", 6);
+            Attack2Charging = false;
+        }
+        if (GameObject.FindWithTag("PlayerAttack") == null && SS.activeSelf == true && dodge != true && kick != true)
+        {
+            AttackCooldown = 1f;
+            AttackCancel = 0.3f;
+            Attack2Held = 0;
+            PlayerAnimator.SetInteger("Anim", 9);
             Attack2Charging = false;
         }
     }
@@ -839,9 +941,18 @@ public class PlayerMovement : MonoBehaviour
         if (GameObject.FindWithTag("PlayerAttack") == null && BB.activeSelf == true && dodge != true && kick != true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
-            AttackCooldown = 0.8f;
+            AttackCooldown = 1.2f;
             AttackCancel = 0.3f;
             rb.velocity = new Vector3(0, 0, 0);
+        }
+
+        if (GameObject.FindWithTag("PlayerAttack") == null && SS.activeSelf == true && dodge != true && kick != true)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            AttackCooldown = 0.5f;
+            AttackCancel = 0.3f;
+            rb.velocity = new Vector3(0, 0, 0);
+            //PlayerAnimator.SetInteger("Anim", 9);
         }
     }
 
