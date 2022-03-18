@@ -93,7 +93,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
-                rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
+                rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 0.6f;
@@ -110,7 +110,7 @@ public class EnemyStats : MonoBehaviour
                 direction = -direction.normalized;
 
                 rb.AddForce(knockback * 0.0f, ForceMode.Impulse); // was direction
-                rb.AddForce(0, 15, 0, ForceMode.Impulse);
+                rb.AddForce(0, 10, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
             }

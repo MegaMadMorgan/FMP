@@ -712,7 +712,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (PlayerAnimator.GetInteger("Anim") == 4)
         {
-            if (attackhit <= 3)
+            if (attackfullstring >= 0.6)
             {
                 if (LockedOn == true)
                 {
@@ -727,10 +727,29 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
                 }
             }
-            if (attackhit == 4 && AttackCooldown <= 0.3f)
+            else if (attackfullstring >= 0.06)
+                {
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+
+                        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.4f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.4f);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.4f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.4f);
+                    }
+            }
+            else if (attackfullstring >= 0.01)
             {
                 if (LockedOn == true)
                 {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+
                     rb.velocity = new Vector3(PlayerMesh.forward.x * speed * -0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * -0.75f);
                 }
                 else
@@ -738,17 +757,31 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = new Vector3(PlayerMesh.forward.x * speed * -0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * -0.75f);
                 }
             }
-            else
-            {
-                if (LockedOn == true)
-                {
-                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
-                }
-                else
-                {
-                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
-                }
-            }
+            //if (attackhit == 3 && AttackCooldown <= 0.3f)
+            //{
+            //        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, rb.velocity.z);
+            //}
+            //if (attackhit == 4 && AttackCooldown <= 0.3f)
+            //{
+            //    if (LockedOn == true)
+            //    {
+            //        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * -0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * -0.75f);
+            //    }
+            //    else
+            //    {
+            //        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * -0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * -0.75f);
+            //    }
+            //}
+            //else
+            //{
+            //    if (LockedOn == true)
+            //    {
+            //        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
+            //    }
+            //    else
+            //    {
+            //        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
+            //    }
         }
 
 
