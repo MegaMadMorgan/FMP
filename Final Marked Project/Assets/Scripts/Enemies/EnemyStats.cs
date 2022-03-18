@@ -39,8 +39,8 @@ public class EnemyStats : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if (isColliding) return;
-        isColliding = true;
+        //if (isColliding) return;
+        //isColliding = true;
 
         Rigidbody rb = GetComponent<Rigidbody>();
 
@@ -67,7 +67,7 @@ public class EnemyStats : MonoBehaviour
                 Stun = 0.6f;
             }
 
-            if (collision.name == "BBHB1")
+            if (collision.name == "BBA11(Clone)")
             {
                 health -= 1;
 
@@ -83,7 +83,7 @@ public class EnemyStats : MonoBehaviour
                 Stun = 0.6f;
             }
 
-            if (collision.name == "BBHB2")
+            if (collision.name == "BBA12(Clone)")
             {
                 health -= 1;
 
@@ -99,7 +99,7 @@ public class EnemyStats : MonoBehaviour
                 Stun = 0.6f;
             }
 
-            if (collision.name == "BBHB3")
+            if (collision.name == "BBA13(Clone)")
             {
                 health -= 1;
 
@@ -109,13 +109,13 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
-                rb.AddForce(knockback * 3f, ForceMode.Impulse); // was direction
-                rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                rb.AddForce(knockback * 0.0f, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 15, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
             }
 
-            if (collision.name == "BBHB4")
+            if (collision.name == "BBA14(Clone)")
             {
                 health -= 1;
 
@@ -126,7 +126,7 @@ public class EnemyStats : MonoBehaviour
                 direction = -direction.normalized;
 
                 rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
-                rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                rb.AddForce(0, 6, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
             }

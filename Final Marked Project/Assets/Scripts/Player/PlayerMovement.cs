@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float AttackCancel = 0;
     public float Attack2Held = 0;
     public bool Attack2Charging;
-    public float AttackChargeTime = 0.75f;
+    public float AttackChargeTime = 0.55f;
 
     public float attackstringtimer = 0;
     public float attackstringdelaytimer = 0.01f;
@@ -46,16 +46,16 @@ public class PlayerMovement : MonoBehaviour
 
     public float KickTimer = 0.6f;
     public bool kick = false;
-    
+
     public float DodgeTimer = 0.6f;
     public bool dodge = false;
 
+    Vector3 playerPos;
+    Vector3 playerDirection;
+    Quaternion playerRotation;
+    Vector3 spawnPos;
 
     public GameObject KickHB;
-    public GameObject BBAttack1;
-    public GameObject BBAttack11;
-    public GameObject BBAttack2;
-    public GameObject BBAttack3;
 
     private InputAction Movement;
     private InputAction a1;
@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
     #region items
     public GameObject AR;
     public GameObject BB;
+    public GameObject BBO;
     public GameObject B;
     public GameObject C;
     public GameObject FF;
@@ -114,59 +115,6 @@ public class PlayerMovement : MonoBehaviour
         Movement.Disable();
         a2.Disable();
     }
-
-    void FixedUpdate()
-    {
-        //Vector2 MoveVec = Movement.ReadValue<Vector2>();
-
-        //Vector2 inputVector = controls.PlayerCon.Movement.ReadValue<Vector2>();
-        ////Movement(new Vector3(inputVector.x, 0.0f, inputVector.y));
-
-
-        //Cursor.lockState = CursorLockMode.Locked;
-
-        //Rigidbody rb = GetComponent<Rigidbody>();
-
-
-        //float HorizontalInput = MoveVec.x;
-        //float VerticalInput = MoveVec.y;
-
-        //Vector3 forward = Camera.main.transform.forward;
-        //Vector3 right = Camera.main.transform.right;
-
-        //forward.y = 0;
-        //right.y = 0;
-
-        //forward.Normalize();
-        //right.Normalize();
-
-        //Vector3 MoveDirection = forward * VerticalInput + right * HorizontalInput;
-        //Vector3 DMoveDirection = forward;
-
-        //if (AttackCooldown <= 0 && Attack2Charging == false && dodge == false && kick == false)
-        //{
-
-        //    rb.velocity = new Vector3(MoveDirection.x * speed, rb.velocity.y, MoveDirection.z * speed);
-
-        //    Physics.gravity = new Vector3(0, -30F, 0);
-
-        //    if (MoveDirection != new Vector3(0, 0, 0))
-        //    {
-        //        PlayerMesh.rotation = Quaternion.LookRotation(MoveDirection);
-        //        PlayerAnimator.SetBool("Moving", true);
-        //    }
-        //    else { PlayerAnimator.SetBool("Moving", false); }
-        //}
-
-
-        //if (dodge == true && kick == false)
-        //{
-        //    PlayerMesh.rotation = Quaternion.LookRotation(MoveDirection);
-        //    rb.velocity = new Vector3(MoveDirection.x * speed*2, rb.velocity.y, MoveDirection.z * speed*2);
-        //}
-
-    }
-
 
     private void Update()
     {
@@ -256,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
             AttackCancel -= Time.deltaTime;
         }
 
-        switch(WeaponActiveNum)
+        switch (WeaponActiveNum)
         {
             case 0:
                 #region all items inactive
@@ -298,7 +246,7 @@ public class PlayerMovement : MonoBehaviour
                 UB.SetActive(false);
                 WAMH.SetActive(false);
                 D.SetActive(false);
-                AttackChargeTime = 0.75f;
+                AttackChargeTime = 0.55f;
                 #endregion
                 break;
             case 2:
@@ -648,50 +596,53 @@ public class PlayerMovement : MonoBehaviour
 
         a2.started += ctx =>
         {
-            if (ctx.interaction is HoldInteraction)
+            if (ctx.interaction is HoldInteraction && AttackCooldown <= 0 && nomoves == true && Attack2Charging == false)
             {
                 //charging
                 Attack2Charging = true;
+                if (BB.activeSelf == true)
+                {
+                    PlayerAnimator.SetInteger("Anim", 5);
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                }
             }
         };
 
         if (Attack2Charging == true)
         {
             Attack2Held += Time.deltaTime;
-            Vector3 playerPos = this.transform.position;
-            Vector3 playerDirection = this.transform.forward;
-            Quaternion playerRotation = this.transform.rotation;
-            Vector3 spawnPos = playerPos + playerDirection * 1;
 
-            rb.velocity = new Vector3(0, 0, 0);
-            //PlayerAnimator.SetBool("Moving", false);
+            a2.canceled += ctx =>
+            {
+                if (ctx.interaction is HoldInteraction && AttackCancel <= 0 && Attack2Held < AttackChargeTime && PlayerAnimator.GetInteger("Anim") == 5)               {
+                    Attack2Charging = false;
+                    Attack2Held = 0;
+                    attack2();
+                }
+            };
         }
 
-        a2.canceled += ctx =>
+        if (Attack2Held > AttackChargeTime)
         {
-            if (ctx.interaction is HoldInteraction)
-            {
-                Attack2Charging = false;
-                if (Attack2Held < AttackChargeTime)
-                {
-                    attack2();
-                    Attack2Held = 0;
-                }
-                else
-                {
-                    attack3();
-                    Attack2Held = 0;
-                }
-            }
-        };
+            attack3();
+            Attack2Charging = false;
+            Attack2Held = 0;
+        }
 
-        a1.started += ctx =>
-        {
-            if (ctx.interaction is TapInteraction)
-            {
-                attack1();
-            }
-        };
+        //a1.started += ctx =>
+        //{
+        //    if (ctx.interaction is TapInteraction)
+        //    {
+        //        attack3();
+        //        Attack2Charging = false;
+        //        Attack2Held = 0;
+        //    }
+        //};
 
 
         if (dodge == false)
@@ -721,8 +672,10 @@ public class PlayerMovement : MonoBehaviour
             KickTimer -= Time.deltaTime;
             if (LockedOn == true)
             {
-                PlayerMesh.rotation = Quaternion.LookRotation(forward);
-                rb.velocity = new Vector3(forward.x * speed * 1.25f, rb.velocity.y, forward.z * speed * 1.25f);
+                Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                lockedenemy.y = 0;
+                PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 1.25f, rb.velocity.y, PlayerMesh.forward.z * speed * 1.25f);
             }
             else
             {
@@ -731,11 +684,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (KickTimer <= 0.45 && KickTimer >= 0.35 && GameObject.Find("KickHB(Clone)") == null)
             {
-                Vector3 playerPos = this.transform.position;
-                Vector3 playerDirection = this.transform.forward;
-                Quaternion playerRotation = this.transform.rotation;
-                Vector3 spawnPos = playerPos + playerDirection * 1;
-
                 Instantiate(KickHB, spawnPos, playerRotation);
             }
 
@@ -751,26 +699,39 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (BB.activeSelf == true && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 6))
+        {
+            BB.GetComponentInChildren<Renderer>().enabled = false;
+            BBO.GetComponentInChildren<Renderer>().enabled = true;
+        }
+        else
+        {
+            BB.GetComponentInChildren<Renderer>().enabled = true;
+            BBO.GetComponentInChildren<Renderer>().enabled = false;
+        }
+
         if (PlayerAnimator.GetInteger("Anim") == 4)
         {
             if (attackhit <= 3)
             {
                 if (LockedOn == true)
                 {
-                    PlayerMesh.rotation = Quaternion.LookRotation(forward);
-                    rb.velocity = new Vector3(forward.x * speed * 0.75f, rb.velocity.y, forward.z * speed * 0.75f);
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
                 }
                 else
                 {
                     rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
                 }
             }
-            if (attackhit == 4 && AttackCooldown <= 0.2f)
+            if (attackhit == 4 && AttackCooldown <= 0.3f)
             {
                 if (LockedOn == true)
                 {
-                    PlayerMesh.rotation = Quaternion.LookRotation(forward);
-                    rb.velocity = new Vector3(forward.x * speed * -0.75f, rb.velocity.y, forward.z * speed * -0.75f);
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * -0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * -0.75f);
                 }
                 else
                 {
@@ -781,8 +742,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (LockedOn == true)
                 {
-                    PlayerMesh.rotation = Quaternion.LookRotation(forward);
-                    rb.velocity = new Vector3(forward.x * speed * 0.75f, rb.velocity.y, forward.z * speed * 0.75f);
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
                 }
                 else
                 {
@@ -791,39 +751,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (attackfullstring >= 1 && attackfullstring <= 1.05 && PlayerAnimator.GetInteger("Anim") == 4)
-        {
-            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(3).gameObject.SetActive(true);
-        }
-        else
-        {
-            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(3).gameObject.SetActive(false);
-        }
 
-        if (attackfullstring >= 0.8 && attackfullstring <= 0.9 && PlayerAnimator.GetInteger("Anim") == 4)
-        {
-            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(4).gameObject.SetActive(true);
-        }
-        else
-        {
-            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(4).gameObject.SetActive(false);
-        }
-        if (attackfullstring >= 0.4 && attackfullstring <= 0.6 && PlayerAnimator.GetInteger("Anim") == 4)
-        {
-            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(5).gameObject.SetActive(true);
-        }
-        else
-        {
-            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(5).gameObject.SetActive(false);
-        }
-        if (attackfullstring >= 0.01 && attackfullstring <= 0.2 && PlayerAnimator.GetInteger("Anim") == 4)
-        {
-            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(6).gameObject.SetActive(true);
-        }
-        else
-        {
-            transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(6).gameObject.SetActive(false);
-        }
+
 
         hit1 = this.transform.GetChild(2).GetChild(8).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetChild(6).GetChild(3).gameObject.activeInHierarchy;
     }
@@ -839,7 +768,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 4 && attackhit == 0 && taptimer <= 0)
             {
-                AttackCooldown = 0.2f;
+                AttackCooldown = 0.4f;
                 AttackCancel = 0.3f;
                 attackfullstring = 1.2f;
                 AttackStringOn = true;
@@ -851,7 +780,7 @@ public class PlayerMovement : MonoBehaviour
             if (BB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 4 && attackhit == 1 && taptimer <= 0)
             {
                 attackhit = 2;
-                AttackCooldown += 0.2f;
+                AttackCooldown += 0.4f;
                 AttackCancel += 0.3f;
                 taptimer = 0.1f;
             }
@@ -867,7 +796,7 @@ public class PlayerMovement : MonoBehaviour
             if (BB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 4 && attackhit == 3 && taptimer <= 0)
             {
                 attackhit = 4;
-                AttackCooldown += 0.4f;
+                AttackCooldown += 0.3f;
                 AttackCancel += 0.3f;
                 taptimer = 0.1f;
             }
@@ -877,18 +806,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void attack2()
     {
-        Vector3 playerPos = this.transform.position;
-        Vector3 playerDirection = this.transform.forward;
-        Quaternion playerRotation = this.transform.rotation;
-        Vector3 spawnPos = playerPos + playerDirection * 1;
-
-        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true && kick != true)
+        if (GameObject.FindWithTag("PlayerAttack") == null && BB.activeSelf == true && dodge != true && kick != true)
         {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            Instantiate(BBAttack2, spawnPos, playerRotation);
-            AttackCooldown = 0.5f;
+            AttackCooldown = 1f;
             AttackCancel = 0.3f;
-            rb.velocity = new Vector3(0, 0, 0);
+            Attack2Held = 0;
+            PlayerAnimator.SetInteger("Anim", 6);
+            Attack2Charging = false;
         }
     }
 
@@ -900,11 +824,10 @@ public class PlayerMovement : MonoBehaviour
         Quaternion playerRotation = this.transform.rotation;
         Vector3 spawnPos = playerPos + playerDirection * 1;
 
-        if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true && kick != true)
+        if (GameObject.FindWithTag("PlayerAttack") == null && BB.activeSelf == true && dodge != true && kick != true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
-            Instantiate(BBAttack3, spawnPos, playerRotation);
-            AttackCooldown = 0.5f;
+            AttackCooldown = 0.8f;
             AttackCancel = 0.3f;
             rb.velocity = new Vector3(0, 0, 0);
         }
@@ -921,28 +844,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void Kicking()
     {
-            if (nomoves == true && kick == false)
-            {
+        if (nomoves == true && kick == false)
+        {
             kick = true;
             PlayerAnimator.SetInteger("Anim", 2);
-            }
+        }
     }
 
 
-        //private void OnTriggerStay(Collider collision)
-        //{
-        //    if (collision.tag == "ItemHitBox")
-        //    {
-        //        CollidingWithItem = true;
-        //    }
-        //    else
-        //    {
-        //        CollidingWithItem = false;
-        //    }
-        //}
-
-        //public void Move(Vector2 direction)
-        //{
-
-        //}
-    }
+}

@@ -21,20 +21,33 @@ public class PlayerAttackAngle : MonoBehaviour
         Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
         Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
         Quaternion HBRotation = GameObject.Find("Third-Person Player").transform.rotation;
-        Vector3 HBPos = playerPos + playerDirection * 0.6f;
-
-        transform.position = HBPos;
-
-        AttackAngle = AttackMesh.rotation.y;
-
-        if (name != "BBHB1")
-        if (ExistTimer > 0)
+        if (this.gameObject.name == "BBA3(Clone)")
         {
-            ExistTimer -= Time.deltaTime;
+            Vector3 HBPos = playerPos + playerDirection * 1f;
+            transform.position = HBPos;
+        }
+        else if (this.gameObject.name == "BBA2(Clone)")
+        {
+            Vector3 HBPos = playerPos + (playerDirection * 1.5f);
+            HBPos.y -= 0.5f;
+            transform.position = HBPos;
         }
         else
         {
-            Destroy(gameObject);
+            Vector3 HBPos = playerPos + (playerDirection * 0.6f);
+            transform.position = HBPos;
         }
+
+        AttackAngle = AttackMesh.rotation.y;
+
+
+       if (ExistTimer > 0)
+       {
+            ExistTimer -= Time.deltaTime;
+       }
+       else
+       {
+             Destroy(gameObject);
+       }
     }
 }
