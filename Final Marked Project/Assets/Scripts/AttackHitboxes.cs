@@ -10,14 +10,25 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject BBAttack14;
     public GameObject BBAttack21;
     public GameObject BBAttack31;
+    public GameObject SBBAttack11;
+    public GameObject SBBAttack12;
+    public GameObject SBBAttack13;
+    public GameObject SBBAttack14;
+    public GameObject SBBAttack21;
+    public GameObject SBBAttack31;
     public GameObject SSAttack11;
     public GameObject SSAttack12;
     public GameObject SSAttack13;
     public GameObject SSAttack14;
     public GameObject SSAttack21;
     public GameObject SSAttack31;
+    public GameObject SSPVAttack11;
+    public GameObject SSPVAttack12;
+    public GameObject SSPVAttack13;
+    public GameObject SSPVAttack21;
+    public GameObject SSPVAttack31;
 
-
+    #region Baseball Bat
     public void BBA1()
     {
         if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
@@ -60,12 +71,61 @@ public class AttackHitboxes : MonoBehaviour
         Instantiate(BBAttack21, transform.position, playerRotation);
     }
 
-    public void BBA31()
+    #endregion
+
+    #region Spiked Baseball bat
+
+    public void SBBA1()
     {
-        Quaternion playerRotation = this.transform.rotation;
-        Instantiate(BBAttack31, transform.position, playerRotation);
+        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SBBAttack11, transform.position, playerRotation);
+        }
     }
 
+    public void SBBA2()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SBBAttack12, transform.position, playerRotation);
+        }
+    }
+
+    public void SBBA3()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SBBAttack13, transform.position, playerRotation);
+        }
+    }
+
+    public void SBBA4()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SBBAttack14, transform.position, playerRotation);
+        }
+    }
+
+    public void SBBA21()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SBBAttack21, transform.position, playerRotation);
+    }
+
+    public void SBBA31()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SBBAttack31, transform.position, playerRotation);
+    }
+
+    #endregion
+
+    #region Stop Sign
     public void SSA11()
     {
         Quaternion playerRotation = this.transform.rotation;
@@ -101,4 +161,37 @@ public class AttackHitboxes : MonoBehaviour
         Quaternion playerRotation = this.transform.rotation;
         Instantiate(SSAttack31, transform.position, playerRotation);
     }
+    #endregion
+
+    #region Stop Sign
+    public void SSPVA11()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SSPVAttack11, transform.position, playerRotation);
+    }
+
+    public void SSPVA12()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SSPVAttack12, transform.position, playerRotation);
+    }
+
+    public void SSPVA13()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SSPVAttack13, transform.position, playerRotation);
+    }
+
+    public void SSPVA2()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SSPVAttack21, transform.position, playerRotation);
+    }
+
+    public void SSPVA3()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SSPVAttack31, transform.position, playerRotation);
+    }
+    #endregion
 }
