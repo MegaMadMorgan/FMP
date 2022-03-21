@@ -120,8 +120,8 @@ public class EnemyStats : MonoBehaviour
                 direction = -direction.normalized;
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
-                rb.AddForce(knockback * 0.0f, ForceMode.Impulse); // was direction
-                rb.AddForce(0, 10, 0, ForceMode.Impulse);
+                rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 16, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
             }
@@ -154,8 +154,8 @@ public class EnemyStats : MonoBehaviour
                 direction = -direction.normalized;
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
-                rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
-                rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 24, 0, ForceMode.Impulse);
             }
 
             if (collision.name == "BBA3(Clone)")

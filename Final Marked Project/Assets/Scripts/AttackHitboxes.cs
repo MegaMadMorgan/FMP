@@ -31,7 +31,7 @@ public class AttackHitboxes : MonoBehaviour
     #region Baseball Bat
     public void BBA1()
     {
-        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(BBAttack11, transform.position, playerRotation);
@@ -40,7 +40,7 @@ public class AttackHitboxes : MonoBehaviour
 
     public void BBA2()
     {
-        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(BBAttack12, transform.position, playerRotation);
@@ -49,7 +49,7 @@ public class AttackHitboxes : MonoBehaviour
 
     public void BBA3()
     {
-        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(BBAttack13, transform.position, playerRotation);
@@ -58,7 +58,7 @@ public class AttackHitboxes : MonoBehaviour
 
     public void BBA4()
     {
-        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(BBAttack14, transform.position, playerRotation);
@@ -83,7 +83,7 @@ public class AttackHitboxes : MonoBehaviour
 
     public void SBBA1()
     {
-        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(SBBAttack11, transform.position, playerRotation);
@@ -92,7 +92,7 @@ public class AttackHitboxes : MonoBehaviour
 
     public void SBBA2()
     {
-        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(SBBAttack12, transform.position, playerRotation);
@@ -101,7 +101,7 @@ public class AttackHitboxes : MonoBehaviour
 
     public void SBBA3()
     {
-        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(SBBAttack13, transform.position, playerRotation);
@@ -110,7 +110,7 @@ public class AttackHitboxes : MonoBehaviour
 
     public void SBBA4()
     {
-        if (transform.GetComponentInParent<PlayerMovement>().AttackCooldown > 0.01)
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(SBBAttack14, transform.position, playerRotation);

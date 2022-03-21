@@ -33,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool LockedOn;
 
-    public float AttackCooldown = 0;
-    public float AttackCancel = 0;
+    public float AttackTime = 0;
+    public float AttackRepeatTimer = 0;
     public float Attack2Held = 0;
     public bool Attack2Charging;
     public float AttackChargeTime = 0.55f;
@@ -145,17 +145,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (AttackCooldown > 0)
+        if (AttackTime > 0)
         {
-            AttackCooldown -= Time.deltaTime;
+            AttackTime -= Time.deltaTime;
         }
         else
         {
             attackhit = 0;
         }
-        if (AttackCancel > 0)
+        if (AttackRepeatTimer > 0)
         {
-            AttackCancel -= Time.deltaTime;
+            AttackRepeatTimer -= Time.deltaTime;
         }
 
         #endregion
@@ -188,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 MoveDirection = forward * VerticalInput + right * HorizontalInput;
         Vector3 DMoveDirection = forward;
 
-        if (AttackCooldown <= 0 && Attack2Charging == false && dodge == false && kick == false)
+        if (AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false)
         {
 
             rb.velocity = new Vector3(MoveDirection.x * speed, rb.velocity.y, MoveDirection.z * speed);
@@ -668,7 +668,7 @@ public class PlayerMovement : MonoBehaviour
 
         a2.started += ctx =>
         {
-            if (ctx.interaction is HoldInteraction && AttackCooldown <= 0 && nomoves == true && Attack2Charging == false)
+            if (ctx.interaction is HoldInteraction && AttackTime <= 0 && nomoves == true && Attack2Charging == false)
             {
                 //charging
                 if (BB.activeSelf == true && attackhit == 0)
@@ -724,7 +724,7 @@ public class PlayerMovement : MonoBehaviour
 
             a2.canceled += ctx =>
             {
-                if (ctx.interaction is HoldInteraction && AttackCancel <= 0 && Attack2Held < AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14))
+                if (ctx.interaction is HoldInteraction && Attack2Held < AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14))
                 {
                     Attack2Charging = false;
                     Attack2Held = 0;
@@ -928,7 +928,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        if (PlayerAnimator.GetInteger("Anim") == 15 && AttackCooldown <= 0.35)
+        if (PlayerAnimator.GetInteger("Anim") == 15 && AttackTime <= 0.35)
         {
             //rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.6f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.6f);
         }
@@ -950,10 +950,10 @@ public class PlayerMovement : MonoBehaviour
 
             #region BaseBall Bat
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && BB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 4 && attackhit == 0 && taptimer <= 0)
+            if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && AttackRepeatTimer <= 0 && BB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 4 && attackhit == 0 && taptimer <= 0)
             {
-                AttackCooldown = 0.4f;
-                AttackCancel = 0.3f;
+                AttackTime = 0.4f;
+                AttackRepeatTimer = 1.4f;
                 attackfullstring = 1.2f;
                 AttackStringOn = true;
                 PlayerAnimator.SetInteger("Anim", 4);
@@ -964,34 +964,35 @@ public class PlayerMovement : MonoBehaviour
             if (BB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 4 && attackhit == 1 && taptimer <= 0)
             {
                 attackhit = 2;
-                AttackCooldown += 0.4f;
-                AttackCancel += 0.3f;
+                AttackTime += 0.4f;
+                AttackRepeatTimer += 0.4f;
                 taptimer = 0.1f;
             }
 
             if (BB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 4 && attackhit == 2 && taptimer <= 0)
             {
                 attackhit = 3;
-                AttackCooldown += 0.4f;
-                AttackCancel += 0.3f;
+                AttackTime += 0.4f;
+                AttackRepeatTimer += 0.4f;
                 taptimer = 0.1f;
             }
 
-            if (BB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 4 && attackhit == 3 && taptimer <= 0)
-            {
-                attackhit = 4;
-                AttackCooldown += 0.3f;
-                AttackCancel += 0.3f;
-                taptimer = 0.1f;
-            }
+            // removed cause it didnt feel satisfying
+            //if (BB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 4 && attackhit == 3 && taptimer <= 0)
+            //{
+            //    attackhit = 4;
+            //    AttackTime += 0.3f;
+            //    AttackRepeatTimer += 0.3f;
+            //    taptimer = 0.1f;
+            //}
             #endregion
 
             #region Spiked BaseBall Bat
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && SBB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 10 && attackhit == 0 && taptimer <= 0)
+            if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && SBB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 10 && attackhit == 0 && taptimer <= 0)
             {
-                AttackCooldown = 0.4f;
-                AttackCancel = 0.3f;
+                AttackTime = 0.4f;
+                AttackRepeatTimer = 0.3f;
                 attackfullstring = 1.8f;
                 AttackStringOn = true;
                 PlayerAnimator.SetInteger("Anim", 10);
@@ -1002,34 +1003,34 @@ public class PlayerMovement : MonoBehaviour
             if (SBB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 10 && attackhit == 1 && taptimer <= 0)
             {
                 attackhit = 2;
-                AttackCooldown += 0.4f;
-                AttackCancel += 0.3f;
+                AttackTime += 0.4f;
+                AttackRepeatTimer += 0.3f;
                 taptimer = 0.1f;
             }
 
             if (SBB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 10 && attackhit == 2 && taptimer <= 0)
             {
                 attackhit = 3;
-                AttackCooldown += 0.8f;
-                AttackCancel += 0.3f;
+                AttackTime += 0.8f;
+                AttackRepeatTimer += 0.3f;
                 taptimer = 0.1f;
             }
 
             if (SBB.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 10 && attackhit == 3 && taptimer <= 0)
             {
                 attackhit = 4;
-                AttackCooldown += 0.4f;
-                AttackCancel += 0.3f;
+                AttackTime += 0.4f;
+                AttackRepeatTimer += 0.3f;
                 taptimer = 0.1f;
             }
             #endregion
 
             #region StopSign
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && SS.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 7 && attackhit == 0 && taptimer <= 0)
+            if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && SS.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 7 && attackhit == 0 && taptimer <= 0)
             {
-                AttackCooldown = 0.85f;
-                AttackCancel = 0.85f;
+                AttackTime = 0.85f;
+                AttackRepeatTimer = 0.85f;
                 attackfullstring = 3.2f;
                 AttackStringOn = true;
                 PlayerAnimator.SetInteger("Anim", 7);
@@ -1040,26 +1041,26 @@ public class PlayerMovement : MonoBehaviour
             if (SS.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 7 && attackhit == 1 && taptimer <= 0)
             {
                 attackhit = 2;
-                AttackCooldown += 0.8f;
-                AttackCancel += 0.3f;
+                AttackTime += 0.8f;
+                AttackRepeatTimer += 0.3f;
                 taptimer = 0.1f;
             }
 
             if (SS.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 7 && attackhit == 2 && taptimer <= 0)
             {
                 attackhit = 3;
-                AttackCooldown += 0.6f;
-                AttackCancel += 0.3f;
+                AttackTime += 0.6f;
+                AttackRepeatTimer += 0.3f;
                 taptimer = 0.1f;
             }
             #endregion
 
             #region StopSign Pizza Varient
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && AttackCooldown <= 0 && SSPV.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 13 && attackhit == 0 && taptimer <= 0)
+            if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && SSPV.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 13 && attackhit == 0 && taptimer <= 0)
             {
-                AttackCooldown = 1.2f;
-                AttackCancel = 0.85f;
+                AttackTime = 1.2f;
+                AttackRepeatTimer = 0.85f;
                 attackfullstring = 3.2f;
                 AttackStringOn = true;
                 PlayerAnimator.SetInteger("Anim", 13);
@@ -1070,16 +1071,16 @@ public class PlayerMovement : MonoBehaviour
             if (SSPV.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 13 && attackhit == 1 && taptimer <= 0)
             {
                 attackhit = 2;
-                AttackCooldown += 0.8f;
-                AttackCancel += 0.3f;
+                AttackTime += 0.8f;
+                AttackRepeatTimer += 0.3f;
                 taptimer = 0.1f;
             }
 
             if (SSPV.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 13 && attackhit == 2 && taptimer <= 0)
             {
                 attackhit = 3;
-                AttackCooldown += 1f;
-                AttackCancel += 0.3f;
+                AttackTime += 1f;
+                AttackRepeatTimer += 0.3f;
                 taptimer = 0.1f;
             }
             #endregion
@@ -1092,8 +1093,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GameObject.FindWithTag("PlayerAttack") == null && BB.activeSelf == true && dodge != true && kick != true)
         {
-            AttackCooldown = 1f;
-            AttackCancel = 0.3f;
+            AttackTime = 1f;
+            AttackRepeatTimer = 0.3f;
             Attack2Held = 0;
             PlayerAnimator.SetInteger("Anim", 6);
             Attack2Charging = false;
@@ -1101,8 +1102,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (GameObject.FindWithTag("PlayerAttack") == null && SBB.activeSelf == true && dodge != true && kick != true)
         {
-            AttackCooldown = 1f;
-            AttackCancel = 0.3f;
+            AttackTime = 1f;
+            AttackRepeatTimer = 0.3f;
             Attack2Held = 0;
             PlayerAnimator.SetInteger("Anim", 12);
             Attack2Charging = false;
@@ -1110,8 +1111,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (GameObject.FindWithTag("PlayerAttack") == null && SS.activeSelf == true && dodge != true && kick != true)
         {
-            AttackCooldown = 1f;
-            AttackCancel = 0.3f;
+            AttackTime = 1f;
+            AttackRepeatTimer = 0.3f;
             Attack2Held = 0;
             PlayerAnimator.SetInteger("Anim", 9);
             Attack2Charging = false;
@@ -1119,8 +1120,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (GameObject.FindWithTag("PlayerAttack") == null && SSPV.activeSelf == true && dodge != true && kick != true)
         {
-            AttackCooldown = 1.2f;
-            AttackCancel = 0.3f;
+            AttackTime = 1.2f;
+            AttackRepeatTimer = 0.3f;
             Attack2Held = 0;
             PlayerAnimator.SetInteger("Anim", 15);
             Attack2Charging = false;
@@ -1138,32 +1139,32 @@ public class PlayerMovement : MonoBehaviour
         if (GameObject.FindWithTag("PlayerAttack") == null && BB.activeSelf == true && dodge != true && kick != true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
-            AttackCooldown = 1.2f;
-            AttackCancel = 0.3f;
+            AttackTime = 1.2f;
+            AttackRepeatTimer = 0.3f;
             rb.velocity = new Vector3(0, 0, 0);
         }
 
         if (GameObject.FindWithTag("PlayerAttack") == null && SBB.activeSelf == true && dodge != true && kick != true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
-            AttackCooldown = 1.2f;
-            AttackCancel = 0.3f;
+            AttackTime = 1.2f;
+            AttackRepeatTimer = 0.3f;
             rb.velocity = new Vector3(0, 0, 0);
         }
 
         if (GameObject.FindWithTag("PlayerAttack") == null && SS.activeSelf == true && dodge != true && kick != true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
-            AttackCooldown = 0.5f;
-            AttackCancel = 0.3f;
+            AttackTime = 0.5f;
+            AttackRepeatTimer = 0.3f;
             rb.velocity = new Vector3(0, 0, 0);
         }
 
         if (GameObject.FindWithTag("PlayerAttack") == null && SSPV.activeSelf == true && dodge != true && kick != true)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
-            AttackCooldown = 0.5f;
-            AttackCancel = 0.3f;
+            AttackTime = 0.5f;
+            AttackRepeatTimer = 0.3f;
             rb.velocity = new Vector3(0, 0, 0);
         }
     }
