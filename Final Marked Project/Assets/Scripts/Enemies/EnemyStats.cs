@@ -65,6 +65,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 16, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
                 recollision = 0.1f;
@@ -84,6 +85,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
@@ -100,6 +102,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
@@ -116,6 +119,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 0.0f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 10, 0, ForceMode.Impulse);
                 recollision = 0.4f;
@@ -132,6 +136,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 8, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 6, 0, ForceMode.Impulse);
                 recollision = 0.4f;
@@ -148,6 +153,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
             }
@@ -162,12 +168,13 @@ public class EnemyStats : MonoBehaviour
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
             }
             #endregion
 
-            #region Baseball Bat
+            #region Spiked Baseball Bat
 
             if (collision.name == "SBBA11(Clone)")
             {
@@ -179,6 +186,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
@@ -195,6 +203,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
@@ -211,7 +220,8 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
-                rb.AddForce(knockback * 0.0f, ForceMode.Impulse); // was direction
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(knockback * 1.0f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 10, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
@@ -227,6 +237,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 8, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 6, 0, ForceMode.Impulse);
                 recollision = 0.4f;
@@ -243,6 +254,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
             }
@@ -257,6 +269,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 18, 0, ForceMode.Impulse);
             }
@@ -273,6 +286,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 2f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
                 recollision = 0.4f;
@@ -289,6 +303,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, -24, 0, ForceMode.Impulse);
                 recollision = 0.2f;
@@ -305,6 +320,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
@@ -321,6 +337,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 6, 0, ForceMode.Impulse);
                 recollision = 0.4f;
@@ -337,6 +354,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
                 recollision = 0.4f;
@@ -353,6 +371,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 4, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 6, 0, ForceMode.Impulse);
                 recollision = 0.4f;
@@ -372,6 +391,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
@@ -388,6 +408,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
@@ -404,6 +425,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
                 recollision = 0.4f;
@@ -420,8 +442,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
-                rb.AddForce(knockback * 4, ForceMode.Impulse); // was direction
-                rb.AddForce(0, 6, 0, ForceMode.Impulse);
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(knockback * 1f, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 20, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
             }
@@ -436,6 +459,7 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
                 recollision = 0.4f;

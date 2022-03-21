@@ -71,6 +71,12 @@ public class AttackHitboxes : MonoBehaviour
         Instantiate(BBAttack21, transform.position, playerRotation);
     }
 
+    public void BBA31()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(BBAttack31, transform.position, playerRotation);
+    }
+
     #endregion
 
     #region Spiked Baseball bat

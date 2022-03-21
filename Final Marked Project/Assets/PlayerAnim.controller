@@ -285,7 +285,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mutant Swiping 0
+  m_Name: Mutant Swiping
   m_Speed: 2.5
   m_CycleOffset: 0
   m_Transitions:
@@ -1073,7 +1073,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SBB One Hand Club Combo 1
+  m_Name: SBB One Hand Club Combo
   m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
@@ -1287,7 +1287,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.05
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.8557693
   m_HasExitTime: 0
@@ -2450,10 +2450,10 @@ AnimatorStateMachine:
     m_Position: {x: 430, y: 580, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5802618324784906599}
-    m_Position: {x: 430, y: 680, z: 0}
+    m_Position: {x: 430, y: 630, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7811475815377950085}
-    m_Position: {x: 430, y: 630, z: 0}
+    m_Position: {x: 430, y: 680, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

@@ -930,7 +930,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (PlayerAnimator.GetInteger("Anim") == 15 && AttackCooldown <= 0.35)
         {
-            rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.6f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.6f);
+            //rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.6f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.6f);
         }
         if (PlayerAnimator.GetInteger("Anim") == 14)
         {
@@ -1048,7 +1048,7 @@ public class PlayerMovement : MonoBehaviour
             if (SS.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 7 && attackhit == 2 && taptimer <= 0)
             {
                 attackhit = 3;
-                AttackCooldown += 0.3f;
+                AttackCooldown += 0.6f;
                 AttackCancel += 0.3f;
                 taptimer = 0.1f;
             }
@@ -1119,7 +1119,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (GameObject.FindWithTag("PlayerAttack") == null && SSPV.activeSelf == true && dodge != true && kick != true)
         {
-            AttackCooldown = 1f;
+            AttackCooldown = 1.2f;
             AttackCancel = 0.3f;
             Attack2Held = 0;
             PlayerAnimator.SetInteger("Anim", 15);
