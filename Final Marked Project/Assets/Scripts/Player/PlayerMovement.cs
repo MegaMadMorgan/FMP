@@ -62,6 +62,13 @@ public class PlayerMovement : MonoBehaviour
     private InputAction a2;
     PlayerActions controls;
 
+    [Header("Step Climb")]
+    [SerializeField] GameObject stepRayUpper;
+    [SerializeField] GameObject stepRayLower;
+    [SerializeField] float stepHeight = 0.6f;
+    [SerializeField] float stepSmooth = 0.2f;
+
+
     private Camera Cam;
     public Vector3 camForward;
     public Vector3 camRight;
@@ -96,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
         controls = new PlayerActions();
         PlayerAnimator.applyRootMotion = false;
         Cam = Camera.main;
+        stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
     }
 
     private void OnEnable()
@@ -202,6 +210,8 @@ public class PlayerMovement : MonoBehaviour
             }
             else { PlayerAnimator.SetInteger("Anim", 0); }
         }
+
+        stepClimb();
         #endregion
 
         #region weapon active number
@@ -939,6 +949,45 @@ public class PlayerMovement : MonoBehaviour
         #endregion
     }
 
+    void stepClimb()
+    {
+        //forward
+        RaycastHit hitLower;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(Vector3.forward), out hitLower, 0.1f))
+        {
+            RaycastHit hitUpper;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(Vector3.forward), out hitUpper, 0.2f))
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                rb.position -= new Vector3(0f, -stepSmooth, 0f);
+            }
+        }
+
+        //forward left
+        RaycastHit hitLower45;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitLower45, 0.1f))
+        {
+            RaycastHit hitUpper45;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitUpper45, 0.2f))
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                rb.position -= new Vector3(0f, -stepSmooth, 0f);
+            }
+        }
+
+        //forward right
+        RaycastHit hitLowerSub45;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitLowerSub45, 0.1f))
+        {
+            RaycastHit hitUpperSub45;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitUpperSub45, 0.2f))
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                rb.position -= new Vector3(0f, -stepSmooth, 0f);
+            }
+        }
+    }
+
     public void attack1()
     {
         if (Attack2Charging == false)
@@ -992,7 +1041,7 @@ public class PlayerMovement : MonoBehaviour
             if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && SBB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 10 && attackhit == 0 && taptimer <= 0)
             {
                 AttackTime = 0.4f;
-                AttackRepeatTimer = 0.3f;
+                AttackRepeatTimer = 1.4f;
                 attackfullstring = 1.8f;
                 AttackStringOn = true;
                 PlayerAnimator.SetInteger("Anim", 10);
@@ -1004,7 +1053,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 attackhit = 2;
                 AttackTime += 0.4f;
-                AttackRepeatTimer += 0.3f;
+                AttackRepeatTimer += 0.4f;
                 taptimer = 0.1f;
             }
 
@@ -1012,7 +1061,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 attackhit = 3;
                 AttackTime += 0.8f;
-                AttackRepeatTimer += 0.3f;
+                AttackRepeatTimer += 0.8f;
                 taptimer = 0.1f;
             }
 
@@ -1020,7 +1069,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 attackhit = 4;
                 AttackTime += 0.4f;
-                AttackRepeatTimer += 0.3f;
+                AttackRepeatTimer += 0.4f;
                 taptimer = 0.1f;
             }
             #endregion
@@ -1030,7 +1079,7 @@ public class PlayerMovement : MonoBehaviour
             if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && SS.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 7 && attackhit == 0 && taptimer <= 0)
             {
                 AttackTime = 0.85f;
-                AttackRepeatTimer = 0.85f;
+                AttackRepeatTimer = 0.1f;
                 attackfullstring = 3.2f;
                 AttackStringOn = true;
                 PlayerAnimator.SetInteger("Anim", 7);
@@ -1042,7 +1091,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 attackhit = 2;
                 AttackTime += 0.8f;
-                AttackRepeatTimer += 0.3f;
+                AttackRepeatTimer += 0.8f;
                 taptimer = 0.1f;
             }
 
@@ -1050,7 +1099,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 attackhit = 3;
                 AttackTime += 0.6f;
-                AttackRepeatTimer += 0.3f;
+                AttackRepeatTimer += 0.6f;
                 taptimer = 0.1f;
             }
             #endregion
@@ -1060,7 +1109,7 @@ public class PlayerMovement : MonoBehaviour
             if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && SSPV.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 13 && attackhit == 0 && taptimer <= 0)
             {
                 AttackTime = 1.2f;
-                AttackRepeatTimer = 0.85f;
+                AttackRepeatTimer = 1.2f;
                 attackfullstring = 3.2f;
                 AttackStringOn = true;
                 PlayerAnimator.SetInteger("Anim", 13);
@@ -1072,7 +1121,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 attackhit = 2;
                 AttackTime += 0.8f;
-                AttackRepeatTimer += 0.3f;
+                AttackRepeatTimer += 0.8f;
                 taptimer = 0.1f;
             }
 
@@ -1080,7 +1129,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 attackhit = 3;
                 AttackTime += 1f;
-                AttackRepeatTimer += 0.3f;
+                AttackRepeatTimer += 1f;
                 taptimer = 0.1f;
             }
             #endregion

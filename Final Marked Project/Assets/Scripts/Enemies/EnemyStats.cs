@@ -338,8 +338,8 @@ public class EnemyStats : MonoBehaviour
                 direction = -direction.normalized;
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
-                rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
-                rb.AddForce(0, 6, 0, ForceMode.Impulse);
+                rb.AddForce(knockback * 9, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 9, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
             }
