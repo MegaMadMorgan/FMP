@@ -48,6 +48,11 @@ public class PlayerAttackAngle : MonoBehaviour
             Vector3 HBPos = playerPos + (playerDirection * 1.5f);
             transform.position = HBPos;
         }
+        else if (this.gameObject.name == "ARProjectile")
+        {
+            Vector3 HBPos = playerPos + (playerDirection * 0.6f);
+            transform.position += Vector3.forward;
+        }
         else
         {
             Vector3 HBPos = playerPos + (playerDirection * 0.6f);
@@ -63,7 +68,7 @@ public class PlayerAttackAngle : MonoBehaviour
         }
 
         // Baseball Bat
-        if ((this.gameObject.name == "BB11HB(Clone)" || this.gameObject.name == "BB12HB(Clone)" || this.gameObject.name == "BB13HB(Clone)" || this.gameObject.name == "BB14HB(Clone)") && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 4)
+        if ((this.gameObject.name == "BB11HB(Clone)" || this.gameObject.name == "BB12HB(Clone)" || this.gameObject.name == "BB13HB(Clone)" || this.gameObject.name == "BB14HB(Clone)") && (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 4 && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 16))
         {
             Destroy(gameObject);
         }
@@ -79,7 +84,7 @@ public class PlayerAttackAngle : MonoBehaviour
         }
 
         // Spiked Baseball Bat
-        if ((this.gameObject.name == "SBB11HB(Clone)" || this.gameObject.name == "SBB12HB(Clone)" || this.gameObject.name == "SBB13HB(Clone)" || this.gameObject.name == "SBB14HB(Clone)") && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 10)
+        if ((this.gameObject.name == "SBB11HB(Clone)" || this.gameObject.name == "SBB12HB(Clone)" || this.gameObject.name == "SBB13HB(Clone)" || this.gameObject.name == "SBB14HB(Clone)") && (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 10 && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 16 && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 17))
         {
             Destroy(gameObject);
         }
@@ -135,5 +140,11 @@ public class PlayerAttackAngle : MonoBehaviour
         {
              Destroy(gameObject);
         }
+    }
+
+    //collisions
+    void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
     }
 }

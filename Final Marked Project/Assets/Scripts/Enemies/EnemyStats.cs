@@ -9,7 +9,7 @@ public class EnemyStats : MonoBehaviour
     public float Stun;
     public NavMeshAgent agent;
     bool isColliding;
-    float recollision;
+    public float recollision;
     bool noted;
 
     void Update()

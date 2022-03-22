@@ -27,6 +27,7 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject SSPVAttack13;
     public GameObject SSPVAttack21;
     public GameObject SSPVAttack31;
+    public GameObject bullet;
 
     #region Baseball Bat
     public void BBA1()
@@ -169,7 +170,7 @@ public class AttackHitboxes : MonoBehaviour
     }
     #endregion
 
-    #region Stop Sign
+    #region Stop Sign Pizza Varient
     public void SSPVA11()
     {
         Quaternion playerRotation = this.transform.rotation;
@@ -198,6 +199,14 @@ public class AttackHitboxes : MonoBehaviour
     {
         Quaternion playerRotation = this.transform.rotation;
         Instantiate(SSPVAttack31, transform.position, playerRotation);
+    }
+    #endregion
+
+    #region gun
+    public void gun()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(bullet, (transform.TransformPoint(Vector3.forward * 2)) + (transform.up * 1.5f), playerRotation);
     }
     #endregion
 }
