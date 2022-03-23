@@ -131,6 +131,23 @@ public class PlayerAttackAngle : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // Bottle
+        if ((this.gameObject.name == "BA11(Clone)" || this.gameObject.name == "BA12(Clone)" || this.gameObject.name == "BA13(Clone)") && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 19)
+        {
+            Destroy(gameObject);
+        }
+
+        if ((this.gameObject.name == "BA21(Clone)" || this.gameObject.name == "BA22(Clone)") && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 20)
+        {
+            Destroy(gameObject);
+        }
+
+        if (this.gameObject.name == "BA3(Clone)" && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 21)
+        {
+            Destroy(gameObject);
+        }
+
+
         // timer end
         if (ExistTimer > 0)
         {

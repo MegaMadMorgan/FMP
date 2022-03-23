@@ -244,7 +244,7 @@ public class AttackHitboxes : MonoBehaviour
     public void BA21()
     {
             Quaternion playerRotation = this.transform.rotation;
-            Instantiate(BAttack21, transform.position, playerRotation);
+            Instantiate(BAttack21, transform.TransformPoint(Vector3.forward * 1) + (transform.up * 1f), playerRotation);
     }
     public void BA22()
     {
