@@ -736,6 +736,17 @@ public class PlayerMovement : MonoBehaviour
                         PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
                     }
                 }
+                if (AR.activeSelf == true && attackhit == 0)
+                {
+                    Attack2Charging = true;
+                    PlayerAnimator.SetInteger("Anim", 20);
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                }
             }
         };
 
@@ -745,7 +756,7 @@ public class PlayerMovement : MonoBehaviour
 
             a2.canceled += ctx =>
             {
-                if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && !(Attack2Held > AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17))
+                if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && !(Attack2Held > AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20))
                 {
                     Attack2Charging = false;
                     Attack2Held = 0;
@@ -754,7 +765,7 @@ public class PlayerMovement : MonoBehaviour
             };
         }
 
-        if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17))
+        if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20))
         {
             attack3();
             Attack2Charging = false;
@@ -960,18 +971,6 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Assault Rifle
-
-        //if (AR.activeSelf == true && (PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 18))
-        //{
-        //    SBB.GetComponentInChildren<Renderer>().enabled = false;
-        //    SBBO.GetComponentInChildren<Renderer>().enabled = true;
-        //}
-        //else
-        //{
-        //    SBB.GetComponentInChildren<Renderer>().enabled = true;
-        //    SBBO.GetComponentInChildren<Renderer>().enabled = false;
-        //}
-
         if (PlayerAnimator.GetInteger("Anim") == 16)
         {
               if (LockedOn == true)

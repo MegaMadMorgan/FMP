@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour
         {
             WaveNum += 1;
             EnemiesCleared = false;
-            while (GameObject.FindGameObjectsWithTag("Enemy").Length <= 0.1)
+            while (GameObject.FindGameObjectsWithTag("Enemy").Length <= 1) // 0.1
             {
                 Instantiate(enemy, new Vector3(Random.Range(-SpawnRangeX, SpawnRangeX), 20, Random.Range(-SpawnRangeZ, SpawnRangeZ)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
             }
