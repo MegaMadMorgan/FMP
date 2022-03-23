@@ -34,6 +34,8 @@ public class projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (this.name == "ARProjectile(Clone)")
+        {
             if (collision.gameObject.tag == "Enemy")
             {
                 Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
@@ -51,9 +53,10 @@ public class projectile : MonoBehaviour
 
                 Destroy(gameObject);
             }
-        else
-        {
-            Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
