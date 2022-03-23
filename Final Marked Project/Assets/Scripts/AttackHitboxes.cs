@@ -28,6 +28,12 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject SSPVAttack21;
     public GameObject SSPVAttack31;
     public GameObject bullet;
+    public GameObject BAttack11;
+    public GameObject BAttack12;
+    public GameObject BAttack13;
+    public GameObject BAttack21;
+    public GameObject BAttack22;
+    public GameObject BAttack3;
 
     #region Baseball Bat
     public void BBA1()
@@ -207,6 +213,60 @@ public class AttackHitboxes : MonoBehaviour
     {
         Quaternion playerRotation = this.transform.rotation;
         Instantiate(bullet, (transform.TransformPoint(Vector3.forward * 2)) + (transform.up * 1.5f), playerRotation);
+    }
+    #endregion
+
+    #region bottle
+    public void BA11()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(BAttack11, transform.position, playerRotation);
+        }
+    }
+    public void BA12()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(BAttack12, transform.position, playerRotation);
+        }
+    }
+    public void BA13()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(BAttack13, transform.position, playerRotation);
+        }
+    }
+    public void BA21()
+    {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(BAttack21, transform.position, playerRotation);
+    }
+    public void BA22()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(BAttack22, transform.position, playerRotation);
+        }
+    }
+    public void BA3()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(BAttack3, transform.position, playerRotation);
+        }
+    }
+
+    public void BA3Bounce()
+    {
+        Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+        rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
     }
     #endregion
 }

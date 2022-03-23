@@ -29,6 +29,7 @@ public class ItemCollision : MonoBehaviour
         if (this.name == "Item Bottle")
         {
             weaponnum = 3;
+            ItemParent.GetComponent<PlayerMovement>().bottleShatterHP = 5;
         }
         if (this.name == "Item Cleaver")
         {

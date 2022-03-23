@@ -96,7 +96,10 @@ public class PlayerMovement : MonoBehaviour
     public GameObject UB;
     public GameObject WAMH;
     public GameObject D;
+    public GameObject SB;
     #endregion
+
+    public float bottleShatterHP = 5;
 
     private void Awake()
     {
@@ -211,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
             else { PlayerAnimator.SetInteger("Anim", 0); }
         }
 
-        stepClimb();
+        //stepClimb();
         #endregion
 
         #region weapon active number
@@ -302,6 +305,7 @@ public class PlayerMovement : MonoBehaviour
                 UB.SetActive(false);
                 WAMH.SetActive(false);
                 D.SetActive(false);
+                AttackChargeTime = 0.55f;
                 #endregion
                 break;
             case 4:
@@ -736,7 +740,7 @@ public class PlayerMovement : MonoBehaviour
                         PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
                     }
                 }
-                if (AR.activeSelf == true && attackhit == 0)
+                if (B.activeSelf == true && attackhit == 0)
                 {
                     Attack2Charging = true;
                     PlayerAnimator.SetInteger("Anim", 20);
@@ -756,7 +760,7 @@ public class PlayerMovement : MonoBehaviour
 
             a2.canceled += ctx =>
             {
-                if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && !(Attack2Held > AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20))
+                if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20))
                 {
                     Attack2Charging = false;
                     Attack2Held = 0;
@@ -774,7 +778,7 @@ public class PlayerMovement : MonoBehaviour
 
         #endregion
 
-        #region BaseballBat
+        #region Baseball Bat
 
         if (BB.activeSelf == true && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 6))
         {
@@ -837,7 +841,7 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
-        #region Spiked BaseballBat
+        #region Spiked Baseball Bat
 
         if (SBB.activeSelf == true && (PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 12))
         {
@@ -970,8 +974,19 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
-        #region Assault Rifle
-        if (PlayerAnimator.GetInteger("Anim") == 16)
+        #region Bottle
+        if (B.activeSelf == true && bottleShatterHP <= 0)
+        {
+            B.GetComponentInChildren<Renderer>().enabled = false;
+            SB.GetComponentInChildren<Renderer>().enabled = true;
+        }
+        else
+        {
+            B.GetComponentInChildren<Renderer>().enabled = true;
+            SB.GetComponentInChildren<Renderer>().enabled = false;
+        }
+
+        if (PlayerAnimator.GetInteger("Anim") == 19)
         {
               if (LockedOn == true)
               {
@@ -979,48 +994,66 @@ public class PlayerMovement : MonoBehaviour
                   lockedenemy.y = 0;
                   PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
               }
+            if (attackfullstring <= 1f)
+            {
+                rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
+            }
+        }
+
+        if (PlayerAnimator.GetInteger("Anim") == 21)
+        {
+            if (LockedOn == true)
+            {
+                Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                lockedenemy.y = 0;
+                PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+            }
+            if (AttackTime <= 0.8f)
+            {
+                rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 1.5f, rb.velocity.y, PlayerMesh.forward.z * speed * 1.5f);
+            }
         }
         #endregion
     }
 
-    void stepClimb()
-    {
-        //forward
-        RaycastHit hitLower;
-        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(Vector3.forward), out hitLower, 0.1f))
-        {
-            RaycastHit hitUpper;
-            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(Vector3.forward), out hitUpper, 0.2f))
-            {
-                Rigidbody rb = GetComponent<Rigidbody>();
-                rb.position -= new Vector3(0f, -stepSmooth, 0f);
-            }
-        }
+    //void stepClimb()
+    //{
+    //    //forward
+    //    RaycastHit hitLower;
+    //    if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(Vector3.forward), out hitLower, 0.1f))
+    //    {
+    //        RaycastHit hitUpper;
+    //        if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(Vector3.forward), out hitUpper, 0.2f))
+    //        {
+    //            Rigidbody rb = GetComponent<Rigidbody>();
+    //            rb.position -= new Vector3(0f, -stepSmooth, 0f);
+    //        }
+    //    }
 
-        //forward left
-        RaycastHit hitLower45;
-        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitLower45, 0.1f))
-        {
-            RaycastHit hitUpper45;
-            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitUpper45, 0.2f))
-            {
-                Rigidbody rb = GetComponent<Rigidbody>();
-                rb.position -= new Vector3(0f, -stepSmooth, 0f);
-            }
-        }
+    //    //forward left
+    //    RaycastHit hitLower45;
+    //    if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitLower45, 0.1f))
+    //    {
+    //        RaycastHit hitUpper45;
+    //        if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitUpper45, 0.2f))
+    //        {
+    //            Rigidbody rb = GetComponent<Rigidbody>();
+    //            rb.position -= new Vector3(0f, -stepSmooth, 0f);
+    //        }
+    //    }
 
-        //forward right
-        RaycastHit hitLowerSub45;
-        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitLowerSub45, 0.1f))
-        {
-            RaycastHit hitUpperSub45;
-            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitUpperSub45, 0.2f))
-            {
-                Rigidbody rb = GetComponent<Rigidbody>();
-                rb.position -= new Vector3(0f, -stepSmooth, 0f);
-            }
-        }
-    }
+    //    //forward right
+    //    RaycastHit hitLowerSub45;
+    //    if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitLowerSub45, 0.1f))
+    //    {
+    //        RaycastHit hitUpperSub45;
+    //        if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitUpperSub45, 0.2f))
+    //        {
+    //            Rigidbody rb = GetComponent<Rigidbody>();
+    //            rb.position -= new Vector3(0f, -stepSmooth, 0f);
+    //        }
+    //    }
+    //}
 
     public void attack1()
     {
@@ -1190,6 +1223,35 @@ public class PlayerMovement : MonoBehaviour
             }
             #endregion
 
+            #region BaseBall Bat
+
+            if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && AttackRepeatTimer <= 0 && B.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 19 && attackhit == 0 && taptimer <= 0)
+            {
+                AttackTime = 0.5f;
+                AttackRepeatTimer = 0.5f;
+                attackfullstring = 1.2f;
+                AttackStringOn = true;
+                PlayerAnimator.SetInteger("Anim", 19);
+                attackhit = 1;
+                taptimer = 0.1f;
+            }
+
+            if (B.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 19 && attackhit == 1 && taptimer <= 0)
+            {
+                attackhit = 2;
+                AttackTime += 0.2f;
+                AttackRepeatTimer += 0.4f;
+                taptimer = 0.1f;
+            }
+
+            if (B.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 19 && attackhit == 2 && taptimer <= 0)
+            {
+                attackhit = 3;
+                AttackTime += 0.7f;
+                AttackRepeatTimer += 0.4f;
+                taptimer = 0.1f;
+            }
+            #endregion
         }
     }
 
@@ -1240,6 +1302,17 @@ public class PlayerMovement : MonoBehaviour
             PlayerAnimator.SetInteger("Anim", 18);
             Attack2Charging = false;
         }
+
+        if (GameObject.FindWithTag("PlayerAttack") == null && B.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+        {
+            AttackTime = 1.2f;
+            AttackRepeatTimer = 0.3f;
+            Attack2Held = 0;
+            PlayerAnimator.SetInteger("Anim", 21);
+            Attack2Charging = false;
+            //Rigidbody rb = GetComponent<Rigidbody>();
+            //rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
+        }
     }
 
 
@@ -1286,6 +1359,14 @@ public class PlayerMovement : MonoBehaviour
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             AttackTime = 0.5f;
+            AttackRepeatTimer = 0.3f;
+            rb.velocity = new Vector3(0, 0, 0);
+        }
+
+        if (B.activeSelf == true && dodge != true && kick != true)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            AttackTime = 0.7f;
             AttackRepeatTimer = 0.3f;
             rb.velocity = new Vector3(0, 0, 0);
         }
