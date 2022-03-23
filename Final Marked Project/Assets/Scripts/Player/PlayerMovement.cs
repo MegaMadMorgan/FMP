@@ -682,7 +682,7 @@ public class PlayerMovement : MonoBehaviour
 
         a2.started += ctx =>
         {
-            if (ctx.interaction is HoldInteraction && AttackTime <= 0 && nomoves == true && Attack2Charging == false)
+            if (ctx.interaction is HoldInteraction && AttackTime <= 0 && nomoves == true && Attack2Charging == false && dodge == false && kick == false)
             {
                 //charging
                 if (BB.activeSelf == true && attackhit == 0)
