@@ -558,7 +558,7 @@ public class EnemyStats : MonoBehaviour
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse); // was direction
-                    rb.AddForce(0, 16, 0, ForceMode.Impulse);
+                    rb.AddForce(0, 18.5f, 0, ForceMode.Impulse);
                     recollision = 0.4f;
                     Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().bottleShatterHP -= 1;
@@ -575,7 +575,7 @@ public class EnemyStats : MonoBehaviour
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse); // was direction
-                    rb.AddForce(0, 16, 0, ForceMode.Impulse);
+                    rb.AddForce(0, 18.5f, 0, ForceMode.Impulse);
                     recollision = 0.4f;
                     Stun = 0.6f;
                 }
