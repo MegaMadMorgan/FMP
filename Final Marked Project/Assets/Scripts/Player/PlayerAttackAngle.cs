@@ -151,7 +151,7 @@ public class PlayerAttackAngle : MonoBehaviour
         // timer end
         if (ExistTimer > 0)
         {
-            ExistTimer -= Time.deltaTime;
+            ExistTimer -= Time.fixedUnscaledDeltaTime;
         }
         else
         {

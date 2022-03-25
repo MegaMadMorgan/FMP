@@ -11,8 +11,8 @@ public class TimeManager : MonoBehaviour
     {
         if (PauseMenu.GameIsPaused == false)
         {
-            Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
-            Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+                Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
+                Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
         }
     }
 

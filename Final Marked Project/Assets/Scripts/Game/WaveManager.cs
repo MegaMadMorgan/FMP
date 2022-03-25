@@ -42,7 +42,7 @@ public class WaveManager : MonoBehaviour
                 SpawnRangeXmin = -3;
                 SpawnRangeXmax = 20;
                 SpawnRangeY = 20;
-                SpawnRangeZmin = -28;
+                SpawnRangeZmin = -25;
                 SpawnRangeZmax = 30;
             }
             if (multiaxis == 1)
@@ -71,12 +71,12 @@ public class WaveManager : MonoBehaviour
                 if (multiaxis == 1) 
                 { 
                     multiaxis = 0;
-                    Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), 20, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
+                    Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), SpawnRangeY, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
                 } 
                 else 
                 { 
                     multiaxis = 1;
-                    Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), 20, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
+                    Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), SpawnRangeY, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
                 }
             }
             else

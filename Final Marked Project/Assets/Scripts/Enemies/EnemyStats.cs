@@ -7,10 +7,10 @@ public class EnemyStats : MonoBehaviour
 {
     public float health;
     public float Stun;
-    bool isGrounded;
+    //bool isGrounded;
     public NavMeshAgent agent;
     public Rigidbody rb;
-    bool isColliding;
+    //bool isColliding;
     public float recollision;
     bool noted;
 
@@ -57,8 +57,8 @@ public class EnemyStats : MonoBehaviour
 
         recollision -= Time.deltaTime;
 
-        isColliding = false;
-        Debug.Log(GroundCheck());
+        ////isColliding = false;
+        //Debug.Log(GroundCheck());
     }
 
     //power growth dynamic
@@ -759,6 +759,24 @@ public class EnemyStats : MonoBehaviour
                 }
             }
             #endregion
+
+            if (collision.name == "HeadButtHB(Clone)")
+            {
+                health -= 500;
+
+                Vector3 knockback = collision.transform.forward;
+
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
+
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 18, 0, ForceMode.Impulse);
+                recollision = 0.4f;
+                Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
+            }
         }
     }
 

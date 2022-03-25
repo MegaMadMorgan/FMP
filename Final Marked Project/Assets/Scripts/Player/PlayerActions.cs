@@ -72,7 +72,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""4ad80288-f276-49cc-8685-083bb69c76ef"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Tap(duration=0.01,pressPoint=0.01)""
                 },
                 {
                     ""name"": ""Super2"",
@@ -80,7 +80,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""cdfbf204-f3e1-4f6e-ac7e-5056e8d6e218"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Tap(duration=0.01,pressPoint=0.01)""
                 },
                 {
                     ""name"": ""Super3"",
@@ -88,7 +88,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""2f5b616c-be22-4646-bd53-5f9ea878998e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Tap(duration=0.01,pressPoint=0.01)""
                 },
                 {
                     ""name"": ""Super4"",
@@ -96,7 +96,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""4e932055-f81c-4f15-a6ce-799aa44d414d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Tap(duration=0.01,pressPoint=0.01)""
                 },
                 {
                     ""name"": ""Interact/Throw"",

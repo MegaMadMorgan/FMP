@@ -34,6 +34,7 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject BAttack21;
     public GameObject BAttack22;
     public GameObject BAttack3;
+    public GameObject Headbutt;
 
     #region Baseball Bat
     public void BBA1()
@@ -267,6 +268,14 @@ public class AttackHitboxes : MonoBehaviour
     {
         Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
         rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
+    }
+    #endregion
+
+    #region Supers
+    public void HeadButt()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(Headbutt, (transform.TransformPoint(Vector3.forward * 1)) + (transform.up * 1.5f), playerRotation);
     }
     #endregion
 }

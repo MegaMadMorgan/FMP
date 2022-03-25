@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     public float PowerMeter = 0;
     public Image PowerMeterBar;
 
+    public float Super2Timer;
+    public float SpressTimer = 0;
 
     //public Transform Cam;
 
@@ -70,13 +72,17 @@ public class PlayerMovement : MonoBehaviour
     private InputAction Movement;
     private InputAction a1;
     private InputAction a2;
+    private InputAction s1;
+    private InputAction s2;
+    private InputAction s3;
+    private InputAction s4;
     PlayerActions controls;
 
     [Header("Step Climb")]
     [SerializeField] GameObject stepRayUpper;
     [SerializeField] GameObject stepRayLower;
     [SerializeField] float stepHeight = 0.6f;
-    [SerializeField] float stepSmooth = 0.2f;
+    //[SerializeField] float stepSmooth = 0.2f;
 
 
     private Camera Cam;
@@ -124,14 +130,23 @@ public class PlayerMovement : MonoBehaviour
         Movement = controls.PlayerCon.Movement;
         a1 = controls.PlayerCon.Attack1;
         a2 = controls.PlayerCon.Attack2;
+        s1 = controls.PlayerCon.Super1;
+        s2 = controls.PlayerCon.Super2;
+        s3 = controls.PlayerCon.Super3;
+        s4 = controls.PlayerCon.Super4;
         Movement.Enable();
         a1.Enable();
         a2.Enable();
+        s1.Enable();
+        s2.Enable();
+        s3.Enable();
+        s4.Enable();
     }
 
     private void OnDisable()
     {
         Movement.Disable();
+        
         a2.Disable();
     }
 
@@ -157,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
             attackfullstring -= Time.deltaTime;
             LockedOn = GetComponent<EnemyLockOn>().LockOn;
 
-            if (PlayerAnimator.GetInteger("Anim") == 0 || PlayerAnimator.GetInteger("Anim") == 1)
+            if ((PlayerAnimator.GetInteger("Anim") == 0 || PlayerAnimator.GetInteger("Anim") == 1) && Super2Timer <= 0.1f)
             {
                 nomoves = true;
             }
@@ -217,6 +232,15 @@ public class PlayerMovement : MonoBehaviour
 
             forward.Normalize();
             right.Normalize();
+
+            if (Super2Timer >= 0.1f)
+            {
+                forward *= 6;
+            }
+            else
+            {
+                forward *= 1;
+            }
 
             Vector3 MoveDirection = forward * VerticalInput + right * HorizontalInput;
             Vector3 DMoveDirection = forward;
@@ -636,6 +660,84 @@ public class PlayerMovement : MonoBehaviour
             camRight.y = 0f;
             camForward.Normalize();
             camRight.Normalize();
+            #endregion
+
+            #region super attack 1
+            s1.started += ctx =>
+            {
+                if (SpressTimer <= 0.001f)
+                {
+                    //Super1Timer = 5;
+                    PowerMeter -= 1;
+                    Health += 10;
+                    SpressTimer = 0.2f;
+                }
+            };
+
+            if (SpressTimer > 0.001)
+            {
+                SpressTimer -= Time.deltaTime;
+            }
+            #endregion
+
+            #region super attack 2
+            s2.started += ctx =>
+            {
+                if (SpressTimer <= 0.001f)
+                {
+                    Super2Timer = 5;
+                    PowerMeter -= 1;
+                    SpressTimer = 0.2f;
+                    if (gameObject.GetComponent<EnemyLockOn>().temp == false)
+                    {
+                        gameObject.GetComponent<EnemyLockOn>().temp = true;
+                    }
+                }
+            };
+
+            if (Super2Timer > 0.001)
+            {
+                Super2Timer -= Time.deltaTime;
+                if (gameObject.GetComponent<EnemyLockOn>().temp == false)
+                {
+                    gameObject.GetComponent<EnemyLockOn>().temp = true;
+                }
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    if (Vector3.Distance(this.transform.position, this.gameObject.GetComponent<EnemyLockOn>().targetingCone.transform.position) > 2)
+                    {
+                        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 4f, rb.velocity.y, PlayerMesh.forward.z * speed * 4f);
+                        PlayerAnimator.SetInteger("Anim", 1);
+                    }
+                    else
+                    {
+                        PlayerAnimator.SetInteger("Anim", 22);
+                    }
+                }
+            } // set lock on to be active
+            #endregion
+
+            #region super attack 3
+            s1.started += ctx =>
+            {
+                if (ctx.interaction is TapInteraction)
+                {
+
+                }
+            };
+            #endregion
+
+            #region super attack 4
+            s1.started += ctx =>
+            {
+                if (ctx.interaction is TapInteraction)
+                {
+
+                }
+            };
             #endregion
 
             #region dodge
