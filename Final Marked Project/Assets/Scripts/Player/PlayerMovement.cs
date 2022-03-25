@@ -3,9 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private float MaxHealth = 100;
+    public float Health = 100;
+    public Image HealthBar;
+
+    private float PowerMeterMax = 4;
+    public float PowerMeter = 0;
+    public Image PowerMeterBar;
+
+
     //public Transform Cam;
 
     public Animator PlayerAnimator;
@@ -127,6 +137,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        #region Health Bar & Power Meter
+        HealthBar.fillAmount = Health / MaxHealth;
+        PowerMeterBar.fillAmount = PowerMeter / PowerMeterMax;
+        #endregion
+
         #region clarity, attackstrings, attack cooldowns and canceling
         taptimer -= Time.deltaTime;
         attackfullstring -= Time.deltaTime;
