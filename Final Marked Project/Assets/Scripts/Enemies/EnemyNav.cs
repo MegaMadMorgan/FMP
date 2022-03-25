@@ -101,9 +101,12 @@ public class EnemyNav : MonoBehaviour
 
             // stop enemy from moving
             agent.SetDestination(transform.position);
-           // gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            // gameObject.GetComponent<NavMeshAgent>().enabled = false;
 
-            transform.LookAt(player);
+            if (this.transform.position.y <= GameObject.Find("Third-Person Player").transform.position.y + 0.1f && this.transform.position.y >= GameObject.Find("Third-Person Player").transform.position.y - 0.1f)
+            {
+                transform.LookAt(player);
+            }
 
             if (!AlreadyAttacked)
             {

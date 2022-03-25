@@ -82,7 +82,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   Stun: 0
-  agent: {fileID: 0}
+  agent: {fileID: 725139071390822809}
+  rb: {fileID: 8076916103302086341}
+  recollision: 0
 --- !u!195 &725139071390822809
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -7,17 +7,34 @@ public class EnemyStats : MonoBehaviour
 {
     public float health;
     public float Stun;
+    bool isGrounded;
     public NavMeshAgent agent;
+    public Rigidbody rb;
     bool isColliding;
     public float recollision;
     bool noted;
 
     void Update()
     {
-        if (Stun > 0)
+        if (Stun > 0 || !GroundCheck())
         {
-            Stun -= Time.deltaTime;
-            //gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            if (Stun > 0)
+            {
+                Stun -= Time.deltaTime;
+            }
+            else
+            {
+                Stun = 0;
+            }
+            //rb.isKinematic = false;
+            gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            gameObject.GetComponent<EnemyNav>().enabled = false;
+        }
+        else
+        {
+            //rb.isKinematic = true;
+            gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            gameObject.GetComponent<EnemyNav>().enabled = true;
         }
 
         if (health <= 0) 
@@ -41,6 +58,7 @@ public class EnemyStats : MonoBehaviour
         recollision -= Time.deltaTime;
 
         isColliding = false;
+        Debug.Log(GroundCheck());
     }
 
     //power growth dynamic
@@ -166,6 +184,8 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 24, 0, ForceMode.Impulse);
+                recollision = 0.4f;
+                Stun = 0.6f;
                 GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
             }
 
@@ -182,6 +202,8 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                recollision = 0.4f;
+                Stun = 0.6f;
                 GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
             }
             #endregion
@@ -273,6 +295,8 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                recollision = 0.4f;
+                Stun = 0.6f;
                 GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
             }
 
@@ -289,6 +313,8 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 18, 0, ForceMode.Impulse);
+                recollision = 0.4f;
+                Stun = 0.6f;
                 GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
             }
             #endregion
@@ -670,6 +696,8 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
+                    recollision = 0.4f;
+                    Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().bottleShatterHP -= 1;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
@@ -686,6 +714,8 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
+                    recollision = 0.4f;
+                    Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
             }
@@ -705,6 +735,8 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                    recollision = 0.4f;
+                    Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().bottleShatterHP -= 1;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
@@ -721,6 +753,8 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                    recollision = 0.4f;
+                    Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
             }
@@ -728,4 +762,11 @@ public class EnemyStats : MonoBehaviour
         }
     }
 
+
+    bool GroundCheck()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, 1.05f);
     }
+}
+
+
