@@ -12,9 +12,12 @@ public class WaveManager : MonoBehaviour
     public bool EnemiesCleared;
     Scene CurrentScene;
     string SceneName;
-    private float SpawnRangeX;
+    private float SpawnRangeXmin;
+    private float SpawnRangeXmax;
     private float SpawnRangeY;
-    private float SpawnRangeZ;
+    private float SpawnRangeZmin;
+    private float SpawnRangeZmax;
+    private int multiaxis = 0; // mechanism for complicated enviroments
 
     public GameObject enemy;
 
@@ -34,26 +37,53 @@ public class WaveManager : MonoBehaviour
         if (CurrentScene.name == "City_Centre")
         {
             //these are not accurate spawn ranges
-            SpawnRangeX = 6;
-            SpawnRangeY = 20;
-            SpawnRangeZ = 6;
+            if (multiaxis == 0)
+            {
+                SpawnRangeXmin = -3;
+                SpawnRangeXmax = 20;
+                SpawnRangeY = 20;
+                SpawnRangeZmin = -28;
+                SpawnRangeZmax = 30;
+            }
+            if (multiaxis == 1)
+            {
+                SpawnRangeXmin = -32;
+                SpawnRangeXmax = 22;
+                SpawnRangeY = 20;
+                SpawnRangeZmin = 10;
+                SpawnRangeZmax = 30;
+            }
         }
 
         if (CurrentScene.name == "Main")
         {
-            SpawnRangeX = 12;
+            SpawnRangeXmin = -12;
+            SpawnRangeXmax = 12;
             SpawnRangeY = 20;
-            SpawnRangeZ = 12;
+            SpawnRangeZmin = -12;
+            SpawnRangeZmax = 12;
         }
         //Instantiate(enemy, new Vector3(Random.Range(-SpawnRangeX, SpawnRangeX), 20, Random.Range(-SpawnRangeZ, SpawnRangeZ)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
         if (EnemiesCleared)
         {
-            WaveNum += 1;
-            EnemiesCleared = false;
-            while (GameObject.FindGameObjectsWithTag("Enemy").Length <= WaveNum-1) // 0.1
+            if (GameObject.FindGameObjectsWithTag("Enemy").Length <= WaveNum - 1) // 0.1
             {
-                Instantiate(enemy, new Vector3(Random.Range(-SpawnRangeX, SpawnRangeX), 20, Random.Range(-SpawnRangeZ, SpawnRangeZ)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
+                if (multiaxis == 1) 
+                { 
+                    multiaxis = 0;
+                    Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), 20, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
+                } 
+                else 
+                { 
+                    multiaxis = 1;
+                    Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), 20, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
+                }
             }
+            else
+            {
+                EnemiesCleared = false;
+            }
+
             //if (GameObject.FindGameObjectsWithTag("Enemy").Length >= 0.1)
             //{
             //    WaveNum += 1;
@@ -65,6 +95,7 @@ public class WaveManager : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("Enemy") == null)
         {
             EnemiesCleared = true;
+            WaveNum += 1;
         }
     }
 }

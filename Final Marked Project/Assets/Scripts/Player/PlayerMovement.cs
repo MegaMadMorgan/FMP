@@ -140,6 +140,14 @@ public class PlayerMovement : MonoBehaviour
         #region Health Bar & Power Meter
         HealthBar.fillAmount = Health / MaxHealth;
         PowerMeterBar.fillAmount = PowerMeter / PowerMeterMax;
+        if (PowerMeter >= PowerMeterMax)
+        {
+            PowerMeter = 4;
+        }
+        if (Health >= MaxHealth)
+        {
+            Health = 100;
+        }
         #endregion
 
         #region clarity, attackstrings, attack cooldowns and canceling

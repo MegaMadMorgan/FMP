@@ -43,6 +43,11 @@ public class EnemyStats : MonoBehaviour
         isColliding = false;
     }
 
+    //power growth dynamic
+    //chip damage = 0.1
+    // knock away = 0.2
+    // fully charged = 0.3
+
     void OnTriggerEnter(Collider collision)
     {
         //if (isColliding) return;
@@ -70,6 +75,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
                 recollision = 0.1f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
             }
             #endregion
 
@@ -90,6 +96,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "BBA12(Clone)")
@@ -107,6 +114,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "BBA13(Clone)")
@@ -124,6 +132,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 16, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "BBA14(Clone)")
@@ -141,6 +150,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 6, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "BBA2(Clone)")
@@ -156,6 +166,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 24, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
             }
 
             if (collision.name == "BBA3(Clone)")
@@ -171,6 +182,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
             }
             #endregion
 
@@ -191,6 +203,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SBBA12(Clone)")
@@ -208,6 +221,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SBBA13(Clone)")
@@ -225,6 +239,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 10, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SBBA14(Clone)")
@@ -242,6 +257,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 6, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SBBA2(Clone)")
@@ -257,6 +273,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
             }
 
             if (collision.name == "SBBA3(Clone)")
@@ -272,6 +289,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 18, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
             }
             #endregion
 
@@ -291,6 +309,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SSA12(Clone)")
@@ -308,6 +327,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, -24, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SSA13(Clone)")
@@ -325,6 +345,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SSA14(Clone)")
@@ -342,6 +363,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 9, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SSA2(Clone)")
@@ -359,6 +381,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
             }
 
             if (collision.name == "SSA3(Clone)")
@@ -376,6 +399,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 6, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
             }
 
             #endregion
@@ -396,6 +420,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SSPVA12(Clone)")
@@ -413,6 +438,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SSPVA13(Clone)")
@@ -430,6 +456,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
             if (collision.name == "SSPVA2(Clone)")
@@ -447,6 +474,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 20, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
             }
 
             if (collision.name == "SSPVA3(Clone)")
@@ -464,6 +492,7 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
             }
 
             #endregion
@@ -488,6 +517,7 @@ public class EnemyStats : MonoBehaviour
                     recollision = 0.2f;
                     Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().bottleShatterHP -= 1;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
                 else
                 {
@@ -504,6 +534,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
                     recollision = 0.2f;
                     Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
             }
 
@@ -525,6 +556,7 @@ public class EnemyStats : MonoBehaviour
                     recollision = 0.2f;
                     Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().bottleShatterHP -= 1;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
                 else
                 {
@@ -541,6 +573,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
                     recollision = 0.2f;
                     Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
             }
 
@@ -562,6 +595,7 @@ public class EnemyStats : MonoBehaviour
                     recollision = 0.4f;
                     Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().bottleShatterHP -= 1;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
                 else
                 {
@@ -578,6 +612,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(0, 18.5f, 0, ForceMode.Impulse);
                     recollision = 0.4f;
                     Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
             }
 
@@ -599,6 +634,7 @@ public class EnemyStats : MonoBehaviour
                     recollision = 0.4f;
                     Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().bottleShatterHP -= 1;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
                 else
                 {
@@ -615,6 +651,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
                     recollision = 0.4f;
                     Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
             }
 
@@ -634,6 +671,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().bottleShatterHP -= 1;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
                 else
                 {
@@ -648,6 +686,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
             }
 
@@ -667,6 +706,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().bottleShatterHP -= 1;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
                 else
                 {
@@ -681,6 +721,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
             }
             #endregion
