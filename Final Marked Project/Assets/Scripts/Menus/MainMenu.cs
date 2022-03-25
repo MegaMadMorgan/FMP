@@ -10,6 +10,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("City_Centre", LoadSceneMode.Single);
     }
 
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
     public void QuitGame()
     {
         Application.Quit();

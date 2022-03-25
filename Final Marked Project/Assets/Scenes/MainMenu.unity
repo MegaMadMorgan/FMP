@@ -5741,6 +5741,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: b310ec1217d92b242a9c6dfe6528bc69, type: 2}
   resolutionDropdown: {fileID: 1635246294}
+  SFXSlider: {fileID: 2030381210}
+  MusSlider: {fileID: 155992341}
+  FulScrn: {fileID: 1266907379}
+  graphicsDropdown: {fileID: 103549113}
 --- !u!1 &1924000141
 GameObject:
   m_ObjectHideFlags: 0
@@ -6301,7 +6305,7 @@ GameObject:
   - component: {fileID: 2006939734}
   - component: {fileID: 2006939733}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
