@@ -62,11 +62,10 @@ public class WaveManager : MonoBehaviour
 
         }
 
-        if (GameObject.Find("EnemyBase(Clone)") == null)
+        if (GameObject.FindGameObjectWithTag("Enemy") == null)
         {
             EnemiesCleared = true;
         }
-
     }
 }
 
