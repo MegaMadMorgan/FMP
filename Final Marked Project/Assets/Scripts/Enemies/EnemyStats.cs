@@ -775,7 +775,23 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 18, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
-                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
+            }
+
+            if (collision.name == "Pineapple(Clone)") // (Clone)
+            {
+                health -= 20;
+
+                Vector3 knockback = collision.transform.forward;
+
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
+
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 18, 0, ForceMode.Impulse);
+                recollision = 0.4f;
+                Stun = 0.6f;
             }
         }
     }

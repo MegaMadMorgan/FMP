@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public Image PowerMeterBar;
 
     public float Super2Timer;
+    public float Super3Timer;
     public float SpressTimer = 0;
 
     //public Transform Cam;
@@ -113,6 +114,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject WAMH;
     public GameObject D;
     public GameObject SB;
+
+    public GameObject PINEAPPLE;
+    public GameObject PIZZA;
     #endregion
 
     public float bottleShatterHP = 5;
@@ -248,7 +252,24 @@ public class PlayerMovement : MonoBehaviour
             if (AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false)
             {
 
-                rb.velocity = new Vector3(MoveDirection.x * speed, rb.velocity.y, MoveDirection.z * speed);
+                //rb.velocity = new Vector3(MoveDirection.x * speed, rb.velocity.y, MoveDirection.z * speed);
+
+                if (Super2Timer >= 0.1f)
+                {
+                    if (Vector3.Distance(this.transform.position, this.gameObject.GetComponent<EnemyLockOn>().targetingCone.transform.position) > 2)
+                    {
+                        rb.velocity = new Vector3(MoveDirection.x * speed * 1.2f, rb.velocity.y, MoveDirection.z * speed * 1.2f);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(MoveDirection.x * speed * 0.1f, rb.velocity.y, MoveDirection.z * speed * 0.1f);
+                    }
+
+                }
+                else
+                {
+                    rb.velocity = new Vector3(MoveDirection.x * speed, rb.velocity.y, MoveDirection.z * speed);
+                }
 
                 Physics.gravity = new Vector3(0, -30F, 0);
 
@@ -674,7 +695,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             };
 
-            if (SpressTimer > 0.001)
+            if (SpressTimer >= 0.001)
             {
                 SpressTimer -= Time.deltaTime;
             }
@@ -709,8 +730,8 @@ public class PlayerMovement : MonoBehaviour
                     PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
                     if (Vector3.Distance(this.transform.position, this.gameObject.GetComponent<EnemyLockOn>().targetingCone.transform.position) > 2)
                     {
-                        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 4f, rb.velocity.y, PlayerMesh.forward.z * speed * 4f);
-                        PlayerAnimator.SetInteger("Anim", 1);
+                        //rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 4f, rb.velocity.y, PlayerMesh.forward.z * speed * 4f);
+                        //PlayerAnimator.SetInteger("Anim", 1);
                     }
                     else
                     {
@@ -721,13 +742,25 @@ public class PlayerMovement : MonoBehaviour
             #endregion
 
             #region super attack 3
-            s1.started += ctx =>
+            s3.started += ctx =>
             {
-                if (ctx.interaction is TapInteraction)
+                if (SpressTimer <= 0.001f)
                 {
-
+                    Super3Timer = 2;
+                    PowerMeter -= 3;
+                    SpressTimer = 0.2f;
                 }
             };
+
+            if (Super3Timer >= 0.001)
+            {
+                Instantiate(PINEAPPLE, new Vector3(Random.Range(this.transform.position.x - 10, this.transform.position.x + 10), this.transform.position.y + 20, Random.Range(this.transform.position.z - 10, this.transform.position.z + 10)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
+                Super3Timer -= Time.deltaTime;
+                if (Super3Timer >= 1.45)
+                {
+                    PlayerAnimator.SetInteger("Anim", 23);
+                }
+            }
             #endregion
 
             #region super attack 4
@@ -1184,7 +1217,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PauseMenu.GameIsPaused == false)
         {
-            if (Attack2Charging == false)
+            if (Attack2Charging == false && Super2Timer < 0.001)
             {
                 Vector3 playerPos = this.transform.position;
                 Vector3 playerDirection = this.transform.forward;
@@ -1193,7 +1226,7 @@ public class PlayerMovement : MonoBehaviour
 
                 #region BaseBall Bat
 
-                if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && AttackRepeatTimer <= 0 && BB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 4 && attackhit == 0 && taptimer <= 0)
+                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && BB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 4 && attackhit == 0 && taptimer <= 0)
                 {
                     AttackTime = 0.4f;
                     AttackRepeatTimer = 1.4f;
@@ -1232,7 +1265,7 @@ public class PlayerMovement : MonoBehaviour
 
                 #region Spiked BaseBall Bat
 
-                if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && SBB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 10 && attackhit == 0 && taptimer <= 0)
+                if (AttackTime <= 0 && SBB.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 10 && attackhit == 0 && taptimer <= 0)
                 {
                     AttackTime = 0.4f;
                     AttackRepeatTimer = 1.4f;
@@ -1270,7 +1303,7 @@ public class PlayerMovement : MonoBehaviour
 
                 #region Stop Sign
 
-                if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && SS.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 7 && attackhit == 0 && taptimer <= 0)
+                if (AttackTime <= 0 && SS.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 7 && attackhit == 0 && taptimer <= 0)
                 {
                     AttackTime = 0.85f;
                     AttackRepeatTimer = 0.1f;
@@ -1300,7 +1333,7 @@ public class PlayerMovement : MonoBehaviour
 
                 #region StopSign Pizza Varient
 
-                if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && SSPV.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 13 && attackhit == 0 && taptimer <= 0)
+                if (AttackTime <= 0 && SSPV.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 13 && attackhit == 0 && taptimer <= 0)
                 {
                     AttackTime = 1.2f;
                     AttackRepeatTimer = 1.2f;
@@ -1330,7 +1363,7 @@ public class PlayerMovement : MonoBehaviour
 
                 #region Assault Rifle
 
-                if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && AR.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 16 && attackhit == 0 && taptimer <= 0)
+                if (AttackTime <= 0 && AR.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 16 && attackhit == 0 && taptimer <= 0)
                 {
                     AttackTime = 0.6f;
                     AttackRepeatTimer = 0.6f;
@@ -1352,7 +1385,7 @@ public class PlayerMovement : MonoBehaviour
 
                 #region BaseBall Bat
 
-                if (GameObject.FindWithTag("PlayerAttack") == null && AttackTime <= 0 && AttackRepeatTimer <= 0 && B.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 19 && attackhit == 0 && taptimer <= 0)
+                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && B.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 19 && attackhit == 0 && taptimer <= 0)
                 {
                     AttackTime = 0.5f;
                     AttackRepeatTimer = 0.5f;
@@ -1388,7 +1421,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PauseMenu.GameIsPaused == false)
         {
-            if (GameObject.FindWithTag("PlayerAttack") == null && BB.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            if (BB.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
             {
                 AttackTime = 1f;
                 AttackRepeatTimer = 0.3f;
@@ -1397,7 +1430,7 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Charging = false;
             }
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && SBB.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            if (SBB.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
             {
                 AttackTime = 1f;
                 AttackRepeatTimer = 0.3f;
@@ -1406,7 +1439,7 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Charging = false;
             }
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && SS.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            if (SS.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
             {
                 AttackTime = 1f;
                 AttackRepeatTimer = 0.3f;
@@ -1415,7 +1448,7 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Charging = false;
             }
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && SSPV.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            if (SSPV.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
             {
                 AttackTime = 1.2f;
                 AttackRepeatTimer = 0.3f;
@@ -1424,7 +1457,7 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Charging = false;
             }
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && AR.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            if (AR.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
             {
                 AttackTime = 1.2f;
                 AttackRepeatTimer = 0.3f;
@@ -1433,7 +1466,7 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Charging = false;
             }
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && B.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            if (B.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
             {
                 AttackTime = 1.2f;
                 AttackRepeatTimer = 0.3f;
@@ -1456,7 +1489,7 @@ public class PlayerMovement : MonoBehaviour
             Quaternion playerRotation = this.transform.rotation;
             Vector3 spawnPos = playerPos + playerDirection * 1;
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && BB.activeSelf == true && dodge != true && kick != true)
+            if (BB.activeSelf == true && dodge != true && kick != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 AttackTime = 1.2f;
@@ -1464,7 +1497,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(0, 0, 0);
             }
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && SBB.activeSelf == true && dodge != true && kick != true)
+            if (SBB.activeSelf == true && dodge != true && kick != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 AttackTime = 1.2f;
@@ -1472,7 +1505,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(0, 0, 0);
             }
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && SS.activeSelf == true && dodge != true && kick != true)
+            if (SS.activeSelf == true && dodge != true && kick != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 AttackTime = 0.5f;
@@ -1480,7 +1513,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(0, 0, 0);
             }
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && SSPV.activeSelf == true && dodge != true && kick != true)
+            if (SSPV.activeSelf == true && dodge != true && kick != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 AttackTime = 0.5f;
@@ -1488,7 +1521,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(0, 0, 0);
             }
 
-            if (GameObject.FindWithTag("PlayerAttack") == null && AR.activeSelf == true && dodge != true && kick != true)
+            if (AR.activeSelf == true && dodge != true && kick != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 AttackTime = 0.5f;
