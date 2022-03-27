@@ -16,10 +16,36 @@ public class EnemyStats : MonoBehaviour
     public bool notstunned = false;
     bool noted;
 
+    public int itemnum;
+
     public float lungetimer;
     public Transform EnemyMesh;
 
     public Animator EnemyAnimator;
+
+    public GameObject AR;
+    public GameObject BB;
+    public GameObject B;
+    public GameObject C;
+    public GameObject FF;
+    public GameObject FP;
+    public GameObject GC;
+    public GameObject KK;
+    public GameObject LDLS;
+    public GameObject S;
+    public GameObject SBB;
+    public GameObject SH;
+    public GameObject SS;
+    public GameObject SSPV;
+    public GameObject UB;
+    public GameObject WAMH;
+    public GameObject D;
+    public GameObject SB;
+
+    private void Awake()
+    {
+        itemnum = Random.Range(1, 7);
+    }
 
     void Update()
     {
@@ -72,11 +98,13 @@ public class EnemyStats : MonoBehaviour
             }
             else if (noted == true)
             {
+                spawnitem();
                 Destroy(gameObject);
                 GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = true;
             }
             else
             {
+                spawnitem();
                 Destroy(gameObject);
             }
         }
@@ -996,6 +1024,39 @@ public class EnemyStats : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, Time.deltaTime * 99).eulerAngles;
         this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+    }
+
+    public void spawnitem()
+    {
+        if (itemnum == 1)
+        {
+            Instantiate(AR, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 2)
+        {
+            Instantiate(BB, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 3)
+        {
+            Instantiate(B, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 4)
+        {
+            Instantiate(SS, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 5)
+        {
+            Instantiate(SBB, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 6)
+        {
+            Instantiate(SSPV, transform.position, transform.rotation);
+        }
     }
 }
 

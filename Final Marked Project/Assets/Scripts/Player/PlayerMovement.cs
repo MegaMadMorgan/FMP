@@ -128,6 +128,9 @@ public class PlayerMovement : MonoBehaviour
         PlayerAnimator.applyRootMotion = false;
         Cam = Camera.main;
         stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
+
+        // throwaway line for the beta
+        WeaponActiveNum = 2;
     }
 
     private void OnEnable()
@@ -157,6 +160,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+
+
+
         Rigidbody rb = GetComponent<Rigidbody>();
         if (PauseMenu.GameIsPaused == false)
         {
@@ -175,11 +181,6 @@ public class PlayerMovement : MonoBehaviour
             if (PowerMeter > 3.96 && PowerMeter != 4)
             {
                 PowerMeter = 4;
-            }
-
-            if (Health <= 0)
-            {
-                GameObject.Find("GameManager").GetComponent<TimeManager>().DoSlowMotion();
             }
             #endregion
 
@@ -225,8 +226,6 @@ public class PlayerMovement : MonoBehaviour
                 AttackRepeatTimer -= Time.deltaTime;
             }
             #endregion
-
-
 
             #region movement
 

@@ -200,6 +200,24 @@ MonoBehaviour:
   lungetimer: 0
   EnemyMesh: {fileID: 1817326073498719399}
   EnemyAnimator: {fileID: 5753450486196834013}
+  AR: {fileID: 6619756690899153370, guid: 11deae8480774e54fab05a65b291583a, type: 3}
+  BB: {fileID: 6217000117354906961, guid: 5bbc814c85b43bd469039b2fabb0cb17, type: 3}
+  B: {fileID: 4312518766310831654, guid: 6e2c9b82b9845ae418031f31a691b71b, type: 3}
+  C: {fileID: 0}
+  FF: {fileID: 0}
+  FP: {fileID: 0}
+  GC: {fileID: 0}
+  KK: {fileID: 0}
+  LDLS: {fileID: 0}
+  S: {fileID: 0}
+  SBB: {fileID: 4744875072539618029, guid: 83208aa4991c9414bb484a8895a36a9f, type: 3}
+  SH: {fileID: 0}
+  SS: {fileID: 5144499244367671884, guid: 133ada47827dd3641b5d6bf7b141875d, type: 3}
+  SSPV: {fileID: 8133797323072776663, guid: fb09070d941c2864480c486e7d4b53a8, type: 3}
+  UB: {fileID: 0}
+  WAMH: {fileID: 0}
+  D: {fileID: 0}
+  SB: {fileID: 0}
 --- !u!195 &4384002533841827980
 NavMeshAgent:
   m_ObjectHideFlags: 0

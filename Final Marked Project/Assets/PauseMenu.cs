@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject PauseMenuUI;
     public GameObject OptionsMenuUI;
     public GameObject ControlsMenuUI;
-    public GameObject Player;
+    public Image health;
 
     private InputAction Pa; // pause
     PlayerActions controls;
@@ -21,6 +21,7 @@ public class PauseMenu : MonoBehaviour
 
     //if dead
     public TextMeshProUGUI ContRetry;
+    public TextMeshProUGUI Title;
 
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class PauseMenu : MonoBehaviour
     {
         Pa.started += ctx =>
         {
-            if (ctx.interaction is TapInteraction && tapReset <= 0 && Player.GetComponent<PlayerMovement>().Health >= 0.0001)
+            if (ctx.interaction is TapInteraction && tapReset <= 0 && health.fillAmount >= 0.0001)
             {
                 if (GameIsPaused == true)
                 {
@@ -48,14 +49,19 @@ public class PauseMenu : MonoBehaviour
             }
         };
 
-        if (Player.GetComponent<PlayerMovement>().Health <= 0.0001)
+        if (health.fillAmount <= 0.0001)
         {
-            Pause();
-            ContRetry.text = "RETRY?";
+            if (OptionsMenuUI.activeSelf == false && ControlsMenuUI.activeSelf == false)
+            {
+                Pause();
+            }
+                ContRetry.text = "RETRY?";
+            Title.text = "YOU DIED AT: WAVE " + GameObject.Find("GameManager").GetComponent<WaveManager>().WaveNum; 
         }
         else
         {
             ContRetry.text = "CONTINUE";
+            Title.text = "PAUSE MENU";
         }
 
         tapReset -= Time.fixedUnscaledDeltaTime;
@@ -76,7 +82,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        if (Player.GetComponent<PlayerMovement>().Health >= 0.0001)
+        if (health.fillAmount >= 0.0001)
         {
             PauseMenuUI.SetActive(false);
             OptionsMenuUI.SetActive(false);
@@ -86,15 +92,20 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
+            // reset game
             SceneManager.LoadScene("City_Centre");
         }
     }
 
     void Pause()
     {
-        if (Player.GetComponent<PlayerMovement>().Health >= 0.0001)
+        if (health.fillAmount >= 0.0001)
         {
             Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 0.15f;
         }
             PauseMenuUI.SetActive(true);
             GameIsPaused = true;

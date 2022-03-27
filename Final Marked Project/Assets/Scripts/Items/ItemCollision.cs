@@ -9,83 +9,91 @@ public class ItemCollision : MonoBehaviour
     private PlayerMovement ItemParentScript;
     public bool triggerrange = false;
     public int weaponnum;
+    public float existtimer = 12;
 
     private void Awake()
     {
-        
+        transform.rotation = Random.rotation;
     }
 
     private void Update()
     {
+        existtimer -= Time.deltaTime;
         ItemParent = GameObject.Find("Third-Person Player");
-        if (this.name == "Item Assault Rifle")
+        if (this.name == "Item Assault Rifle(Clone)" || this.name == "Item Assault Rifle")
         {
             weaponnum = 1;
         }
-        if (this.name == "Item Baseball Bat")
+        if (this.name == "Item Baseball Bat(Clone)" || this.name == "Item Baseball Bat")
         {
             weaponnum = 2;
         }
-        if (this.name == "Item Bottle")
+        if (this.name == "Item Bottle(Clone)" || this.name == "Item Bottle")
         {
             weaponnum = 3;
             ItemParent.GetComponent<PlayerMovement>().bottleShatterHP = 5;
         }
-        if (this.name == "Item Cleaver")
+        if (this.name == "Item Cleaver(Clone)" || this.name == "Item Cleaver")
         {
             weaponnum = 4;
         }
-        if (this.name == "Item Foam Finger")
+        if (this.name == "Item Foam Finger(Clone)" || this.name == "Item Foam Finger")
         {
             weaponnum = 5;
         }
-        if (this.name == "Item Frying Pan")
+        if (this.name == "Item Frying Pan(Clone)" || this.name == "Item Frying Pan")
         {
             weaponnum = 6;
         }
-        if (this.name == "Item Golf Club")
+        if (this.name == "Item Golf Club(Clone)" || this.name == "Item Golf Club")
         {
             weaponnum = 7;
         }
-        if (this.name == "Item Kitchen Knife")
+        if (this.name == "Item Kitchen Knife(Clone)" || this.name == "Item Kitchen Knife")
         {
             weaponnum = 8;
         }
-        if (this.name == "Item Legally Different Laser Sword")
+        if (this.name == "Item Legally Different Laser Sword(Clone)" || this.name == "Item Legally Different Laser Sword")
         {
             weaponnum = 9;
         }
-        if (this.name == "Item Sledgehammer")
+        if (this.name == "Item Sledgehammer(Clone)" || this.name == "Item Sledgehammer")
         {
             weaponnum = 10;
         }
-        if (this.name == "Item Spiked Baseball Bat")
+        if (this.name == "Item Spiked Baseball Bat(Clone)" || this.name == "Item Spiked Baseball Bat")
         {
             weaponnum = 11;
         }
-        if (this.name == "Item Squeaky Hammer")
+        if (this.name == "Item Squeaky Hammer(Clone)" || this.name == "Item Squeaky Hammer")
         {
             weaponnum = 12;
         }
-        if (this.name == "Item Stop Sign")
+        if (this.name == "Item Stop Sign(Clone)" || this.name == "Item Stop Sign")
         {
             weaponnum = 13;
         }
-        if (this.name == "Item Stop Sign Pizza Variant")
+        if (this.name == "Item Stop Sign Pizza Variant(Clone)" || this.name == "Item Stop Sign Pizza Variant")
         {
             weaponnum = 14;
         }
-        if (this.name == "Item Uber Blade")
+        if (this.name == "Item Uber Blade(Clone)" || this.name == "Item Uber Blade")
         {
             weaponnum = 15;
         }
-        if (this.name == "Item Whack-A-Mole Hammer")
+        if (this.name == "Item Whack-A-Mole Hammer(Clone)" || this.name == "Item Whack-A-Mole Hammer")
         {
             weaponnum = 16;
         }
-        if (this.name == "Item Dynamite")
+        if (this.name == "Item Dynamite(Clone)" || this.name == "Item Dynamite")
         {
             weaponnum = 17;
+        }
+
+
+        if (existtimer <= Time.deltaTime)
+        {
+            Destroy(gameObject);
         }
     }
 
