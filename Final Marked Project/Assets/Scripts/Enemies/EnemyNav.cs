@@ -63,9 +63,8 @@ public class EnemyNav : MonoBehaviour
 
         if (AttackResetTimer <= 0 && GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") == 6) { GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 0); }
 
-        if (TimeUntilAttack <= 0 && ReadyingAttack == true)
+        if (TimeUntilAttack <= 0 && ReadyingAttack == true && player.GetComponent<PlayerMovement>().Health >= 0.0001)
         {
-            Debug.Log("Attack");
             GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 6);
             AttackResetTimer = 1.25f;
             ReadyingAttack = false;

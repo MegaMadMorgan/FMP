@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float Super4Timer;
     public float SpressTimer = 0;
 
-    //public Transform Cam;
+    public float PlayerDamagedTimer;
 
     public Animator PlayerAnimator;
 
@@ -151,12 +151,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         Movement.Disable();
-        
+
         a2.Disable();
     }
 
     private void Update()
     {
+        Rigidbody rb = GetComponent<Rigidbody>();
         if (PauseMenu.GameIsPaused == false)
         {
             #region Health Bar & Power Meter
@@ -174,6 +175,11 @@ public class PlayerMovement : MonoBehaviour
             if (PowerMeter > 3.96 && PowerMeter != 4)
             {
                 PowerMeter = 4;
+            }
+
+            if (Health <= 0)
+            {
+                GameObject.Find("GameManager").GetComponent<TimeManager>().DoSlowMotion();
             }
             #endregion
 
@@ -218,8 +224,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 AttackRepeatTimer -= Time.deltaTime;
             }
-
             #endregion
+
+
 
             #region movement
 
@@ -228,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
             Vector2 inputVector = controls.PlayerCon.Movement.ReadValue<Vector2>();
             //Movement(new Vector3(inputVector.x, 0.0f, inputVector.y));
 
-            Rigidbody rb = GetComponent<Rigidbody>();
+            
 
 
             float HorizontalInput = MoveVec.x;
@@ -255,7 +262,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 MoveDirection = forward * VerticalInput + right * HorizontalInput;
             Vector3 DMoveDirection = forward;
 
-            if (AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false)
+            if (AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
             {
 
                 //rb.velocity = new Vector3(MoveDirection.x * speed, rb.velocity.y, MoveDirection.z * speed);
@@ -290,6 +297,17 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //stepClimb();
+            #endregion
+
+            #region TakingDamage
+
+            PlayerDamagedTimer -= Time.deltaTime;
+
+            if (PlayerDamagedTimer >= 0.0001)
+            {
+                rb.velocity = new Vector3(-PlayerMesh.forward.x * 3, rb.velocity.y, -PlayerMesh.forward.z * 3);
+            }
+
             #endregion
 
             #region weapon active number
@@ -694,7 +712,7 @@ public class PlayerMovement : MonoBehaviour
             #region super attack 1
             s1.started += ctx =>
             {
-                if (SpressTimer <= 0.001f && PowerMeter >= 1)
+                if (SpressTimer <= 0.001f && PowerMeter >= 1 && AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
                 {
                     PowerMeter -= 1;
                     Health += 10;
@@ -711,7 +729,7 @@ public class PlayerMovement : MonoBehaviour
             #region super attack 2
             s2.started += ctx =>
             {
-                if (SpressTimer <= 0.001f && PowerMeter >= 2)
+                if (SpressTimer <= 0.001f && PowerMeter >= 2 && AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
                 {
                     Super2Timer = 5;
                     PowerMeter -= 1;
@@ -751,7 +769,7 @@ public class PlayerMovement : MonoBehaviour
             #region super attack 3
             s3.started += ctx =>
             {
-                if (SpressTimer <= 0.001f && PowerMeter >= 3)
+                if (SpressTimer <= 0.001f && PowerMeter >= 3 && AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
                 {
                     Super3Timer = 2;
                     PowerMeter -= 3;
@@ -773,7 +791,7 @@ public class PlayerMovement : MonoBehaviour
             #region super attack 4
             s4.started += ctx =>
             {
-                if (SpressTimer <= 0.001f && PowerMeter >= 4)
+                if (SpressTimer <= 0.001f && PowerMeter >= 4 && AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
                 {
                     Super4Timer = 5;
                     PowerMeter -= 4;
@@ -861,10 +879,10 @@ public class PlayerMovement : MonoBehaviour
 
             a2.started += ctx =>
             {
-                if (ctx.interaction is HoldInteraction && AttackTime <= 0 && nomoves == true && Attack2Charging == false && dodge == false && kick == false)
+                if (ctx.interaction is HoldInteraction && AttackTime <= 0 && nomoves == true && Attack2Charging == false && dodge == false && kick == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
                 {
-                //charging
-                if (BB.activeSelf == true && attackhit == 0)
+                    //charging
+                    if (BB.activeSelf == true && attackhit == 0)
                     {
                         Attack2Charging = true;
                         PlayerAnimator.SetInteger("Anim", 5);
@@ -1237,9 +1255,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void attack1()
     {
-        if (PauseMenu.GameIsPaused == false)
+        if (PauseMenu.GameIsPaused == false && Health >= 0.0001)
         {
-            if (Attack2Charging == false && Super2Timer < 0.001)
+            if (Attack2Charging == false && Super2Timer < 0.001 && PlayerDamagedTimer <= 0)
             {
                 Vector3 playerPos = this.transform.position;
                 Vector3 playerDirection = this.transform.forward;
@@ -1441,7 +1459,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void attack2()
     {
-        if (PauseMenu.GameIsPaused == false)
+        if (PauseMenu.GameIsPaused == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
         {
             if (BB.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
             {
@@ -1504,7 +1522,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void attack3()
     {
-        if (PauseMenu.GameIsPaused == false)
+        if (PauseMenu.GameIsPaused == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
         {
             Vector3 playerPos = this.transform.position;
             Vector3 playerDirection = this.transform.forward;
@@ -1563,7 +1581,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dodge()
     {
-        if (nomoves == true && dodge == false && PauseMenu.GameIsPaused == false)
+        if (nomoves == true && dodge == false && PauseMenu.GameIsPaused == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
         {
             dodge = true;
             PlayerAnimator.SetInteger("Anim", 3);
@@ -1572,7 +1590,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Kicking()
     {
-        if (nomoves == true && kick == false && PauseMenu.GameIsPaused == false)
+        if (nomoves == true && kick == false && PauseMenu.GameIsPaused == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
         {
             kick = true;
             PlayerAnimator.SetInteger("Anim", 2);
@@ -1580,4 +1598,24 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    void OnTriggerEnter(Collider collision)
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (collision.tag == "PlayerDamage" && PlayerDamagedTimer <= 0.75f && PlayerAnimator.GetInteger("Anim") != 25 && dodge == false && Health >= 0.0001)
+        {
+            if (collision.name == "BouncerAHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 20;
+            }
+
+            if (collision.name == "ChaserAHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 20;
+            }
+        }
+    }
 }

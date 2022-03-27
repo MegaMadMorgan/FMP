@@ -12,7 +12,19 @@ public class ChaserAttack : MonoBehaviour
 
     void attack()
     {
-        //Quaternion enemyRotation = this.transform.rotation;
-        //Instantiate(Attack, transform.position, enemyRotation);
+        Attack.SetActive(true);
+    }
+
+    void stopattack()
+    {
+        Attack.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") != 6)
+        {
+            Attack.SetActive(false);
+        }
     }
 }
