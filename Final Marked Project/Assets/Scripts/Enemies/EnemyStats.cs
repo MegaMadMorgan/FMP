@@ -16,6 +16,9 @@ public class EnemyStats : MonoBehaviour
     public bool notstunned = false;
     bool noted;
 
+    public float lungetimer;
+    public Transform EnemyMesh;
+
     public Animator EnemyAnimator;
 
     void Update()
@@ -38,15 +41,26 @@ public class EnemyStats : MonoBehaviour
         {
             Stun = 0;
             stunframe = 0;
-            EnemyAnimator.SetInteger("EAnim", 0);
-            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)")
+            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && lungetimer <= 0)
             {
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 gameObject.GetComponent<EnemyNav>().enabled = true;
             }
+            else
+            {
+                if (lungetimer <= 0)
+                {
+                    EnemyAnimator.SetInteger("EAnim", 0);
+                }
+            }
             notstunned = true;
         }
 
+        if (name == "Chaser" || name == "Chaser(Clone)")
+        if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true)
+        {
+            EnemyAnimator.SetInteger("EAnim", 5);
+        }
 
 
         if (health <= 0) 
@@ -64,6 +78,17 @@ public class EnemyStats : MonoBehaviour
             else
             {
                 Destroy(gameObject);
+            }
+        }
+
+        if (name == "Chaser" || name == "Chaser(Clone)")
+        {
+            if (lungetimer > 0) { lungetimer -= Time.deltaTime; rb.velocity = new Vector3(EnemyMesh.forward.x * 5, rb.velocity.y, EnemyMesh.forward.z * 5); gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                gameObject.GetComponent<EnemyNav>().enabled = false;
+            }
+            if (lungetimer < 0 && notstunned == true)
+            { lungetimer = 0; gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                gameObject.GetComponent<EnemyNav>().enabled = true;
             }
         }
     }

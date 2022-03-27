@@ -255,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 MoveDirection = forward * VerticalInput + right * HorizontalInput;
             Vector3 DMoveDirection = forward;
 
-            if (AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false)
+            if (AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && nomoves == true)
             {
 
                 //rb.velocity = new Vector3(MoveDirection.x * speed, rb.velocity.y, MoveDirection.z * speed);
@@ -278,6 +278,8 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 Physics.gravity = new Vector3(0, -30F, 0);
+
+
 
                 if (MoveDirection != new Vector3(0, 0, 0))
                 {

@@ -17,10 +17,18 @@ public class EnemyNav : MonoBehaviour
     public Vector3 WalkPoint;
     bool WalkPointSet;
     public float WalkPointRange;
+    public float WalkPointIdleTimer;
 
     //Attacking
     public float TimeBetweenAttacks;
-    bool AlreadyAttacked;
+    public bool AlreadyAttacked;
+
+    public bool ReadyingAttack = false;
+    public float TimeUntilAttack;
+    public float AttackResetTimer;
+    public Rigidbody rb;
+
+    Quaternion rotato;
 
     //States
     public float SightRange, AttackRange;
@@ -30,6 +38,7 @@ public class EnemyNav : MonoBehaviour
     {
         player = GameObject.Find("Third-Person Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        agent.angularSpeed = 999;
     }
 
     private void Update()
@@ -38,28 +47,52 @@ public class EnemyNav : MonoBehaviour
         PlayerInSightRange = Physics.CheckSphere(transform.position, SightRange, WhatIsPlayer);
         PlayerInAttackRange = Physics.CheckSphere(transform.position, AttackRange, WhatIsPlayer);
 
-        if (!PlayerInSightRange && !PlayerInAttackRange) { Patroling(); }
-        if (PlayerInSightRange && !PlayerInAttackRange) { ChasePlayer(); }
-        if (PlayerInSightRange && PlayerInAttackRange) { AttackPlayer(); }
+        if (!(GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") == 1 || GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") == 2 || GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") == 6))
+        {
+            if (!(GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") == 5))
+            {
+                if (!PlayerInSightRange && !PlayerInAttackRange) { Patroling(); }
+                if (PlayerInSightRange && !PlayerInAttackRange) { ChasePlayer(); }
+            }
+            if (PlayerInSightRange && PlayerInAttackRange) { AttackPlayer(); }
+        }
+
+        if (WalkPointIdleTimer > 0) { WalkPointIdleTimer -= Time.deltaTime; } else { WalkPointIdleTimer = 0; }
+        if (TimeUntilAttack > 0) { TimeUntilAttack -= Time.deltaTime; } else { TimeUntilAttack = 0; }
+        if (AttackResetTimer > 0) { AttackResetTimer -= Time.deltaTime; } else { AttackResetTimer = 0; }
+
+        if (AttackResetTimer <= 0 && GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") == 6) { GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 0); }
+
+        if (TimeUntilAttack <= 0 && ReadyingAttack == true)
+        {
+            Debug.Log("Attack");
+            GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 6);
+            AttackResetTimer = 1.25f;
+            ReadyingAttack = false;
+        }
     }
 
     private void Patroling()
     {
+        agent.speed = 2;
         EnemyStats ES = GetComponent<EnemyStats>();
-        if (ES.Stun <= 0)
+        if (ES.notstunned == true)
         {
-            if (!WalkPointSet) { SearchWalkPoint(); }
+            if (!WalkPointSet && WalkPointIdleTimer <= 0) { SearchWalkPoint(); }
 
             if (WalkPointSet)
             {
                 agent.SetDestination(WalkPoint);
             }
 
+            if (WalkPointIdleTimer <= 0) { GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 4); } else { GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 0); }
+
             Vector3 DistanceToWalkPoint = transform.position - WalkPoint;
 
             //WalkPoint reached
             if (DistanceToWalkPoint.magnitude < 1f)
             {
+                if (WalkPointIdleTimer <= 0) { WalkPointIdleTimer = Random.Range(1, 4); }
                 WalkPointSet = false;
             }
 
@@ -71,8 +104,8 @@ public class EnemyNav : MonoBehaviour
     private void SearchWalkPoint()
     {
         //calculate random point in range
-        float RandomZ = Random.Range(-WalkPointRange, WalkPointRange);
-        float RandomX = Random.Range(-WalkPointRange, WalkPointRange);
+        float RandomZ = Random.Range(-WalkPointRange-3, WalkPointRange+3);
+        float RandomX = Random.Range(-WalkPointRange-3, WalkPointRange+3);
 
         WalkPoint = new Vector3(transform.position.x + RandomX, transform.position.y, transform.position.z + RandomZ);
 
@@ -84,9 +117,11 @@ public class EnemyNav : MonoBehaviour
 
     private void ChasePlayer()
     {
+        agent.speed = 5;
         EnemyStats ES = GetComponent<EnemyStats>();
-        if (ES.Stun <= 0)
+        if (ES.notstunned == true)
         {
+            GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 3);
             agent.SetDestination(player.position);
             State = "Chasing";
            // gameObject.GetComponent<NavMeshAgent>().enabled = true;
@@ -96,16 +131,31 @@ public class EnemyNav : MonoBehaviour
     private void AttackPlayer()
     {
         EnemyStats ES = GetComponent<EnemyStats>();
-        if (ES.Stun <= 0)
+        if (ES.notstunned == true)
         {
 
             // stop enemy from moving
-            agent.SetDestination(transform.position);
+
             // gameObject.GetComponent<NavMeshAgent>().enabled = false;
 
-            if (this.transform.position.y <= GameObject.Find("Third-Person Player").transform.position.y + 0.1f && this.transform.position.y >= GameObject.Find("Third-Person Player").transform.position.y - 0.1f)
-            {
-                transform.LookAt(player);
+            //if (this.transform.position.y <= GameObject.Find("Third-Person Player").transform.position.y + 0.1f && this.transform.position.y >= GameObject.Find("Third-Person Player").transform.position.y - 0.1f)
+            //{
+            
+
+                if (ReadyingAttack == false && AttackResetTimer <= 0) { TimeUntilAttack = Random.Range(1, 2); agent.SetDestination(transform.position); }
+
+                if (TimeUntilAttack >= 0.0001)
+                {
+                    ReadyingAttack = true;
+                    GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 5);
+
+                Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
+                Quaternion lookRotation = Quaternion.LookRotation(dir);
+                Vector3 rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, Time.deltaTime * 99).eulerAngles;
+                this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+                }
+
+
             }
 
             if (!AlreadyAttacked)
@@ -117,7 +167,7 @@ public class EnemyNav : MonoBehaviour
             }
 
             State = "Attacking";
-        }
+        //}
     }
 
     private void ResetAttack()
