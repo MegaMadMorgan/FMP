@@ -11,9 +11,9 @@ public class GetPowerNum : MonoBehaviour
 
     void Update()
     {
-        if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter <= 3.95f)
+        if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter < 4)
         {
-            CurrentPower.text = GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter.ToString("0.0");
+            CurrentPower.text = GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter.ToString("0.00");
         }
         else
         {

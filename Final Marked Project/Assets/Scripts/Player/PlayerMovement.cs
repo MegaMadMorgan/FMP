@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float Super2Timer;
     public float Super3Timer;
+    public float Super4Timer;
     public float SpressTimer = 0;
 
     //public Transform Cam;
@@ -168,6 +169,11 @@ public class PlayerMovement : MonoBehaviour
             if (Health >= MaxHealth)
             {
                 Health = 100;
+            }
+
+            if (PowerMeter > 3.96 && PowerMeter != 4)
+            {
+                PowerMeter = 4;
             }
             #endregion
 
@@ -686,9 +692,8 @@ public class PlayerMovement : MonoBehaviour
             #region super attack 1
             s1.started += ctx =>
             {
-                if (SpressTimer <= 0.001f)
+                if (SpressTimer <= 0.001f && PowerMeter >= 1)
                 {
-                    //Super1Timer = 5;
                     PowerMeter -= 1;
                     Health += 10;
                     SpressTimer = 0.2f;
@@ -704,7 +709,7 @@ public class PlayerMovement : MonoBehaviour
             #region super attack 2
             s2.started += ctx =>
             {
-                if (SpressTimer <= 0.001f)
+                if (SpressTimer <= 0.001f && PowerMeter >= 2)
                 {
                     Super2Timer = 5;
                     PowerMeter -= 1;
@@ -744,7 +749,7 @@ public class PlayerMovement : MonoBehaviour
             #region super attack 3
             s3.started += ctx =>
             {
-                if (SpressTimer <= 0.001f)
+                if (SpressTimer <= 0.001f && PowerMeter >= 3)
                 {
                     Super3Timer = 2;
                     PowerMeter -= 3;
@@ -764,13 +769,28 @@ public class PlayerMovement : MonoBehaviour
             #endregion
 
             #region super attack 4
-            s1.started += ctx =>
+            s4.started += ctx =>
             {
-                if (ctx.interaction is TapInteraction)
+                if (SpressTimer <= 0.001f && PowerMeter >= 4)
                 {
-
+                    Super4Timer = 5;
+                    PowerMeter -= 4;
+                    SpressTimer = 0.2f;
+                    if (gameObject.GetComponent<EnemyLockOn>().temp == false)
+                    {
+                        gameObject.GetComponent<EnemyLockOn>().temp = true;
+                    }
                 }
             };
+
+            if (Super4Timer >= 0.001)
+            {
+                Super4Timer -= Time.deltaTime;
+                if (Super4Timer >= 1.45)
+                {
+                    PlayerAnimator.SetInteger("Anim", 24);
+                }
+            }
             #endregion
 
             #region dodge

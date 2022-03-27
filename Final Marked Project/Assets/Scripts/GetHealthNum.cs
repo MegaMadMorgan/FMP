@@ -11,7 +11,7 @@ public class GetHealthNum : MonoBehaviour
 
     void Update()
     {
-        if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().Health <= 99.5f)
+        if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().Health != 100)
         {
             CurrentHealth.text = GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().Health.ToString("0");
         }

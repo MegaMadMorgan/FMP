@@ -7,35 +7,47 @@ public class EnemyStats : MonoBehaviour
 {
     public float health;
     public float Stun;
+    public int stunframe = 0;
     //bool isGrounded;
     public NavMeshAgent agent;
     public Rigidbody rb;
     //bool isColliding;
     public float recollision;
+    public bool notstunned = false;
     bool noted;
+
+    public Animator EnemyAnimator;
 
     void Update()
     {
+        recollision -= Time.deltaTime;
         if (Stun > 0 || !GroundCheck())
         {
-            if (Stun > 0)
+            Stun -= Time.deltaTime;
+            notstunned = false;
+
+
+            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)")
             {
-                Stun -= Time.deltaTime;
+                gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                gameObject.GetComponent<EnemyNav>().enabled = false;
             }
-            else
-            {
-                Stun = 0;
-            }
-            //rb.isKinematic = false;
-            gameObject.GetComponent<NavMeshAgent>().enabled = false;
-            gameObject.GetComponent<EnemyNav>().enabled = false;
         }
-        else
+
+        if (Stun <= 0 && GroundCheck())
         {
-            //rb.isKinematic = true;
-            gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            gameObject.GetComponent<EnemyNav>().enabled = true;
+            Stun = 0;
+            stunframe = 0;
+            EnemyAnimator.SetInteger("EAnim", 0);
+            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)")
+            {
+                gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                gameObject.GetComponent<EnemyNav>().enabled = true;
+            }
+            notstunned = true;
         }
+
+
 
         if (health <= 0) 
         {
@@ -54,11 +66,6 @@ public class EnemyStats : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-
-        recollision -= Time.deltaTime;
-
-        ////isColliding = false;
-        //Debug.Log(GroundCheck());
     }
 
     //power growth dynamic
@@ -68,12 +75,11 @@ public class EnemyStats : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        //if (isColliding) return;
-        //isColliding = true;
-
         Rigidbody rb = GetComponent<Rigidbody>();
 
-        //yeet = new Vector3(0f, 0f, 0f).normalized;
+        //transform.LookAt(GameObject.Find("Third-Person Player").transform, new Vector3(0,0,0));
+
+
 
         if (collision.tag == "PlayerAttack")
         {
@@ -87,6 +93,8 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
+
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 16, ForceMode.Impulse); // was direction
@@ -109,6 +117,8 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -126,6 +136,8 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
+
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -145,6 +157,8 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 16, 0, ForceMode.Impulse);
@@ -162,6 +176,8 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
+
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 8, ForceMode.Impulse); // was direction
@@ -181,6 +197,8 @@ public class EnemyStats : MonoBehaviour
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
 
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 24, 0, ForceMode.Impulse);
@@ -198,6 +216,8 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
+
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
@@ -220,6 +240,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -237,6 +260,9 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
+
+                
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -256,6 +282,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1.0f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 10, 0, ForceMode.Impulse);
@@ -273,6 +302,9 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
+
+                
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 8, ForceMode.Impulse); // was direction
@@ -292,6 +324,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -309,6 +344,9 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
+
+                
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
@@ -330,6 +368,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 2f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -347,6 +388,9 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
+
+                
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -366,6 +410,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -383,6 +430,9 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
+
+                
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 9, ForceMode.Impulse); // was direction
@@ -402,6 +452,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -419,6 +472,9 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
+
+                
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 4, ForceMode.Impulse); // was direction
@@ -441,6 +497,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -458,6 +517,9 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
+
+                
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
@@ -477,6 +539,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -495,6 +560,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 20, 0, ForceMode.Impulse);
@@ -512,6 +580,9 @@ public class EnemyStats : MonoBehaviour
                 Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                 direction = -direction.normalized;
+
+                
+                StunFrameSwitch();
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
@@ -537,6 +608,9 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    
+                    StunFrameSwitch();
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -554,6 +628,9 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    
+                    StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -576,6 +653,9 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    
+                    StunFrameSwitch();
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -593,6 +673,9 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    
+                    StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -615,6 +698,9 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    
+                    StunFrameSwitch();
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 18.5f, 0, ForceMode.Impulse);
@@ -632,6 +718,9 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    
+                    StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse); // was direction
@@ -654,6 +743,9 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    
+                    StunFrameSwitch();
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
@@ -671,6 +763,9 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    
+                    StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0, ForceMode.Impulse); // was direction
@@ -693,6 +788,9 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    
+                    StunFrameSwitch();
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
@@ -710,6 +808,9 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
+
+                    
+                    StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
@@ -732,6 +833,9 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    
+                    StunFrameSwitch();
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -749,6 +853,9 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
+
+                    
+                    StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
@@ -770,6 +877,9 @@ public class EnemyStats : MonoBehaviour
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 18, 0, ForceMode.Impulse);
@@ -787,19 +897,80 @@ public class EnemyStats : MonoBehaviour
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
 
+                
+                StunFrameSwitch();
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 18, 0, ForceMode.Impulse);
                 recollision = 0.4f;
                 Stun = 0.6f;
             }
+
+            if (collision.name == "PepperoniPizza(Clone)" && GameObject.Find("PepperoniPizza(Clone)").GetComponent<Pizza>().existtimer >= 4) // (Clone)
+            {
+                health -= 100;
+
+                Vector3 knockback = collision.transform.forward;
+
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
+
+                
+                StunFrameSwitch();
+
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 18, 0, ForceMode.Impulse);
+                recollision = 0.4f;
+                Stun = 0.6f;
+            }
+            if (collision.name == "PepperoniPizza")
+            {
+                health -= 1;
+
+                Vector3 knockback = collision.transform.forward;
+
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
+
+                
+                StunFrameSwitch();
+
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(knockback * 16, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                recollision = 0.1f;
+                Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
+            }
         }
     }
 
 
-    bool GroundCheck()
+    public bool GroundCheck()
     {
         return Physics.Raycast(transform.position, Vector3.down, 1.05f);
+    }
+
+    void StunFrameSwitch()
+    {
+        stunframe += 1;
+        if (stunframe % 2 == 0)
+        {
+            EnemyAnimator.SetInteger("EAnim", 1);
+        }
+        else
+        {
+            EnemyAnimator.SetInteger("EAnim", 2);
+        }
+
+        Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, Time.deltaTime * 99).eulerAngles;
+        this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 }
 
