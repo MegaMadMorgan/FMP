@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &6603926236602916965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511421378265647396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a237d1f608eae44ab56276127fd679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Attack: {fileID: 0}
 --- !u!1 &4637529144015031406
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +332,7 @@ MonoBehaviour:
   TimeUntilAttack: 0
   AttackResetTimer: 0
   rb: {fileID: 4637529144589627625}
-  SightRange: 8
+  SightRange: 12
   AttackRange: 4
   PlayerInSightRange: 0
   PlayerInAttackRange: 0
@@ -337,19 +350,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camWeight: 1.5
   camRadius: 4
---- !u!114 &6603926236602916965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511421378265647396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5a237d1f608eae44ab56276127fd679, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Attack: {fileID: 0}
 --- !u!1001 &1745369627107112053
 PrefabInstance:
   m_ObjectHideFlags: 0
