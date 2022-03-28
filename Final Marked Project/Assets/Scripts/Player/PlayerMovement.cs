@@ -1605,6 +1605,8 @@ public class PlayerMovement : MonoBehaviour
             if (collision.name == "BouncerAHB")
             {
                 PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 20;
             }
@@ -1612,6 +1614,8 @@ public class PlayerMovement : MonoBehaviour
             if (collision.name == "ChaserAHB")
             {
                 PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 20;
             }
