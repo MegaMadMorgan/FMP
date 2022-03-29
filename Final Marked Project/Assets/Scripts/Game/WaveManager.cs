@@ -19,7 +19,9 @@ public class WaveManager : MonoBehaviour
     private float SpawnRangeZmax;
     private int multiaxis = 0; // mechanism for complicated enviroments
 
-    public GameObject enemy;
+    public GameObject Bouncer;
+    public GameObject Chaser;
+    public int whichenemy = 0;
 
     void Update()
     {
@@ -68,6 +70,17 @@ public class WaveManager : MonoBehaviour
         {
             if (GameObject.FindGameObjectsWithTag("Enemy").Length <= WaveNum - 1) // 0.1
             {
+                whichenemy = Random.Range(0, 2);
+                GameObject enemy = null;
+                if (whichenemy == 0)
+                {
+                    enemy = Bouncer;
+                }
+                if (whichenemy == 1)
+                {
+                    enemy = Chaser;
+                }
+
                 if (multiaxis == 1) 
                 { 
                     multiaxis = 0;
