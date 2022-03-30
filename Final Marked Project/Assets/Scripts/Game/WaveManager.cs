@@ -22,6 +22,7 @@ public class WaveManager : MonoBehaviour
     public GameObject Bouncer;
     public GameObject Chaser;
     public GameObject Defender;
+    public GameObject Bigger;
     public int whichenemy = 0;
 
     void Update()
@@ -71,55 +72,34 @@ public class WaveManager : MonoBehaviour
         {
             if (GameObject.FindGameObjectsWithTag("Enemy").Length <= WaveNum - 1) // 0.1
             {
-                whichenemy = Random.Range(0, 3);
+                whichenemy = Random.Range(0, 4);
                 GameObject enemy = null;
                 if (whichenemy == 0)
                 {
                     enemy = Bouncer;
-                    if (multiaxis == 1)
-                    {
-                        multiaxis = 0;
-                        Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), SpawnRangeY, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
-                    }
-                    else
-                    {
-                        multiaxis = 1;
-                        Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), SpawnRangeY, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
-                    }
                 }
                 if (whichenemy == 1)
                 {
                     enemy = Chaser;
-                    if (multiaxis == 1)
-                    {
-                        multiaxis = 0;
-                        Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), SpawnRangeY, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
-                    }
-                    else
-                    {
-                        multiaxis = 1;
-                        Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), SpawnRangeY, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
-                    }
                 }
                 if (whichenemy == 2)
                 {
                     enemy = Defender;
-                    if (multiaxis == 1)
-                    {
-                        float spawnx = Random.Range(SpawnRangeXmin + 5, SpawnRangeXmax - 5);
-                        float spawnz = Random.Range(SpawnRangeZmin + 5, SpawnRangeZmax - 5);
-                        Debug.Log("spawnpos: " + spawnx + " " + spawnz);
-                        multiaxis = 0;
-                        Instantiate(enemy, new Vector3(spawnx, SpawnRangeY, spawnz), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
-                    }
-                    else
-                    {
-                        float spawnx = Random.Range(SpawnRangeXmin + 5, SpawnRangeXmax - 5);
-                        float spawnz = Random.Range(SpawnRangeZmin + 5, SpawnRangeZmax - 5);
-                        Debug.Log("spawnpos: " + spawnx + " " + spawnz);
-                        multiaxis = 1;
-                        Instantiate(enemy, new Vector3(spawnx, SpawnRangeY, spawnz), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
-                    }
+                }
+                if (whichenemy == 3)
+                {
+                    enemy = Bigger;
+                }
+
+                if (multiaxis == 1)
+                {
+                    multiaxis = 0;
+                    Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), SpawnRangeY, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
+                }
+                else
+                {
+                    multiaxis = 1;
+                    Instantiate(enemy, new Vector3(Random.Range(SpawnRangeXmin, SpawnRangeXmax), SpawnRangeY, Random.Range(SpawnRangeZmin, SpawnRangeZmax)), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
                 }
             }
             else

@@ -145,29 +145,49 @@ public class EnemyStats : MonoBehaviour
         if (collision.tag == "PlayerAttack")
         {
                 #region kick
-                if (collision.name == "KickHB(Clone)")
+                if (collision.name == "KickHB(Clone)" && !(this.name == "Defender(Clone)" && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7)))
                 {
-                    health -= 1;
+                health -= 1;
 
-                    Vector3 knockback = collision.transform.forward;
+                Vector3 knockback = collision.transform.forward;
 
-                    Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
-                    direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
-                    direction = -direction.normalized;
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
 
-                    StunFrameSwitch();
+                StunFrameSwitch();
 
-                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
-                    rb.AddForce(knockback * 16, ForceMode.Impulse); // was direction
-                    rb.AddForce(0, 12, 0, ForceMode.Impulse);
-                    recollision = 0.1f;
-                    Stun = 0.6f;
-                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
-                }
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(knockback * 16, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                recollision = 0.1f;
+                Stun = 0.6f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
+            }
+
+            if (collision.name == "KickHB(Clone)" && this.name == "Defender(Clone)" && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7))
+            {
+                health -= 0.25f;
+
+                Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                direction = -direction.normalized;
+
+                StunFrameSwitch();
+
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                recollision = 0.2f;
+                Stun = 1.5f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+            }
             #endregion
 
             //blocking check
-            if (!((EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7) && name == "Defender"))
+            if (!((EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7) && (name == "Defender" || name == "Defender(Clone)")))
             {
                 #region Baseball Bat
 

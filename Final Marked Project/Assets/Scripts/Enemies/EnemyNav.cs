@@ -75,12 +75,23 @@ public class EnemyNav : MonoBehaviour
             {
                 AttackResetTimer = 0.8f;
             }
+            if (name == "Bigger" || name == "Bigger(Clone)")
+            {
+                AttackResetTimer = 2.75f;
+            }
             }
     }
 
     private void Patroling()
     {
-        agent.speed = 2;
+        if (this.name == "Bigger" || this.name == "Bigger(Clone)")
+        {
+            agent.speed = 1;
+        }
+        else
+        {
+            agent.speed = 2;
+        }
         EnemyStats ES = GetComponent<EnemyStats>();
         if (ES.notstunned == true)
         {
