@@ -21,6 +21,7 @@ public class WaveManager : MonoBehaviour
 
     public GameObject Bouncer;
     public GameObject Chaser;
+    public GameObject Defender;
     public int whichenemy = 0;
 
     void Update()
@@ -70,7 +71,7 @@ public class WaveManager : MonoBehaviour
         {
             if (GameObject.FindGameObjectsWithTag("Enemy").Length <= WaveNum - 1) // 0.1
             {
-                whichenemy = Random.Range(0, 2);
+                whichenemy = Random.Range(0, 3);
                 GameObject enemy = null;
                 if (whichenemy == 0)
                 {
@@ -79,6 +80,10 @@ public class WaveManager : MonoBehaviour
                 if (whichenemy == 1)
                 {
                     enemy = Chaser;
+                }
+                if (whichenemy == 2)
+                {
+                    enemy = Defender;
                 }
 
                 if (multiaxis == 1) 

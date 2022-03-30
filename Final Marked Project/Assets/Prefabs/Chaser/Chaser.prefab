@@ -197,6 +197,8 @@ MonoBehaviour:
   rb: {fileID: 5103094392747440080}
   recollision: 0
   notstunned: 0
+  bigcollisonrange: 1.05
+  itemnum: 0
   lungetimer: 0
   EnemyMesh: {fileID: 1817326073498719399}
   EnemyAnimator: {fileID: 5753450486196834013}

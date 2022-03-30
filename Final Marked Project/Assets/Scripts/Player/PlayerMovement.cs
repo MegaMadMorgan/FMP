@@ -1619,6 +1619,15 @@ public class PlayerMovement : MonoBehaviour
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 20;
             }
+
+            if (collision.name == "DefenderAHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 20;
+            }
         }
     }
 }

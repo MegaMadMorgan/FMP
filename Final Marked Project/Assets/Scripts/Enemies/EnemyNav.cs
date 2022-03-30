@@ -51,9 +51,9 @@ public class EnemyNav : MonoBehaviour
         {
             if (!(GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") == 5))
             {
-                if (!PlayerInSightRange && !PlayerInAttackRange) { Patroling(); }
                 if (PlayerInSightRange && !PlayerInAttackRange) { ChasePlayer(); }
             }
+            if (!PlayerInSightRange && !PlayerInAttackRange) { Patroling(); }
             if (PlayerInSightRange && PlayerInAttackRange) { AttackPlayer(); }
         }
 
@@ -66,9 +66,16 @@ public class EnemyNav : MonoBehaviour
         if (TimeUntilAttack <= 0 && ReadyingAttack == true && player.GetComponent<PlayerMovement>().Health >= 0.0001)
         {
             GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 6);
-            AttackResetTimer = 1.25f;
             ReadyingAttack = false;
-        }
+            if (name == "Chaser" || name == "Chaser(Clone)")
+            {
+                AttackResetTimer = 1.25f;
+            }
+            if (name == "Defender" || name == "Defender(Clone)")
+            {
+                AttackResetTimer = 0.8f;
+            }
+            }
     }
 
     private void Patroling()
@@ -82,6 +89,13 @@ public class EnemyNav : MonoBehaviour
             if (WalkPointSet)
             {
                 agent.SetDestination(WalkPoint);
+                if (GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") == 5)
+                {
+                    ReadyingAttack = false;
+                    AttackResetTimer = 0f;
+                    TimeUntilAttack = 0f;
+                    GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 0);
+                }
             }
 
             if (WalkPointIdleTimer <= 0) { GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 4); } else { GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 0); }
@@ -143,15 +157,20 @@ public class EnemyNav : MonoBehaviour
 
                 if (ReadyingAttack == false && AttackResetTimer <= 0) { TimeUntilAttack = Random.Range(1, 2); agent.SetDestination(transform.position); }
 
-                if (TimeUntilAttack >= 0.0001)
+                if (TimeUntilAttack >= 0.0001 && GetComponentInParent<EnemyStats>().recollision <= 0)
                 {
-                    ReadyingAttack = true;
-                    GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 5);
 
-                Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
-                Quaternion lookRotation = Quaternion.LookRotation(dir);
-                Vector3 rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, Time.deltaTime * 99).eulerAngles;
-                this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+                    if (GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") != 7)
+                    {
+                        ReadyingAttack = true;
+
+                        GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 5);
+                        
+                        Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
+                        Quaternion lookRotation = Quaternion.LookRotation(dir);
+                        Vector3 rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, Time.deltaTime * 99).eulerAngles;
+                        this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+                    }
                 }
 
 
