@@ -47,6 +47,7 @@ public class EnemyStats : MonoBehaviour
     private void Awake()
     {
         itemnum = Random.Range(1, 7);
+        Stun = 0.5f;
     }
 
     void Update()
