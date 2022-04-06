@@ -17,6 +17,7 @@ public class EnemyNav : MonoBehaviour
     public Vector3 WalkPoint;
     bool WalkPointSet;
     public float WalkPointRange;
+    public float WalktoPointTimer = 3.5f;
     public float WalkPointIdleTimer;
 
     //Attacking
@@ -99,6 +100,7 @@ public class EnemyNav : MonoBehaviour
 
             if (WalkPointSet)
             {
+                WalktoPointTimer -= Time.deltaTime;
                 agent.SetDestination(WalkPoint);
                 if (GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") == 5)
                 {
@@ -114,10 +116,11 @@ public class EnemyNav : MonoBehaviour
             Vector3 DistanceToWalkPoint = transform.position - WalkPoint;
 
             //WalkPoint reached
-            if (DistanceToWalkPoint.magnitude < 1f)
+            if (DistanceToWalkPoint.magnitude < 1f || WalktoPointTimer <= 0)
             {
                 if (WalkPointIdleTimer <= 0) { WalkPointIdleTimer = Random.Range(1, 4); }
                 WalkPointSet = false;
+                WalktoPointTimer = 3.5f;
             }
 
             State = "Patroling";
