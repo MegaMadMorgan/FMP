@@ -19,6 +19,7 @@ public class EnemyStats : MonoBehaviour
     bool noted;
 
     public Image Healthbar;
+    public GameObject healthbarimage;
 
     public float bigcollisonrange = 3.05f;
 
@@ -96,9 +97,17 @@ public class EnemyStats : MonoBehaviour
         {
             EnemyAnimator.SetInteger("EAnim", 5);
         }
+        //this is for showing the health bar
+        if (transform.Find("TargetingConePivot"))
+        {
+            healthbarimage.SetActive(true);
+        }
+        else
+        {
+            healthbarimage.SetActive(false);
+        }
 
-
-        if (health <= 0) 
+            if (health <= 0) 
         {
             if (transform.Find("TargetingConePivot"))
             {

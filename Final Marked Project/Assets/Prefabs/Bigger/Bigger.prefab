@@ -167,6 +167,7 @@ MonoBehaviour:
   recollision: 0
   notstunned: 0
   Healthbar: {fileID: 3692587344670216054}
+  healthbarimage: {fileID: 2735857359855405172}
   bigcollisonrange: 1.48
   itemnum: 0
   lungetimer: 0
@@ -235,6 +236,7 @@ MonoBehaviour:
   State: 
   WalkPoint: {x: 0, y: 0, z: 0}
   WalkPointRange: 5
+  WalktoPointTimer: 3.5
   WalkPointIdleTimer: 0
   TimeBetweenAttacks: 3
   AlreadyAttacked: 0

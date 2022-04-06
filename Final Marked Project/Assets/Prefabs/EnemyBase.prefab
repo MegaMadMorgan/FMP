@@ -334,6 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  maxhealth: 0
   Stun: 0
   stunframe: 0
   agent: {fileID: 7059609569460386917}
@@ -341,6 +342,7 @@ MonoBehaviour:
   recollision: 0
   notstunned: 0
   Healthbar: {fileID: 6519770391427889985}
+  healthbarimage: {fileID: 8917724506495642153}
   bigcollisonrange: 3.05
   itemnum: 0
   lungetimer: 0
@@ -409,6 +411,7 @@ MonoBehaviour:
   State: 
   WalkPoint: {x: 0, y: 0, z: 0}
   WalkPointRange: 5
+  WalktoPointTimer: 3.5
   WalkPointIdleTimer: 0
   TimeBetweenAttacks: 3
   AlreadyAttacked: 0
