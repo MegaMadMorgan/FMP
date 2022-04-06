@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class rotate : MonoBehaviour
 {
-    void Update()
+    void FixedUpdate()
     {
-        transform.RotateAround(this.transform.position, Vector3.down, 20 * Time.deltaTime);
+        transform.RotateAround(this.transform.position, Vector3.down, 10 * Time.deltaTime);
     }
 }

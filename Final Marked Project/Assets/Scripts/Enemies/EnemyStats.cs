@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyStats : MonoBehaviour
 {
     public float health;
+    public float maxhealth;
     public float Stun;
     public int stunframe = 0;
     //bool isGrounded;
@@ -15,6 +17,8 @@ public class EnemyStats : MonoBehaviour
     public float recollision;
     public bool notstunned = false;
     bool noted;
+
+    public Image Healthbar;
 
     public float bigcollisonrange = 3.05f;
 
@@ -48,10 +52,12 @@ public class EnemyStats : MonoBehaviour
     {
         itemnum = Random.Range(1, 7);
         Stun = 0.5f;
+        maxhealth = health;
     }
 
     void Update()
     {
+        Healthbar.fillAmount = health / maxhealth;
         recollision -= Time.deltaTime;
         if (Stun > 0 || !GroundCheck())
         {
