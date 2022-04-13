@@ -53,6 +53,12 @@ public class PlayerAttackAngle : MonoBehaviour
             Vector3 HBPos = playerPos + (playerDirection * 0.6f);
             transform.position += Vector3.forward;
         }
+        else if (this.gameObject.name == "FFA3(Clone)")
+        {
+            Vector3 HBPos = playerPos + (playerDirection * 0.6f);
+            HBPos.y += 5;
+            transform.position = HBPos;
+        }
         else
         {
             Vector3 HBPos = playerPos + (playerDirection * 0.6f);
@@ -147,6 +153,16 @@ public class PlayerAttackAngle : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // Foam Finger
+        if ((this.gameObject.name == "FF11(Clone)" || this.gameObject.name == "FF12(Clone)") && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 27)
+        {
+            Destroy(gameObject);
+        }
+
+        if ((this.gameObject.name == "FFA2(Clone)" || this.gameObject.name == "FFA3(Clone)") && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 28)
+        {
+            Destroy(gameObject);
+        }
 
         // timer end
         if (ExistTimer > 0)

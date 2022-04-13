@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AttackHitboxes : MonoBehaviour
 {
+    public Animator PlayerAnimator;
+
     public GameObject BBAttack11;
     public GameObject BBAttack12;
     public GameObject BBAttack13;
@@ -34,6 +36,10 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject BAttack21;
     public GameObject BAttack22;
     public GameObject BAttack3;
+    public GameObject FFAttack11;
+    public GameObject FFAttack12;
+    public GameObject FFAttack2;
+    public GameObject FFAttack3;
     public GameObject Headbutt;
     public GameObject PIZZA;
 
@@ -271,6 +277,51 @@ public class AttackHitboxes : MonoBehaviour
         rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
     }
     #endregion
+
+    public void FFA1Bounce()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 27)
+        {
+            Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+            rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
+        }
+    }
+
+    public void FFA11()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 27)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(FFAttack11, transform.position, playerRotation);
+        }
+    }
+
+    public void FFA12()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 27)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(FFAttack12, transform.position, playerRotation);
+        }
+    }
+
+    public void FFA2()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 28)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(FFAttack2, transform.position, playerRotation);
+        }
+    }
+
+    public void FFA3()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 28)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(FFAttack3, new Vector3(transform.position.x, transform.position.y + 5, transform.position.z) , playerRotation);
+        }
+    }
 
     #region Supers
     public void HeadButt()
