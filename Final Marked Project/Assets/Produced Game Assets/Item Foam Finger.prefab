@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8644304238267673156, guid: e897d7c5432d5ea46b98fd139b9f137b, type: 3}
+  - {fileID: 2100000, guid: 2a7849a23361593408b107fd23caf194, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -201,6 +201,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f0da6003-38a4-4df8-9f4a-139cbb504a8d
     m_ActionName: PlayerCon/Counter[/Keyboard/q,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 91e359e8-8cf6-496f-a819-e0bfaedef46b
+    m_ActionName: PlayerCon/Attack3[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c84850a3-92e1-4397-9d48-56a9b435098f
+    m_ActionName: PlayerCon/MovementLockOn[/Keyboard/z,/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 05f06ffd-5377-4e48-b01a-638492621017
+    m_ActionName: PlayerCon/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerCon
@@ -220,6 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerrange: 0
   weaponnum: 0
+  existtimer: 12
 --- !u!1 &699415765306445888
 GameObject:
   m_ObjectHideFlags: 0

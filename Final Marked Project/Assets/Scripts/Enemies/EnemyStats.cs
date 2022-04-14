@@ -30,6 +30,8 @@ public class EnemyStats : MonoBehaviour
 
     public Animator EnemyAnimator;
 
+    public GameObject StickyDynamite;
+
     public GameObject AR;
     public GameObject BB;
     public GameObject B;
@@ -174,7 +176,7 @@ public class EnemyStats : MonoBehaviour
 
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 16, ForceMode.Impulse); // was direction
-                rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                rb.AddForce(0, 7, 0, ForceMode.Impulse);
                 recollision = 0.1f;
                 Stun = 0.6f;
                 GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
@@ -1048,7 +1050,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(0, 15, 0, ForceMode.Impulse);
                     recollision = 0.4f;
                     Stun = 0.6f;
-                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
 
                 if (collision.name == "FFA3(Clone)")
@@ -1070,6 +1072,36 @@ public class EnemyStats : MonoBehaviour
                     Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
+                #endregion
+
+                #region Dynamite
+
+                if (collision.name == "DA1(Clone)")
+                {
+                    health -= 0.5f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+
+                    if (GameObject.Find("StickyDynamite(Clone)") == null)
+                    {
+                        var Stick = Instantiate(StickyDynamite, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+                        Stick.transform.parent = this.transform;
+                    }
+                }
+
                 #endregion
 
                 if (collision.name == "HeadButtHB(Clone)")
@@ -1158,6 +1190,26 @@ public class EnemyStats : MonoBehaviour
                 this.GetComponent<EnemyNav>().TimeUntilAttack += 0.5f;
                 EnemyAnimator.SetInteger("EAnim", 7);
                 recollision = 0.2f;
+            }
+
+            //if attack hits with and without shield up
+            if (collision.name == "ExplosionHitBox")
+            {
+                health -= 1.5f;
+
+                Vector3 knockback = collision.transform.forward;
+
+                Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                direction = -direction.normalized;
+
+                StunFrameSwitch();
+
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 15, 0, ForceMode.Impulse);
+                rb.AddForce(collision.transform.position - this.transform.position);
+                recollision = 0.4f;
+                Stun = 0.6f;
             }
         }
     }

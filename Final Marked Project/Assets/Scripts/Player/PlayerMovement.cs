@@ -120,6 +120,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject PIZZA;
     #endregion
 
+    public GameObject Explosion;
+
     public float bottleShatterHP = 5;
 
     private void Awake()
@@ -423,7 +425,7 @@ public class PlayerMovement : MonoBehaviour
                     AttackChargeTime = 0.2f;
                     #endregion
                     break;
-                case 5:
+                case 5: // done
                     #region Foam Finger Active
                     AR.SetActive(false);
                     BB.SetActive(false);
@@ -678,7 +680,7 @@ public class PlayerMovement : MonoBehaviour
                     D.SetActive(false);
                     #endregion
                     break;
-                case 17:
+                case 17: // in progress // knock back isnt there!
                     #region Dynamite Active
                     AR.SetActive(false);
                     BB.SetActive(false);
@@ -972,6 +974,17 @@ public class PlayerMovement : MonoBehaviour
                             PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
                         }
                     }
+                    if (D.activeSelf == true && attackhit == 0)
+                    {
+                        Attack2Charging = true;
+                        PlayerAnimator.SetInteger("Anim", 31);
+                        if (LockedOn == true)
+                        {
+                            Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                            lockedenemy.y = 0;
+                            PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                        }
+                    }
                 }
             };
 
@@ -981,7 +994,7 @@ public class PlayerMovement : MonoBehaviour
 
                 a2.canceled += ctx =>
                 {
-                    if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28))
+                    if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31))
                     {
                         Attack2Charging = false;
                         Attack2Held = 0;
@@ -990,7 +1003,7 @@ public class PlayerMovement : MonoBehaviour
                 };
             }
 
-            if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28))
+            if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31))
             {
                 attack3();
                 Attack2Charging = false;
@@ -1337,6 +1350,24 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
             #endregion
+
+            #region Dynamite
+            if (PlayerAnimator.GetInteger("Anim") == 29 && AttackTime <= 0.65f && AttackTime >= 0.45f)
+            {
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 1.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 1.75f);
+                }
+                else
+                {
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 1.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 1.75f);
+                }
+            }
+            #endregion
         }
     }
 
@@ -1631,6 +1662,19 @@ public class PlayerMovement : MonoBehaviour
                 }
                 #endregion
 
+                #region Dynamite
+                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && D.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 29 && attackhit == 0 && taptimer <= 0)
+                {
+                    AttackTime = 1.2f;
+                    AttackRepeatTimer = 1f;
+                    attackfullstring = 8f;
+                    AttackStringOn = true;
+                    PlayerAnimator.SetInteger("Anim", 29);
+                    attackhit = 1;
+                    taptimer = 0.05f;
+                }
+                #endregion
+
                 #region Frying Pan
 
                 if (AttackTime <= 0 && AttackRepeatTimer <= 0 && FP.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 19 && attackhit == 0 && taptimer <= 0)
@@ -1741,6 +1785,18 @@ public class PlayerMovement : MonoBehaviour
                 AttackRepeatTimer = 0.3f;
                 rb.velocity = new Vector3(0, 0, 0);
             }
+
+            if (D.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            {
+                Instantiate(Explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+                AttackTime = 1.2f;
+                AttackRepeatTimer = 0.3f;
+                Attack2Held = 0;
+                Attack2Charging = false;
+                PlayerDamagedTimer = 0.75f;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 20;
+            }
         }
     }
 
@@ -1811,6 +1867,14 @@ public class PlayerMovement : MonoBehaviour
             }
 
             if (FF.activeSelf == true && dodge != true && kick != true)
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                AttackTime = 1.2f;
+                AttackRepeatTimer = 0.3f;
+                rb.velocity = new Vector3(0, 0, 0);
+            }
+
+            if (D.activeSelf == true && dodge != true && kick != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 AttackTime = 1.2f;

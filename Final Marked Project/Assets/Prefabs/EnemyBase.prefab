@@ -348,7 +348,8 @@ MonoBehaviour:
   lungetimer: 0
   EnemyMesh: {fileID: 0}
   EnemyAnimator: {fileID: 1366704121618369076}
-  AR: {fileID: 0}
+  StickyDynamite: {fileID: 8091395023690283447, guid: 8c68fac16d22c8a47be64c7a67c1dbf9, type: 3}
+  AR: {fileID: 919132149155446097, guid: a00d1197b0a17754eb7f2b532de22397, type: 3}
   BB: {fileID: 0}
   B: {fileID: 0}
   C: {fileID: 0}

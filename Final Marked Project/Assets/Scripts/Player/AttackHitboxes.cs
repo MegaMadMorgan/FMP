@@ -40,6 +40,9 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject FFAttack12;
     public GameObject FFAttack2;
     public GameObject FFAttack3;
+    public GameObject DAttack1;
+    public GameObject DAttack2;
+    public GameObject DAttack3;
     public GameObject Headbutt;
     public GameObject PIZZA;
 
@@ -278,6 +281,7 @@ public class AttackHitboxes : MonoBehaviour
     }
     #endregion
 
+    #region Foam Finger
     public void FFA1Bounce()
     {
         if (PlayerAnimator.GetInteger("Anim") == 27)
@@ -322,6 +326,32 @@ public class AttackHitboxes : MonoBehaviour
             Instantiate(FFAttack3, new Vector3(transform.position.x, transform.position.y + 5, transform.position.z) , playerRotation);
         }
     }
+    #endregion
+
+    #region
+    public void DA1()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 29)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(DAttack1, transform.position, playerRotation);
+        }
+    }
+    public void DA2()
+    {
+
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(DAttack2, (transform.TransformPoint(Vector3.forward * 2)) + (transform.up * 1.5f), playerRotation);
+    }
+    public void DA3()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 31)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(DAttack3, (transform.TransformPoint(Vector3.forward * 2)) + (transform.up * 1.5f), playerRotation);
+        }
+    }
+    #endregion
 
     #region Supers
     public void HeadButt()
