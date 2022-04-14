@@ -114,6 +114,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject UB;
     public GameObject WAMH;
     public GameObject D;
+    public GameObject M;
+    public GameObject V;
+    public GameObject Sc;
+    public GameObject F;
+    public GameObject SC;
+
     public GameObject SB;
 
     public GameObject PINEAPPLE;
@@ -334,6 +340,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     #endregion
                     break;
                 case 1: // done
@@ -355,6 +366,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     AttackChargeTime = 0.25f;
                     #endregion
                     break;
@@ -377,6 +393,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     AttackChargeTime = 0.55f;
                     #endregion
                     break;
@@ -399,6 +420,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     AttackChargeTime = 0.55f;
                     #endregion
                     break;
@@ -421,6 +447,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     bottleShatterHP = 5;
                     AttackChargeTime = 0.2f;
                     #endregion
@@ -444,6 +475,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     AttackChargeTime = 0.4f;
                     #endregion
                     break;
@@ -466,6 +502,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     #endregion
                     break;
                 case 7:
@@ -487,6 +528,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     #endregion
                     break;
                 case 8:
@@ -508,6 +554,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     #endregion
                     break;
                 case 9:
@@ -529,6 +580,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     #endregion
                     break;
                 case 10:
@@ -550,6 +606,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     #endregion
                     break;
                 case 11:
@@ -571,6 +632,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     AttackChargeTime = 1f;
                     #endregion
                     break;
@@ -593,6 +659,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     #endregion
                     break;
                 case 13:
@@ -614,6 +685,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     AttackChargeTime = 0.3f;
                     #endregion
                     break;
@@ -636,6 +712,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     #endregion
                     break;
                 case 15:
@@ -657,6 +738,11 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(true);
                     WAMH.SetActive(false);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     #endregion
                     break;
                 case 16:
@@ -678,9 +764,14 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(true);
                     D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
                     #endregion
                     break;
-                case 17: // in progress // knock back isnt there!
+                case 17: // knock back isnt there!
                     #region Dynamite Active
                     AR.SetActive(false);
                     BB.SetActive(false);
@@ -699,6 +790,141 @@ public class PlayerMovement : MonoBehaviour
                     UB.SetActive(false);
                     WAMH.SetActive(false);
                     D.SetActive(true);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
+                    #endregion
+                    break;
+                case 18: 
+                    #region Mirror
+                    AR.SetActive(false);
+                    BB.SetActive(false);
+                    B.SetActive(false);
+                    C.SetActive(false);
+                    FF.SetActive(false);
+                    FP.SetActive(false);
+                    GC.SetActive(false);
+                    KK.SetActive(false);
+                    LDLS.SetActive(false);
+                    S.SetActive(false);
+                    SBB.SetActive(false);
+                    SH.SetActive(false);
+                    SS.SetActive(false);
+                    SSPV.SetActive(false);
+                    UB.SetActive(false);
+                    WAMH.SetActive(false);
+                    D.SetActive(false);
+                    M.SetActive(true);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
+                    #endregion
+                    break;
+                case 19: 
+                    #region Volt
+                    AR.SetActive(false);
+                    BB.SetActive(false);
+                    B.SetActive(false);
+                    C.SetActive(false);
+                    FF.SetActive(false);
+                    FP.SetActive(false);
+                    GC.SetActive(false);
+                    KK.SetActive(false);
+                    LDLS.SetActive(false);
+                    S.SetActive(false);
+                    SBB.SetActive(false);
+                    SH.SetActive(false);
+                    SS.SetActive(false);
+                    SSPV.SetActive(false);
+                    UB.SetActive(false);
+                    WAMH.SetActive(false);
+                    D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(true);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(false);
+                    #endregion
+                    break;
+                case 20: 
+                    #region Scepter
+                    AR.SetActive(false);
+                    BB.SetActive(false);
+                    B.SetActive(false);
+                    C.SetActive(false);
+                    FF.SetActive(false);
+                    FP.SetActive(false);
+                    GC.SetActive(false);
+                    KK.SetActive(false);
+                    LDLS.SetActive(false);
+                    S.SetActive(false);
+                    SBB.SetActive(false);
+                    SH.SetActive(false);
+                    SS.SetActive(false);
+                    SSPV.SetActive(false);
+                    UB.SetActive(false);
+                    WAMH.SetActive(false);
+                    D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(true);
+                    F.SetActive(false);
+                    SC.SetActive(false);
+                    #endregion
+                    break;
+                case 21: 
+                    #region Fish
+                    AR.SetActive(false);
+                    BB.SetActive(false);
+                    B.SetActive(false);
+                    C.SetActive(false);
+                    FF.SetActive(false);
+                    FP.SetActive(false);
+                    GC.SetActive(false);
+                    KK.SetActive(false);
+                    LDLS.SetActive(false);
+                    S.SetActive(false);
+                    SBB.SetActive(false);
+                    SH.SetActive(false);
+                    SS.SetActive(false);
+                    SSPV.SetActive(false);
+                    UB.SetActive(false);
+                    WAMH.SetActive(false);
+                    D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(true);
+                    SC.SetActive(false);
+                    #endregion
+                    break;
+                case 22: 
+                    #region Saw-Cleaver
+                    AR.SetActive(false);
+                    BB.SetActive(false);
+                    B.SetActive(false);
+                    C.SetActive(false);
+                    FF.SetActive(false);
+                    FP.SetActive(false);
+                    GC.SetActive(false);
+                    KK.SetActive(false);
+                    LDLS.SetActive(false);
+                    S.SetActive(false);
+                    SBB.SetActive(false);
+                    SH.SetActive(false);
+                    SS.SetActive(false);
+                    SSPV.SetActive(false);
+                    UB.SetActive(false);
+                    WAMH.SetActive(false);
+                    D.SetActive(false);
+                    M.SetActive(false);
+                    V.SetActive(false);
+                    Sc.SetActive(false);
+                    F.SetActive(false);
+                    SC.SetActive(true);
                     #endregion
                     break;
             }
