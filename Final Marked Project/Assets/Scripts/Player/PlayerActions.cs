@@ -144,7 +144,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""id"": ""c0814acb-7e1f-43c1-bda5-1373447d75b7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Tap(duration=0.01,pressPoint=0.01)""
+                    ""interactions"": ""Tap""
                 }
             ],
             ""bindings"": [
@@ -548,7 +548,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""5f6d54b9-85ab-4cb1-b061-bb0f71e9868d"",
                     ""path"": ""<Keyboard>/x"",
-                    ""interactions"": ""Tap(duration=0.1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""ViewChange"",
@@ -559,7 +559,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""3316adf0-8e72-4857-bd27-8df47f6429e2"",
                     ""path"": ""<Gamepad>/leftStickPress"",
-                    ""interactions"": ""Tap(duration=0.1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""ViewChange"",

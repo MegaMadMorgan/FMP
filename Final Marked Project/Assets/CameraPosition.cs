@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class CameraPosition : MonoBehaviour
 {
@@ -17,6 +19,13 @@ public class CameraPosition : MonoBehaviour
 
         Vector3 lockedenemy = GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
         lockedenemy.y = 0;
-        transform.rotation = Quaternion.LookRotation(lockedenemy);
+        if (Quaternion.LookRotation(lockedenemy) != Quaternion.identity)
+        {
+            transform.rotation = Quaternion.LookRotation(lockedenemy);
+        }
+        else
+        {
+            transform.rotation = Quaternion.identity;
+        }
     }
 }

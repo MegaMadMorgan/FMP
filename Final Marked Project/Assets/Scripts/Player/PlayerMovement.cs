@@ -100,6 +100,8 @@ public class PlayerMovement : MonoBehaviour
     public bool CollidingWithItem = false;
     public int WeaponActiveNum = 0;
 
+    public GameObject CameraShoulders;
+
     #region items
     public GameObject AR;
     public GameObject BB;
@@ -950,22 +952,6 @@ public class PlayerMovement : MonoBehaviour
             camRight.y = 0f;
             camForward.Normalize();
             camRight.Normalize();
-
-            VC.started += ctx =>
-            {
-                //if (ctx.interaction is TapInteraction)
-                //{
-                    if (GameObject.Find("CameraShoulders").GetComponent<LockShoulder>().Shoulder == false)
-                    {
-                        GameObject.Find("CameraShoulders").GetComponent<LockShoulder>().Shoulder = true;
-                    }
-
-                    if (GameObject.Find("CameraShoulders").GetComponent<LockShoulder>().Shoulder == true)
-                    {
-                        GameObject.Find("CameraShoulders").GetComponent<LockShoulder>().Shoulder = false;
-                    }
-                //}
-            };
             #endregion
 
             #region super attack 1
@@ -2467,6 +2453,19 @@ public class PlayerMovement : MonoBehaviour
             kick = true;
             PlayerAnimator.SetInteger("Anim", 2);
         }
+    }
+
+    public void CamSwitch()
+    {
+        if (CameraShoulders.GetComponent<LockShoulder>().Shoulder == true)
+        {
+            CameraShoulders.GetComponent<LockShoulder>().Shoulder = false;
+        }
+
+        //if (CameraShoulders.GetComponent<LockShoulder>().Shoulder == false)
+        //{
+        //    CameraShoulders.GetComponent<LockShoulder>().Shoulder = true;
+        //}
     }
 
 
