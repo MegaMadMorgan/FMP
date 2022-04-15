@@ -137,6 +137,14 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Tap(duration=0.01,pressPoint=0.01)""
+                },
+                {
+                    ""name"": ""ViewChange"",
+                    ""type"": ""Button"",
+                    ""id"": ""c0814acb-7e1f-43c1-bda5-1373447d75b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap(duration=0.01,pressPoint=0.01)""
                 }
             ],
             ""bindings"": [
@@ -535,6 +543,28 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f6d54b9-85ab-4cb1-b061-bb0f71e9868d"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": ""Tap(duration=0.1)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""ViewChange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3316adf0-8e72-4857-bd27-8df47f6429e2"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": ""Tap(duration=0.1)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ViewChange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -586,6 +616,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         m_PlayerCon_Kick = m_PlayerCon.FindAction("Kick", throwIfNotFound: true);
         m_PlayerCon_LockOn = m_PlayerCon.FindAction("LockOn", throwIfNotFound: true);
         m_PlayerCon_Pause = m_PlayerCon.FindAction("Pause", throwIfNotFound: true);
+        m_PlayerCon_ViewChange = m_PlayerCon.FindAction("ViewChange", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -650,6 +681,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerCon_Kick;
     private readonly InputAction m_PlayerCon_LockOn;
     private readonly InputAction m_PlayerCon_Pause;
+    private readonly InputAction m_PlayerCon_ViewChange;
     public struct PlayerConActions
     {
         private @PlayerActions m_Wrapper;
@@ -669,6 +701,7 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         public InputAction @Kick => m_Wrapper.m_PlayerCon_Kick;
         public InputAction @LockOn => m_Wrapper.m_PlayerCon_LockOn;
         public InputAction @Pause => m_Wrapper.m_PlayerCon_Pause;
+        public InputAction @ViewChange => m_Wrapper.m_PlayerCon_ViewChange;
         public InputActionMap Get() { return m_Wrapper.m_PlayerCon; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -723,6 +756,9 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnPause;
+                @ViewChange.started -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnViewChange;
+                @ViewChange.performed -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnViewChange;
+                @ViewChange.canceled -= m_Wrapper.m_PlayerConActionsCallbackInterface.OnViewChange;
             }
             m_Wrapper.m_PlayerConActionsCallbackInterface = instance;
             if (instance != null)
@@ -772,6 +808,9 @@ public class @PlayerActions : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @ViewChange.started += instance.OnViewChange;
+                @ViewChange.performed += instance.OnViewChange;
+                @ViewChange.canceled += instance.OnViewChange;
             }
         }
     }
@@ -811,5 +850,6 @@ public class @PlayerActions : IInputActionCollection, IDisposable
         void OnKick(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnViewChange(InputAction.CallbackContext context);
     }
 }

@@ -43,6 +43,17 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject DAttack1;
     public GameObject DAttack2;
     public GameObject DAttack3;
+    public GameObject MAttack11;
+    public GameObject MAttack12;
+    public GameObject MAttack13;
+    public GameObject MAttack2;
+    public GameObject MAttack3;
+    public GameObject VAttack11;
+    public GameObject VAttack12;
+    public GameObject VAttack13;
+    public GameObject VAttack14;
+    public GameObject VAttack2;
+    public GameObject VAttack3;
     public GameObject Headbutt;
     public GameObject PIZZA;
 
@@ -328,7 +339,7 @@ public class AttackHitboxes : MonoBehaviour
     }
     #endregion
 
-    #region
+    #region Dynamite
     public void DA1()
     {
         if (PlayerAnimator.GetInteger("Anim") == 29)
@@ -349,6 +360,217 @@ public class AttackHitboxes : MonoBehaviour
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(DAttack3, (transform.TransformPoint(Vector3.forward * 2)) + (transform.up * 1.5f), playerRotation);
+        }
+    }
+    #endregion Dynamite
+
+    #region Mirror
+    public void MA11()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 32)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(MAttack11, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 5, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+        }
+    }
+    }
+
+    public void MA12()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 32)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(MAttack12, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 7, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+            }
+        }
+    }
+
+    public void MA13()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 32)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(MAttack13, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 3, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+            }
+        }
+    }
+
+    public void MA2()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 33)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(MAttack2, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 3, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+            }
+        }
+    }
+
+    public void MA3Bounce()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 34)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(MAttack3, HBPos, playerRotation);
+            Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+            rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+            rb.AddForce(0, 15, 0, ForceMode.Impulse);
+            GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime = 1;
+        }
+    }
+    #endregion
+
+    #region Volt
+    public void VA11()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 35)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 playerRight = GameObject.Find("Third-Person Player").transform.right;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f) + (playerRight * 0.4f);
+            Instantiate(VAttack11, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 10, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.4f;
+            }
+        }
+    }
+
+    public void VA12()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 35)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 playerRight = GameObject.Find("Third-Person Player").transform.right;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f) + (playerRight * 0.4f);
+            Instantiate(VAttack12, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 10, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.6f;
+            }
+        }
+    }
+
+    public void VA13()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 35)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(VAttack13, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 10, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+            }
+        }
+    }
+
+    public void VA14()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 35)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(VAttack14, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 16, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+            }
+        }
+    }
+
+    public void VA2()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 36)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 PlayerMesh = GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerMesh.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(VAttack2, HBPos, playerRotation);
+            Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+            rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+            rb.AddForce(0, 15, 0, ForceMode.Impulse);
+            rb.velocity = new Vector3(PlayerMesh.x * 0.75f, rb.velocity.y, PlayerMesh.z * 0.75f);
+            GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime = 1;
+        }
+    }
+
+    public void VA3()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 37)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(VAttack3, HBPos, Quaternion.identity);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                //rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                //rb.AddForce(0, 3, 0, ForceMode.Impulse);
+                //GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+            }
         }
     }
     #endregion

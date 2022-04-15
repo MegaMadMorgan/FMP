@@ -59,9 +59,15 @@ public class PlayerAttackAngle : MonoBehaviour
             HBPos.y += 5;
             transform.position = HBPos;
         }
+        else if (this.gameObject.name == "VA11(Clone)" || this.gameObject.name == "VA12(Clone)")
+        {
+            Vector3 playerRight = GameObject.Find("Third-Person Player").transform.right;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f) + (playerRight * 0.4f);
+            transform.position = HBPos;
+        }
         else
         {
-            Vector3 HBPos = playerPos + (playerDirection * 0.6f);
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
             transform.position = HBPos;
         }
 

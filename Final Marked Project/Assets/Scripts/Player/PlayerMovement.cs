@@ -53,6 +53,11 @@ public class PlayerMovement : MonoBehaviour
     public bool Attack2Charging;
     public float AttackChargeTime;
 
+    public float AirTime;
+    public float UppercutTimer = 0;
+    public bool PrepareUppercut = false;
+    public int RepeatTimer = 0;
+
     public float attackstringtimer = 0;
     public float attackstringdelaytimer = 0.01f;
     public bool AttackStringOn;
@@ -78,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
     private InputAction s2;
     private InputAction s3;
     private InputAction s4;
+    private InputAction VC;
     PlayerActions controls;
 
     [Header("Step Climb")]
@@ -150,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
         s2 = controls.PlayerCon.Super2;
         s3 = controls.PlayerCon.Super3;
         s4 = controls.PlayerCon.Super4;
+        VC = controls.PlayerCon.ViewChange;
         Movement.Enable();
         a1.Enable();
         a2.Enable();
@@ -157,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
         s2.Enable();
         s3.Enable();
         s4.Enable();
+        VC.Enable();
     }
 
     private void OnDisable()
@@ -206,6 +214,10 @@ public class PlayerMovement : MonoBehaviour
                 nomoves = false;
             }
 
+            if (AirTime >= 0)
+            {
+                AirTime -= Time.deltaTime;
+            }
 
             if (AttackStringOn == true)
             {
@@ -269,7 +281,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 MoveDirection = forward * VerticalInput + right * HorizontalInput;
             Vector3 DMoveDirection = forward;
 
-            if (AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
+            if (AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && PrepareUppercut == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
             {
 
                 //rb.velocity = new Vector3(MoveDirection.x * speed, rb.velocity.y, MoveDirection.z * speed);
@@ -797,7 +809,7 @@ public class PlayerMovement : MonoBehaviour
                     SC.SetActive(false);
                     #endregion
                     break;
-                case 18: 
+                case 18: // done
                     #region Mirror
                     AR.SetActive(false);
                     BB.SetActive(false);
@@ -821,9 +833,10 @@ public class PlayerMovement : MonoBehaviour
                     Sc.SetActive(false);
                     F.SetActive(false);
                     SC.SetActive(false);
+                    AttackChargeTime = 0.1f;
                     #endregion
                     break;
-                case 19: 
+                case 19: // in-progress
                     #region Volt
                     AR.SetActive(false);
                     BB.SetActive(false);
@@ -937,10 +950,26 @@ public class PlayerMovement : MonoBehaviour
             camRight.y = 0f;
             camForward.Normalize();
             camRight.Normalize();
+
+            VC.started += ctx =>
+            {
+                //if (ctx.interaction is TapInteraction)
+                //{
+                    if (GameObject.Find("CameraShoulders").GetComponent<LockShoulder>().Shoulder == false)
+                    {
+                        GameObject.Find("CameraShoulders").GetComponent<LockShoulder>().Shoulder = true;
+                    }
+
+                    if (GameObject.Find("CameraShoulders").GetComponent<LockShoulder>().Shoulder == true)
+                    {
+                        GameObject.Find("CameraShoulders").GetComponent<LockShoulder>().Shoulder = false;
+                    }
+                //}
+            };
             #endregion
 
             #region super attack 1
-            s1.started += ctx =>
+                s1.started += ctx =>
             {
                 if (SpressTimer <= 0.001f && PowerMeter >= 1 && AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
                 {
@@ -1211,8 +1240,205 @@ public class PlayerMovement : MonoBehaviour
                             PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
                         }
                     }
+                    if (M.activeSelf == true && attackhit == 0 && AirTime <= 0)
+                    {
+                        Attack2Charging = true;
+                        PlayerAnimator.SetInteger("Anim", 34);
+                        if (LockedOn == true)
+                        {
+                            Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                            lockedenemy.y = 0;
+                            PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                        }
+                    }
+                    if (V.activeSelf == true && attackhit == 0 && AirTime <= 0)
+                    {
+                        Attack2Charging = true;
+                        PlayerAnimator.SetInteger("Anim", 37);
+                        if (LockedOn == true)
+                        {
+                            Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                            lockedenemy.y = 0;
+                            PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                        }
+                    }
+                }
+
+                if ((((PlayerAnimator.GetInteger("Anim") == 32 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 32 && attackhit == 1)) && WeaponActiveNum == 18) || (((PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 4 && AirTime >= 0.01) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 3) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 1)) && WeaponActiveNum == 19))
+                {
+                    PrepareUppercut = true;
+                }
+
+                if ((AirTime >= 0.1 && PlayerAnimator.GetInteger("Anim") != 32 && PlayerAnimator.GetInteger("Anim") != 34 && WeaponActiveNum == 18) || (AirTime >= 0.1 && PlayerAnimator.GetInteger("Anim") != 35 && PlayerAnimator.GetInteger("Anim") != 36 && WeaponActiveNum == 19))
+                {
+                    PrepareUppercut = true;
                 }
             };
+
+            if (AirTime <= 0) { RepeatTimer = 0; }
+            UppercutTimer -= Time.deltaTime;
+
+            #region uppercuts
+            if (PrepareUppercut == true)
+            {
+                if (attackfullstring <= 0.8 && PlayerAnimator.GetInteger("Anim") != 34 && attackhit == 1 && AirTime <= 0 && attackfullstring >= 0.01 && WeaponActiveNum == 18)
+                {
+                    PlayerAnimator.SetInteger("Anim", 34);
+                    if (UppercutTimer >= 0.41)
+                    {
+                        UppercutTimer = 0.4f;
+                    }
+                }
+
+                if (attackfullstring <= 0.6 && PlayerAnimator.GetInteger("Anim") != 34 && AirTime <= 0 && attackfullstring >= 0.01 && WeaponActiveNum == 18)
+                {
+                    PlayerAnimator.SetInteger("Anim", 34);
+                    if (UppercutTimer >= 0.41)
+                    {
+                        UppercutTimer = 0.4f;
+                    }
+                }
+
+                if (attackfullstring <= 0.8 && PlayerAnimator.GetInteger("Anim") != 33 && PlayerAnimator.GetInteger("Anim") != 34 && attackhit == 1 && AirTime >= 0.1 && attackfullstring >= 0.01 && WeaponActiveNum == 18)
+                {
+                    PlayerAnimator.SetInteger("Anim", 33);
+                    if (UppercutTimer >= 0.41)
+                    {
+                        UppercutTimer = 0.4f;
+                    }
+                }
+
+                if (attackfullstring <= 0.6 && PlayerAnimator.GetInteger("Anim") != 33 && PlayerAnimator.GetInteger("Anim") != 34 && AirTime >= 0.1 && attackfullstring >= 0.01 && WeaponActiveNum == 18)
+                {
+                    PlayerAnimator.SetInteger("Anim", 33);
+                    if (UppercutTimer >= 0.41)
+                    {
+                        UppercutTimer = 0.4f;
+                    }
+                }
+
+                if (attackfullstring <= 0.01 && WeaponActiveNum == 18)
+                {
+                    PlayerAnimator.SetInteger("Anim", 33);
+                    if (UppercutTimer >= 0.41)
+                    {
+                        UppercutTimer = 0.4f;
+                    }
+                }
+
+                //volt
+                if (attackfullstring <= 1.5f && PlayerAnimator.GetInteger("Anim") != 36 && attackhit == 1 && AirTime <= 0 && attackfullstring >= 0.01 && WeaponActiveNum == 19)
+                {
+                    PlayerAnimator.SetInteger("Anim", 36);
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                    if (UppercutTimer >= 0.41)
+                    {
+                        UppercutTimer = 0.4f;
+                    }
+                }
+
+                if (attackfullstring <= 1.2f && PlayerAnimator.GetInteger("Anim") != 36 && attackhit == 2 && AirTime <= 0 && attackfullstring >= 0.01 && WeaponActiveNum == 19)
+                {
+                    PlayerAnimator.SetInteger("Anim", 36);
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                    if (UppercutTimer >= 0.41)
+                    {
+                        UppercutTimer = 0.4f;
+                    }
+                }
+
+                if (attackfullstring <= 0.7f && PlayerAnimator.GetInteger("Anim") != 36 && attackhit == 3 && AirTime <= 0 && attackfullstring >= 0.01 && WeaponActiveNum == 19)
+                {
+                    PlayerAnimator.SetInteger("Anim", 36);
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                        UppercutTimer = 0.4f;
+                }
+
+                //in air
+                if (attackfullstring <= 1.5f && PlayerAnimator.GetInteger("Anim") != 36 && attackhit == 1 && AirTime >= 0.01 && attackfullstring >= 0.01 && WeaponActiveNum == 19)
+                {
+                    PlayerAnimator.SetInteger("Anim", 37);
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                    if (UppercutTimer >= 0.41)
+                    {
+                        UppercutTimer = 0.4f;
+                    }
+                }
+
+                if (attackfullstring <= 1.2f && PlayerAnimator.GetInteger("Anim") != 36 && attackhit == 2 && AirTime >= 0.01 && attackfullstring >= 0.01 && WeaponActiveNum == 19)
+                {
+                    PlayerAnimator.SetInteger("Anim", 37);
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                    if (UppercutTimer >= 0.41)
+                    {
+                        UppercutTimer = 0.4f;
+                    }
+                }
+
+                if (attackfullstring <= 0.7f && PlayerAnimator.GetInteger("Anim") != 36 && attackhit == 3 && AirTime >= 0.01 && attackfullstring >= 0.01 && WeaponActiveNum == 19)
+                {
+                    PlayerAnimator.SetInteger("Anim", 37);
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                    UppercutTimer = 0.4f;
+                }
+
+                if (attackfullstring <= 0.2f && PlayerAnimator.GetInteger("Anim") != 36 && attackhit == 4 && AirTime >= 0.01 && attackfullstring >= 0.01 && WeaponActiveNum == 19)
+                {
+                    PlayerAnimator.SetInteger("Anim", 37);
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                    UppercutTimer = 0.4f;
+                }
+
+                if (attackfullstring <= 0.01 && WeaponActiveNum == 19)
+                {
+                    PlayerAnimator.SetInteger("Anim", 37);
+                    if (UppercutTimer >= 0.41)
+                    {
+                        UppercutTimer = 0.4f;
+                    }
+                }
+            }
+            #endregion
+
+            if (UppercutTimer <= 0)
+            {
+                PrepareUppercut = false;
+            }
 
             if (Attack2Charging == true)
             {
@@ -1220,7 +1446,7 @@ public class PlayerMovement : MonoBehaviour
 
                 a2.canceled += ctx =>
                 {
-                    if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31))
+                    if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37))
                     {
                         Attack2Charging = false;
                         Attack2Held = 0;
@@ -1229,7 +1455,7 @@ public class PlayerMovement : MonoBehaviour
                 };
             }
 
-            if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31))
+            if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37))
             {
                 attack3();
                 Attack2Charging = false;
@@ -1594,6 +1820,50 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
             #endregion
+
+            #region Mirror
+            if (PlayerAnimator.GetInteger("Anim") == 32 && AirTime <= 0)
+            {
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                }
+                if (attackfullstring <= 1f)
+                {
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
+                }
+            }
+            #endregion
+
+            #region Volt
+            if (PlayerAnimator.GetInteger("Anim") == 35 && AirTime <= 0)
+            {
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                }
+                if (attackfullstring >= 1.35f)
+                {
+                    rb.velocity = new Vector3(-PlayerMesh.right.x * speed * 0.6f, rb.velocity.y, -PlayerMesh.right.z * speed * 0.6f);
+                }
+                if (attackfullstring <= 1.35f && attackfullstring >= 1f)
+                {
+                    rb.velocity = new Vector3(PlayerMesh.right.x * speed * 1.2f, rb.velocity.y, PlayerMesh.right.z * speed * 1.2f);
+                }
+                if (attackfullstring <= 1f && attackfullstring >= 0.5f)
+                {
+                    rb.velocity = new Vector3(-PlayerMesh.right.x * speed * 0.5f, rb.velocity.y, -PlayerMesh.right.z * speed * 0.5f);
+                }
+                if (attackfullstring <= 0.5f && attackfullstring >= 0f)
+                {
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.5f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.5f);
+                }
+            }
+            #endregion
         }
     }
 
@@ -1901,32 +2171,73 @@ public class PlayerMovement : MonoBehaviour
                 }
                 #endregion
 
-                #region Frying Pan
+                #region Mirror
 
-                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && FP.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 19 && attackhit == 0 && taptimer <= 0)
+                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && M.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 32 && attackhit == 0 && taptimer <= 0 && PlayerAnimator.GetInteger("Anim") != 34)
                 {
-                    AttackTime = 0.5f;
+                    AttackTime = 0.4f;
                     AttackRepeatTimer = 0.5f;
                     attackfullstring = 1.2f;
+                    UppercutTimer = 1.2f;
                     AttackStringOn = true;
-                    PlayerAnimator.SetInteger("Anim", 19);
+                    PlayerAnimator.SetInteger("Anim", 32);
                     attackhit = 1;
                     taptimer = 0.1f;
                 }
 
-                if (FP.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 19 && attackhit == 1 && taptimer <= 0)
+                if (M.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 32 && attackhit == 1 && taptimer <= 0 && PlayerAnimator.GetInteger("Anim") != 34)
                 {
                     attackhit = 2;
-                    AttackTime += 0.2f;
+                    AttackTime += 0.15f;
                     AttackRepeatTimer += 0.4f;
                     taptimer = 0.1f;
                 }
 
-                if (FP.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 19 && attackhit == 2 && taptimer <= 0)
+                if (M.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 32 && attackhit == 2 && taptimer <= 0 && PlayerAnimator.GetInteger("Anim") != 34)
                 {
                     attackhit = 3;
-                    AttackTime += 0.7f;
+                    AttackTime += 0.5f;
                     AttackRepeatTimer += 0.4f;
+                    taptimer = 0.1f;
+                }
+                #endregion
+
+                #region Volt
+
+                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && V.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 35 && attackhit == 0 && taptimer <= 0 && PlayerAnimator.GetInteger("Anim") != 37 && RepeatTimer <= 1)
+                {
+                    AttackTime = 0.4f;
+                    AttackRepeatTimer = 0.5f;
+                    attackfullstring = 1.75f;
+                    UppercutTimer = 1.2f;
+                    AttackStringOn = true;
+                    PlayerAnimator.SetInteger("Anim", 35);
+                    attackhit = 1;
+                    taptimer = 0.1f;
+                    RepeatTimer += 1;
+                }
+
+                if (V.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 1 && taptimer <= 0 && PlayerAnimator.GetInteger("Anim") != 37)
+                {
+                    attackhit = 2;
+                    AttackTime += 0.15f;
+                    AttackRepeatTimer += 0.15f;
+                    taptimer = 0.1f;
+                }
+
+                if (V.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 2 && taptimer <= 0 && PlayerAnimator.GetInteger("Anim") != 37)
+                {
+                    attackhit = 3;
+                    AttackTime += 0.5f;
+                    AttackRepeatTimer += 0.5f;
+                    taptimer = 0.1f;
+                }
+
+                if (V.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 3 && taptimer <= 0 && PlayerAnimator.GetInteger("Anim") != 37)
+                {
+                    attackhit = 4;
+                    AttackTime += 0.7f;
+                    AttackRepeatTimer += 0.7f;
                     taptimer = 0.1f;
                 }
                 #endregion
@@ -1991,8 +2302,6 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 21);
                 Attack2Charging = false;
-                //Rigidbody rb = GetComponent<Rigidbody>();
-                //rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
             }
 
             if (C.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
@@ -2022,6 +2331,30 @@ public class PlayerMovement : MonoBehaviour
                 PlayerDamagedTimer = 0.75f;
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 20;
+            }
+
+            if (M.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            {
+                AttackTime = 0.6f;
+                AttackRepeatTimer = 0.8f;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 33);
+                Attack2Charging = false;
+            }
+
+            if (V.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            {
+                AttackTime = 0.6f;
+                AttackRepeatTimer = 0.8f;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 36);
+                Attack2Charging = false;
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                }
             }
         }
     }
@@ -2105,6 +2438,14 @@ public class PlayerMovement : MonoBehaviour
                 Rigidbody rb = GetComponent<Rigidbody>();
                 AttackTime = 1.2f;
                 AttackRepeatTimer = 0.3f;
+                rb.velocity = new Vector3(0, 0, 0);
+            }
+
+            if (M.activeSelf == true && dodge != true && kick != true)
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                AttackTime = 0.25f;
+                AttackRepeatTimer = 0.25f;
                 rb.velocity = new Vector3(0, 0, 0);
             }
         }

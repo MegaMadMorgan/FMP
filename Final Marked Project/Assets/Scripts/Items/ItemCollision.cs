@@ -89,6 +89,26 @@ public class ItemCollision : MonoBehaviour
         {
             weaponnum = 17;
         }
+        if (this.name == "Item Mirror(Clone)" || this.name == "Item Mirror")
+        {
+            weaponnum = 18;
+        }
+        if (this.name == "Item Volt(Clone)" || this.name == "Item Volt")
+        {
+            weaponnum = 19;
+        }
+        if (this.name == "Item Scepter(Clone)" || this.name == "Item Scepter")
+        {
+            weaponnum = 20;
+        }
+        if (this.name == "Item Fish(Clone)" || this.name == "Item Fish")
+        {
+            weaponnum = 21;
+        }
+        if (this.name == "Item Saw Cleaver(Clone)" || this.name == "Item Saw Cleaver")
+        {
+            weaponnum = 22;
+        }
 
 
         if (existtimer <= Time.deltaTime)
