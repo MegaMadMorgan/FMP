@@ -43,7 +43,7 @@ public class PlayerAttackAngle : MonoBehaviour
             HBPos.y += 1f;
             transform.position = HBPos;
         }
-        else if (this.gameObject.name == "SSPVA11(Clone)" || this.gameObject.name == "SSPVA12(Clone)" || this.gameObject.name == "SSPVA13(Clone)" || this.gameObject.name == "SSPVA3(Clone)")
+        else if (this.gameObject.name == "SSPVA11(Clone)" || this.gameObject.name == "SSPVA12(Clone)" || this.gameObject.name == "SSPVA13(Clone)" || this.gameObject.name == "SSPVA3(Clone)" || this.gameObject.name == "SA2(Clone)" || this.gameObject.name == "SHA2(Clone)")
         {
             Vector3 HBPos = playerPos + (playerDirection * 1.5f);
             transform.position = HBPos;
@@ -166,6 +166,24 @@ public class PlayerAttackAngle : MonoBehaviour
         }
 
         if ((this.gameObject.name == "FFA2(Clone)" || this.gameObject.name == "FFA3(Clone)") && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 28)
+        {
+            Destroy(gameObject);
+        }
+
+        //put filler ones here
+
+        // SledgeHammer
+        if ((this.gameObject.name == "SA11(Clone)" || this.gameObject.name == "SA12(Clone)") && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 40)
+        {
+            Destroy(gameObject);
+        }
+
+        if ((this.gameObject.name == "SA2(Clone)") && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 41)
+        {
+            Destroy(gameObject);
+        }
+
+        if ((this.gameObject.name == "SA3(Clone)") && GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerAnimator.GetInteger("Anim") != 42)
         {
             Destroy(gameObject);
         }

@@ -54,6 +54,16 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject VAttack14;
     public GameObject VAttack2;
     public GameObject VAttack3;
+    public GameObject WAMHAttack1;
+    public GameObject WAMHAttack2;
+    public GameObject SAttack11;
+    public GameObject SAttack12;
+    public GameObject SAttack2;
+    public GameObject SAttack3;
+    public GameObject SHAttack11;
+    public GameObject SHAttack12;
+    public GameObject SHAttack2;
+    public GameObject SHAttack3;
     public GameObject Headbutt;
     public GameObject PIZZA;
 
@@ -573,6 +583,83 @@ public class AttackHitboxes : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region Whack-A-Mole Hammer
+    public void WAMHA2()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 39)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(WAMHAttack2, transform.position, playerRotation);
+        }
+    }
+    #endregion
+
+    #region SledgeHammer
+    public void SA11()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SAttack11, transform.position, playerRotation);
+        }
+    }
+
+    public void SA12()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SAttack12, transform.position, playerRotation);
+        }
+    }
+
+    public void SA2()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SAttack2, transform.position, playerRotation);
+    }
+
+    public void SA3()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SAttack3, transform.position, playerRotation);
+    }
+
+    #endregion
+
+    #region Squeaky Hammer
+    public void SHA11()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SHAttack11, transform.position, playerRotation);
+        }
+    }
+
+    public void SHA12()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SHAttack12, transform.position, playerRotation);
+        }
+    }
+
+    public void SHA2()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SHAttack2, transform.position, playerRotation);
+    }
+
+    public void SHA3()
+    {
+        Quaternion playerRotation = this.transform.rotation;
+        Instantiate(SHAttack3, transform.position, playerRotation);
+    }
+
     #endregion
 
     #region Supers
