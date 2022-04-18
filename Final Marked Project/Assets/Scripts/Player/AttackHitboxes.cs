@@ -69,6 +69,11 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject LDLSAttack13;
     public GameObject LDLSAttack2;
     public GameObject LDLSAttack3;
+    public GameObject UBAttack11;
+    public GameObject UBAttack12;
+    public GameObject UBAttack13;
+    public GameObject UBAttack2;
+    public GameObject UBAttack3;
     public GameObject Headbutt;
     public GameObject PIZZA;
 
@@ -769,6 +774,81 @@ public class AttackHitboxes : MonoBehaviour
             rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
             rb.AddForce(0, 15, 0, ForceMode.Impulse);
             GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime = 1;
+        }
+    }
+    #endregion
+
+    #region Legally Distinct Laser Sword
+    public void UBA11()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 49)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(UBAttack11, HBPos, playerRotation);
+        }
+    }
+
+    public void UBA12()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 49)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(UBAttack12, HBPos, playerRotation);
+        }
+    }
+
+    public void UBA13()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 49)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(UBAttack13, HBPos, playerRotation);
+        }
+    }
+
+    public void UBA21()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 50)
+        {
+            Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+            rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+            rb.AddForce(0, 12f, 0, ForceMode.Impulse);
+            GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+        }
+    }
+
+    public void UBA22()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 50)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(UBAttack2, HBPos, playerRotation);
+        }
+    }
+
+    public void UBA3()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 51)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(UBAttack3, HBPos, playerRotation);
+            Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+            rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
         }
     }
     #endregion

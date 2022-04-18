@@ -20,7 +20,7 @@ public class PlayerAttackAngle : MonoBehaviour
         Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
         Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
         Quaternion HBRotation = GameObject.Find("Third-Person Player").transform.rotation;
-        if (this.gameObject.name == "BBA3(Clone)" || this.gameObject.name == "SBBA14(Clone)")
+        if (this.gameObject.name == "BBA3(Clone)" || this.gameObject.name == "SBBA14(Clone)" || this.gameObject.name == "LDLSA11(Clone)" || this.gameObject.name == "LDLSA12(Clone)" || this.gameObject.name == "LDLSA13(Clone)" || this.gameObject.name == "LDLSA2(Clone)" || this.gameObject.name == "LDLSA3(Clone)")
         {
             Vector3 HBPos = playerPos + playerDirection * 1f;
             transform.position = HBPos;
