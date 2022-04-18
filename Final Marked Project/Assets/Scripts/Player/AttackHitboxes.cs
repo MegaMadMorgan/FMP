@@ -64,6 +64,11 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject SHAttack12;
     public GameObject SHAttack2;
     public GameObject SHAttack3;
+    public GameObject LDLSAttack11;
+    public GameObject LDLSAttack12;
+    public GameObject LDLSAttack13;
+    public GameObject LDLSAttack2;
+    public GameObject LDLSAttack3;
     public GameObject Headbutt;
     public GameObject PIZZA;
 
@@ -469,6 +474,14 @@ public class AttackHitboxes : MonoBehaviour
     #endregion
 
     #region Volt
+    public void VA2Lunge()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 36)
+        {
+            GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().LungeTime = 0.5f;
+        }
+    }
+
     public void VA11()
     {
         if (PlayerAnimator.GetInteger("Anim") == 35)
@@ -660,6 +673,104 @@ public class AttackHitboxes : MonoBehaviour
         Instantiate(SHAttack3, transform.position, playerRotation);
     }
 
+    #endregion
+
+    #region Legally Distinct Laser Sword
+    public void LDLSA11()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 46)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(LDLSAttack11, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 5, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+            }
+        }
+    }
+
+    public void LDLSA12()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 46)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(LDLSAttack12, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 7, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+            }
+        }
+    }
+
+    public void LDLSA13()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 46)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(LDLSAttack13, HBPos, playerRotation);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(0, 3, 0, ForceMode.Impulse);
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+            }
+        }
+    }
+
+    public void LDLSA21()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 47)
+        {
+            Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+            rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+            rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
+            GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+        }
+    }
+
+    public void LDLSA22()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 47)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(LDLSAttack2, HBPos, playerRotation);
+        }
+    }
+
+    public void LDLSA3()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 48)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(LDLSAttack3, HBPos, playerRotation);
+            Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+            rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+            rb.AddForce(0, 15, 0, ForceMode.Impulse);
+            GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime = 1;
+        }
+    }
     #endregion
 
     #region Supers

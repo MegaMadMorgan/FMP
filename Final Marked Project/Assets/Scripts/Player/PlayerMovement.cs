@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     public float UppercutTimer = 0;
     public bool PrepareUppercut = false;
     public int RepeatTimer = 0;
+    public float LungeTime = 0;
 
     public float attackstringtimer = 0;
     public float attackstringdelaytimer = 0.01f;
@@ -601,6 +602,7 @@ public class PlayerMovement : MonoBehaviour
                     Sc.SetActive(false);
                     F.SetActive(false);
                     SC.SetActive(false);
+                    AttackChargeTime = 0.1f;
                     #endregion
                     break;
                 case 10: // done
@@ -1288,14 +1290,26 @@ public class PlayerMovement : MonoBehaviour
                             PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
                         }
                     }
+
+                    if (LDLS.activeSelf == true && attackhit == 0 && AirTime <= 0 && Attack2Charging == false)
+                    {
+                        Attack2Charging = true;
+                        PlayerAnimator.SetInteger("Anim", 48);
+                        if (LockedOn == true)
+                        {
+                            Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                            lockedenemy.y = 0;
+                            PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                        }
+                    }
                 }
 
-                if ((((PlayerAnimator.GetInteger("Anim") == 32 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 32 && attackhit == 1)) && WeaponActiveNum == 18) || (((PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 4 && AirTime >= 0.01) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 3) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 1)) && WeaponActiveNum == 19))
+                if ((((PlayerAnimator.GetInteger("Anim") == 32 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 32 && attackhit == 1)) && WeaponActiveNum == 18) || (((PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 4 && AirTime >= 0.01) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 3) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 1)) && WeaponActiveNum == 19) || (((PlayerAnimator.GetInteger("Anim") == 46 && attackhit == 3) || (PlayerAnimator.GetInteger("Anim") == 46 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 46 && attackhit == 1)) && WeaponActiveNum == 9))
                 {
                     PrepareUppercut = true;
                 }
 
-                if ((AirTime >= 0.1 && PlayerAnimator.GetInteger("Anim") != 32 && PlayerAnimator.GetInteger("Anim") != 34 && WeaponActiveNum == 18) || (AirTime >= 0.1 && PlayerAnimator.GetInteger("Anim") != 35 && PlayerAnimator.GetInteger("Anim") != 36 && WeaponActiveNum == 19))
+                if ((AirTime >= 0.1 && PlayerAnimator.GetInteger("Anim") != 32 && PlayerAnimator.GetInteger("Anim") != 34 && WeaponActiveNum == 18) || (AirTime >= 0.1 && PlayerAnimator.GetInteger("Anim") != 35 && PlayerAnimator.GetInteger("Anim") != 36 && WeaponActiveNum == 19) || (AirTime >= 0.1 && PlayerAnimator.GetInteger("Anim") != 46 && PlayerAnimator.GetInteger("Anim") != 48 && WeaponActiveNum == 9))
                 {
                     PrepareUppercut = true;
                 }
@@ -1307,6 +1321,7 @@ public class PlayerMovement : MonoBehaviour
             #region uppercuts
             if (PrepareUppercut == true)
             {
+                //mirror
                 if (attackfullstring <= 0.8 && PlayerAnimator.GetInteger("Anim") != 34 && attackhit == 1 && AirTime <= 0 && attackfullstring >= 0.01 && WeaponActiveNum == 18)
                 {
                     PlayerAnimator.SetInteger("Anim", 34);
@@ -1325,6 +1340,7 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
 
+                //mirror in-air
                 if (attackfullstring <= 0.8 && PlayerAnimator.GetInteger("Anim") != 33 && PlayerAnimator.GetInteger("Anim") != 34 && attackhit == 1 && AirTime >= 0.1 && attackfullstring >= 0.01 && WeaponActiveNum == 18)
                 {
                     PlayerAnimator.SetInteger("Anim", 33);
@@ -1395,7 +1411,7 @@ public class PlayerMovement : MonoBehaviour
                         UppercutTimer = 0.4f;
                 }
 
-                //in air
+                //volt in-air
                 if (attackfullstring <= 1.5f && PlayerAnimator.GetInteger("Anim") != 36 && attackhit == 1 && AirTime >= 0.01 && attackfullstring >= 0.01 && WeaponActiveNum == 19)
                 {
                     PlayerAnimator.SetInteger("Anim", 37);
@@ -1458,6 +1474,44 @@ public class PlayerMovement : MonoBehaviour
                         UppercutTimer = 0.4f;
                     }
                 }
+
+                //LDLS
+                if (attackfullstring <= 0.58 && PlayerAnimator.GetInteger("Anim") != 48 && attackhit == 1 && AirTime <= 0 && attackfullstring >= 0.01 && WeaponActiveNum == 9)
+                {
+                    PlayerAnimator.SetInteger("Anim", 48);
+                    UppercutTimer = 0.4f;
+                }
+
+                if (attackfullstring <= 0.33 && PlayerAnimator.GetInteger("Anim") != 48 && attackhit == 2 && AirTime <= 0 && attackfullstring >= 0.01 && WeaponActiveNum == 9)
+                {
+                    PlayerAnimator.SetInteger("Anim", 48);
+                    UppercutTimer = 0.4f;
+                }
+
+                //LDLS in-air
+                if (attackfullstring <= 0.58 && PlayerAnimator.GetInteger("Anim") != 47 && PlayerAnimator.GetInteger("Anim") != 48 && PlayerAnimator.GetInteger("Anim") != 48 && attackhit == 1 && AirTime >= 0.1 && attackfullstring >= 0.01 && WeaponActiveNum == 9)
+                {
+                    PlayerAnimator.SetInteger("Anim", 47);
+                    UppercutTimer = 1.2f;
+                }
+
+                if (attackfullstring <= 0.33 && PlayerAnimator.GetInteger("Anim") != 47 && PlayerAnimator.GetInteger("Anim") != 48 && PlayerAnimator.GetInteger("Anim") != 48 && AirTime >= 0.1 && attackfullstring >= 0.01 && WeaponActiveNum == 9 && attackhit == 2)
+                {
+                    PlayerAnimator.SetInteger("Anim", 47);
+                    UppercutTimer = 1.2f;
+                }
+
+                if (attackfullstring <= 0.01 && PlayerAnimator.GetInteger("Anim") != 47 && PlayerAnimator.GetInteger("Anim") != 48 && PlayerAnimator.GetInteger("Anim") != 48 && AirTime >= 0.1 && attackfullstring >= 0.01 && WeaponActiveNum == 9 && attackhit == 3)
+                {
+                    PlayerAnimator.SetInteger("Anim", 47);
+                    UppercutTimer = 1.2f;
+                }
+
+                if (attackfullstring <= 0.01 && PlayerAnimator.GetInteger("Anim") != 47 && PlayerAnimator.GetInteger("Anim") != 48 && WeaponActiveNum == 9 && AirTime >= 0.1)
+                {
+                    PlayerAnimator.SetInteger("Anim", 47);
+                    UppercutTimer = 1.2f;
+                }
             }
             #endregion
 
@@ -1472,7 +1526,7 @@ public class PlayerMovement : MonoBehaviour
 
                 a2.canceled += ctx =>
                 {
-                    if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || (PlayerAnimator.GetInteger("Anim") == 39 && Attack2Held >= 0.15) || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45))
+                    if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || (PlayerAnimator.GetInteger("Anim") == 39 && Attack2Held >= 0.15) || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45 || PlayerAnimator.GetInteger("Anim") == 48))
                     {
                         Attack2Charging = false;
                         Attack2Held = 0;
@@ -1481,7 +1535,7 @@ public class PlayerMovement : MonoBehaviour
                 };
             }
 
-            if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || PlayerAnimator.GetInteger("Anim") == 39 || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45))
+            if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || PlayerAnimator.GetInteger("Anim") == 39 || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45 || PlayerAnimator.GetInteger("Anim") == 48))
             {
                 attack3();
                 Attack2Charging = false;
@@ -1889,6 +1943,21 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.5f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.5f);
                 }
             }
+
+            if (PlayerAnimator.GetInteger("Anim") == 36)
+            {
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                }
+            }
+            if (LungeTime >= 0.001)
+            {
+                rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 1.5f, rb.velocity.y, PlayerMesh.forward.z * speed * 1.5f);
+            }
+            LungeTime -= Time.deltaTime;
             #endregion
 
             #region Whack-A-Mole Hammer
@@ -1921,6 +1990,30 @@ public class PlayerMovement : MonoBehaviour
                         rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
                     }
                 //}
+            }
+            #endregion
+
+            #region Legally Distinct Laser Sword
+            if (PlayerAnimator.GetInteger("Anim") == 46 && AirTime <= 0)
+            {
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                }
+                if (attackfullstring <= 1f)
+                {
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
+                }
+            }
+
+            if (PlayerAnimator.GetInteger("Anim") == 47)
+            {
+                if (AttackTime <= 0.8f)
+                {
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 1.5f, rb.velocity.y, PlayerMesh.forward.z * speed * 1.5f);
+                }
             }
             #endregion
         }
@@ -2356,6 +2449,37 @@ public class PlayerMovement : MonoBehaviour
                     taptimer = 0.1f;
                 }
                 #endregion
+
+                #region Legally Distinct Laser Sword
+
+                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && LDLS.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 46 && attackhit == 0 && taptimer <= 0 && PlayerAnimator.GetInteger("Anim") != 48)
+                {
+                    AttackTime = 0.5f;
+                    AttackRepeatTimer = 0.5f;
+                    attackfullstring = 1.08f;
+                    UppercutTimer = 1.2f;
+                    AttackStringOn = true;
+                    PlayerAnimator.SetInteger("Anim", 46);
+                    attackhit = 1;
+                    taptimer = 0.1f;
+                }
+
+                if (LDLS.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 46 && attackhit == 1 && taptimer <= 0 && PlayerAnimator.GetInteger("Anim") != 48)
+                {
+                    attackhit = 2;
+                    AttackTime += 0.25f;
+                    AttackRepeatTimer += 0.4f;
+                    taptimer = 0.1f;
+                }
+
+                if (LDLS.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 46 && attackhit == 2 && taptimer <= 0 && PlayerAnimator.GetInteger("Anim") != 48)
+                {
+                    attackhit = 3;
+                    AttackTime += 0.33f;
+                    AttackRepeatTimer += 0.4f;
+                    taptimer = 0.1f;
+                }
+                #endregion
             }
         }
     }
@@ -2413,7 +2537,7 @@ public class PlayerMovement : MonoBehaviour
             if (B.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
             {
                 AttackTime = 1.2f;
-                AttackRepeatTimer = 0.3f;
+                AttackRepeatTimer = 1.3f;
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 21);
                 Attack2Charging = false;
@@ -2479,10 +2603,7 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 38);
                 Attack2Charging = false;
-                //if (this.PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Whack-A-Mole 1)"))
-                //{
-                    Instantiate(WAMHAttack1, transform.position, this.transform.rotation);
-                //}
+                Instantiate(WAMHAttack1, transform.position, this.transform.rotation);
             }
 
             if (S.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
@@ -2501,6 +2622,21 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 44);
                 Attack2Charging = false;
+            }
+
+            if (LDLS.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            {
+                AttackTime = 1.2f;
+                AttackRepeatTimer = 1.3f;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 47);
+                Attack2Charging = false;
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                }
             }
         }
     }
@@ -2616,6 +2752,14 @@ public class PlayerMovement : MonoBehaviour
                 Rigidbody rb = GetComponent<Rigidbody>();
                 AttackTime = 1f;
                 AttackRepeatTimer = 0.3f;
+                rb.velocity = new Vector3(0, 0, 0);
+            }
+
+            if (LDLS.activeSelf == true && dodge != true && kick != true)
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                AttackTime = 0.4f;
+                AttackRepeatTimer = 0.4f;
                 rb.velocity = new Vector3(0, 0, 0);
             }
         }
