@@ -115,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject FP;
     public GameObject GC;
     public GameObject KK;
+    public GameObject KKF;
     public GameObject LDLS;
     public GameObject S;
     public GameObject SBB;
@@ -576,6 +577,7 @@ public class PlayerMovement : MonoBehaviour
                     Sc.SetActive(false);
                     F.SetActive(false);
                     SC.SetActive(false);
+                    AttackChargeTime = 0.5f;
                     #endregion
                     break;
                 case 9: // done
@@ -1315,6 +1317,18 @@ public class PlayerMovement : MonoBehaviour
                             PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
                         }
                     }
+
+                    if (KK.activeSelf == true && attackhit == 0 && AirTime <= 0 && Attack2Charging == false)
+                    {
+                        Attack2Charging = true;
+                        PlayerAnimator.SetInteger("Anim", 54);
+                        if (LockedOn == true)
+                        {
+                            Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                            lockedenemy.y = 0;
+                            PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                        }
+                    }
                 }
 
                 if ((((PlayerAnimator.GetInteger("Anim") == 32 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 32 && attackhit == 1)) && WeaponActiveNum == 18) || (((PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 4 && AirTime >= 0.01) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 3) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 35 && attackhit == 1)) && WeaponActiveNum == 19) || (((PlayerAnimator.GetInteger("Anim") == 46 && attackhit == 3) || (PlayerAnimator.GetInteger("Anim") == 46 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 46 && attackhit == 1)) && WeaponActiveNum == 9) || (((PlayerAnimator.GetInteger("Anim") == 49 && attackhit == 3) || (PlayerAnimator.GetInteger("Anim") == 49 && attackhit == 2) || (PlayerAnimator.GetInteger("Anim") == 49 && attackhit == 1)) && WeaponActiveNum == 15))
@@ -1552,7 +1566,7 @@ public class PlayerMovement : MonoBehaviour
 
                 a2.canceled += ctx =>
                 {
-                    if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || (PlayerAnimator.GetInteger("Anim") == 39 && Attack2Held >= 0.15) || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45 || PlayerAnimator.GetInteger("Anim") == 48 || PlayerAnimator.GetInteger("Anim") == 51))
+                    if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || (PlayerAnimator.GetInteger("Anim") == 39 && Attack2Held >= 0.15) || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45 || PlayerAnimator.GetInteger("Anim") == 48 || PlayerAnimator.GetInteger("Anim") == 51 || PlayerAnimator.GetInteger("Anim") == 54))
                     {
                         Attack2Charging = false;
                         Attack2Held = 0;
@@ -1561,7 +1575,7 @@ public class PlayerMovement : MonoBehaviour
                 };
             }
 
-            if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || PlayerAnimator.GetInteger("Anim") == 39 || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45 || PlayerAnimator.GetInteger("Anim") == 48 || PlayerAnimator.GetInteger("Anim") == 51))
+            if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || PlayerAnimator.GetInteger("Anim") == 39 || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45 || PlayerAnimator.GetInteger("Anim") == 48 || PlayerAnimator.GetInteger("Anim") == 51 || PlayerAnimator.GetInteger("Anim") == 54))
             {
                 attack3();
                 Attack2Charging = false;
@@ -2066,6 +2080,33 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
             #endregion
+
+            #region kitchen knife
+            if (KK.activeSelf == true && (PlayerAnimator.GetInteger("Anim") == 53 || PlayerAnimator.GetInteger("Anim") == 54))
+            {
+                KK.GetComponentInChildren<Renderer>().enabled = false;
+                KKF.GetComponentInChildren<Renderer>().enabled = true;
+            }
+            else
+            {
+                KK.GetComponentInChildren<Renderer>().enabled = true;
+                KKF.GetComponentInChildren<Renderer>().enabled = false;
+            }
+
+            if (PlayerAnimator.GetInteger("Anim") == 54)
+            {
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                }
+                if (Attack2Charging == true)
+                {
+                    rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
+                }
+            }
+            #endregion
         }
     }
 
@@ -2560,6 +2601,25 @@ public class PlayerMovement : MonoBehaviour
                     taptimer = 0.1f;
                 }
                 #endregion
+
+                #region Kitchen Knife
+                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && KK.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 52 && attackhit == 0 && taptimer <= 0)
+                {
+                    AttackTime = 1f;
+                    AttackRepeatTimer = 1F;
+                    attackfullstring = 1F;
+                    AttackStringOn = true;
+                    PlayerAnimator.SetInteger("Anim", 52);
+                    attackhit = 1;
+                    taptimer = 0.05f;
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                    }
+                }
+                #endregion
             }
         }
     }
@@ -2733,6 +2793,21 @@ public class PlayerMovement : MonoBehaviour
                     PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
                 }
             }
+
+            if (KK.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            {
+                AttackTime = 1.2f;
+                AttackRepeatTimer = 1.3f;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 53);
+                Attack2Charging = false;
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                }
+            }
         }
     }
 
@@ -2863,6 +2938,14 @@ public class PlayerMovement : MonoBehaviour
                 Rigidbody rb = GetComponent<Rigidbody>();
                 AttackTime = 0.3f;
                 AttackRepeatTimer = 0.3f;
+                rb.velocity = new Vector3(0, 0, 0);
+            }
+
+            if (KK.activeSelf == true && dodge != true && kick != true)
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                AttackTime = 0.4f;
+                AttackRepeatTimer = 0.4f;
                 rb.velocity = new Vector3(0, 0, 0);
             }
         }

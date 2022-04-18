@@ -74,6 +74,11 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject UBAttack13;
     public GameObject UBAttack2;
     public GameObject UBAttack3;
+    public GameObject KKAttack1;
+    public GameObject KKAttack21;
+    public GameObject KKAttack22;
+    public GameObject KKAttack31;
+    public GameObject KKAttack32;
     public GameObject Headbutt;
     public GameObject PIZZA;
 
@@ -778,7 +783,7 @@ public class AttackHitboxes : MonoBehaviour
     }
     #endregion
 
-    #region Legally Distinct Laser Sword
+    #region Uber-Blade
     public void UBA11()
     {
         if (PlayerAnimator.GetInteger("Anim") == 49)
@@ -849,6 +854,53 @@ public class AttackHitboxes : MonoBehaviour
             Instantiate(UBAttack3, HBPos, playerRotation);
             Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
             rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+        }
+    }
+    #endregion
+
+    #region Kitchen Knife
+    public void KKA1()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(KKAttack1, transform.position, playerRotation);
+        }
+    }
+
+    public void KKA21()
+    {
+        //if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        //{
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(KKAttack21, transform.position, playerRotation);
+        //}
+    }
+
+    public void KKA22()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(KKAttack22, transform.position, playerRotation);
+        }
+    }
+
+    public void KKA31()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(KKAttack31, transform.position, playerRotation);
+        }
+    }
+
+        public void KKA32()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(KKAttack32, transform.position, playerRotation);
         }
     }
     #endregion

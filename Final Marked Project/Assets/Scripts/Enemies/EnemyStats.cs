@@ -1761,6 +1761,106 @@ public class EnemyStats : MonoBehaviour
                 }
                 #endregion
 
+                #region Kitchen Knife
+                if (collision.name == "KKA1(Clone)")
+                {
+                    health -= 3f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 1f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 1, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.25f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
+                }
+
+                if (collision.name == "KKA21(Clone)")
+                {
+                    health -= 1f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
+                }
+
+                if (collision.name == "KKA22(Clone)")
+                {
+                    health -= 1f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 4f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
+                }
+
+                if (collision.name == "KKA31(Clone)")
+                {
+                    health -= 1f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
+                }
+
+                if (collision.name == "KKA32(Clone)")
+                {
+                    health -= 1f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 4f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 8, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
+                }
+                #endregion
+
                 if (collision.name == "HeadButtHB(Clone)")
                 {
                     health -= 500;
