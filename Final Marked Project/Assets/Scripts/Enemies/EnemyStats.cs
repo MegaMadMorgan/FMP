@@ -58,7 +58,7 @@ public class EnemyStats : MonoBehaviour
 
     private void Awake()
     {
-        itemnum = Random.Range(1, 7);
+        itemnum = Random.Range(1, 23);
         Stun = 0.5f;
         maxhealth = health;
     }
@@ -1964,6 +1964,90 @@ public class EnemyStats : MonoBehaviour
                 }
                 #endregion
 
+                #region Fish
+
+                if (collision.name == "FA11(Clone)")
+                {
+                    health -= 2f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.8f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+                }
+
+                if (collision.name == "FA12(Clone)")
+                {
+                    health -= 1f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 1f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+                }
+
+                if (collision.name == "FA2(Clone)")
+                {
+                    health -= 2;
+
+                    Vector3 knockback = collision.transform.forward;
+
+                    Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 24, 0, ForceMode.Impulse);
+                    recollision = 0.4f;
+                    Stun = 0.7f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
+                }
+
+                if (collision.name == "FA3(Clone)")
+                {
+                    health -= 3;
+
+                    Vector3 knockback = collision.transform.forward;
+
+                    Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                    recollision = 0.4f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
+                }
+                #endregion
+
+                #region Supers
                 if (collision.name == "HeadButtHB(Clone)")
                 {
                     health -= 500;
@@ -2043,6 +2127,7 @@ public class EnemyStats : MonoBehaviour
                     Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
                 }
+                #endregion
             }
             else
             {
@@ -2119,17 +2204,97 @@ public class EnemyStats : MonoBehaviour
 
         if (itemnum == 4)
         {
-            Instantiate(SS, transform.position, transform.rotation);
+            Instantiate(C, transform.position, transform.rotation);
         }
 
         if (itemnum == 5)
         {
-            Instantiate(SBB, transform.position, transform.rotation);
+            Instantiate(FF, transform.position, transform.rotation);
         }
 
         if (itemnum == 6)
         {
+            Instantiate(FP, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 7)
+        {
+            Instantiate(GC, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 8)
+        {
+            Instantiate(KK, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 9)
+        {
+            Instantiate(LDLS, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 10)
+        {
+            Instantiate(S, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 11)
+        {
+            Instantiate(SBB, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 12)
+        {
+            Instantiate(SH, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 13)
+        {
+            Instantiate(SS, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 14)
+        {
             Instantiate(SSPV, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 15)
+        {
+            Instantiate(UB, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 16)
+        {
+            Instantiate(WAMH, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 17)
+        {
+            Instantiate(D, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 18)
+        {
+            Instantiate(M, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 19)
+        {
+            Instantiate(V, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 20)
+        {
+            Instantiate(Sc, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 21)
+        {
+            Instantiate(F, transform.position, transform.rotation);
+        }
+
+        if (itemnum == 22)
+        {
+            Instantiate(SC, transform.position, transform.rotation);
         }
     }
 }

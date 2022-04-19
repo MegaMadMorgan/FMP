@@ -84,6 +84,10 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject GCAttack13;
     public GameObject GCAttack2;
     public GameObject GCAttack3;
+    public GameObject FAttack11;
+    public GameObject FAttack12;
+    public GameObject FAttack2;
+    public GameObject FAttack3;
     public GameObject Headbutt;
     public GameObject PIZZA;
 
@@ -616,11 +620,8 @@ public class AttackHitboxes : MonoBehaviour
     #region Whack-A-Mole Hammer
     public void WAMHA2()
     {
-        if (PlayerAnimator.GetInteger("Anim") == 39)
-        {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(WAMHAttack2, transform.position, playerRotation);
-        }
     }
     #endregion
 
@@ -910,7 +911,7 @@ public class AttackHitboxes : MonoBehaviour
     }
     #endregion
 
-    #region Kitchen Knife
+    #region Golf Club
     public void GCA11()
     {
         if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
@@ -953,6 +954,44 @@ public class AttackHitboxes : MonoBehaviour
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(GCAttack3, transform.position, playerRotation);
+        }
+    }
+    #endregion
+
+    #region Fish
+    public void FA11()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(FAttack11, transform.position, playerRotation);
+        }
+    }
+
+    public void FA12()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(FAttack12, transform.position, playerRotation);
+        }
+    }
+
+    public void FA2()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(FAttack2, transform.position, playerRotation);
+        }
+    }
+
+    public void FA3()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(FAttack3, transform.position, playerRotation);
         }
     }
     #endregion
