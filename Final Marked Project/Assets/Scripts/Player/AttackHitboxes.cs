@@ -79,6 +79,11 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject KKAttack22;
     public GameObject KKAttack31;
     public GameObject KKAttack32;
+    public GameObject GCAttack11;
+    public GameObject GCAttack12;
+    public GameObject GCAttack13;
+    public GameObject GCAttack2;
+    public GameObject GCAttack3;
     public GameObject Headbutt;
     public GameObject PIZZA;
 
@@ -901,6 +906,53 @@ public class AttackHitboxes : MonoBehaviour
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(KKAttack32, transform.position, playerRotation);
+        }
+    }
+    #endregion
+
+    #region Kitchen Knife
+    public void GCA11()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(GCAttack11, transform.position, playerRotation);
+        }
+    }
+
+    public void GCA12()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(GCAttack12, transform.position, playerRotation);
+        }
+    }
+
+    public void GCA13()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(GCAttack13, transform.position, playerRotation);
+        }
+    }
+
+    public void GCA2()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(GCAttack2, transform.position, playerRotation);
+        }
+    }
+
+    public void GCA3()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().AttackTime > 0.01)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(GCAttack3, transform.position, playerRotation);
         }
     }
     #endregion
