@@ -2282,20 +2282,20 @@ public class EnemyStats : MonoBehaviour
             Instantiate(V, transform.position, transform.rotation);
         }
 
-        if (itemnum == 20)
-        {
-            Instantiate(Sc, transform.position, transform.rotation);
-        }
+        //if (itemnum == 20)
+        //{
+        //    Instantiate(Sc, transform.position, transform.rotation);
+        //}
 
         if (itemnum == 21)
         {
             Instantiate(F, transform.position, transform.rotation);
         }
 
-        if (itemnum == 22)
-        {
-            Instantiate(SC, transform.position, transform.rotation);
-        }
+        //if (itemnum == 22)
+        //{
+        //    Instantiate(SC, transform.position, transform.rotation);
+        //}
     }
 }
 
