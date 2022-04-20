@@ -71,9 +71,7 @@ public class EnemyStats : MonoBehaviour
         {
             Stun -= Time.deltaTime;
             notstunned = false;
-
-
-            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)")
+            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)")
             {
                 gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 gameObject.GetComponent<EnemyNav>().enabled = false;
@@ -84,14 +82,14 @@ public class EnemyStats : MonoBehaviour
         {
             Stun = 0;
             stunframe = 0;
-            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && lungetimer <= 0)
+            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)" && lungetimer <= 0)
             {
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 gameObject.GetComponent<EnemyNav>().enabled = true;
             }
             else
             {
-                if (lungetimer <= 0)
+                if (lungetimer <= 0 && this.name != "DropPod" && this.name != "DropPod(Clone)")
                 {
                     EnemyAnimator.SetInteger("EAnim", 0);
                 }
@@ -100,7 +98,7 @@ public class EnemyStats : MonoBehaviour
         }
 
         //if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)")
-        if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true)
+        if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true && this.name != "DropPod" && this.name != "DropPod(Clone)")
         {
             EnemyAnimator.SetInteger("EAnim", 5);
         }
@@ -145,7 +143,7 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        if (recollision <= 0 && EnemyAnimator.GetInteger("EAnim") == 7)
+        if (recollision <= 0 && EnemyAnimator.GetInteger("EAnim") == 7 && this.name != "DropPod" && this.name != "DropPod(Clone)")
         {
             EnemyAnimator.SetInteger("EAnim", 5);
         }
@@ -2348,7 +2346,14 @@ public class EnemyStats : MonoBehaviour
         Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, Time.deltaTime * 99).eulerAngles;
-        this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        if (this.name == "DropPod" || this.name == "DropPod(Clone)")
+        {
+            this.transform.rotation = Quaternion.Euler(0f, rotation.y-90, 180f);
+        }
+        else
+        {
+            this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        }
     }
 
     public void spawnitem()
