@@ -88,6 +88,14 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject FAttack12;
     public GameObject FAttack2;
     public GameObject FAttack3;
+    public GameObject ScAttack11;
+    public GameObject ScAttack12;
+    public GameObject ScAttack2;
+    public GameObject ScAttack3;
+    public GameObject SCAttack11;
+    public GameObject SCAttack12;
+    public GameObject SCAttack2;
+    public GameObject SCAttack3;
     public GameObject Headbutt;
     public GameObject PIZZA;
 
@@ -992,6 +1000,105 @@ public class AttackHitboxes : MonoBehaviour
         {
             Quaternion playerRotation = this.transform.rotation;
             Instantiate(FAttack3, transform.position, playerRotation);
+        }
+    }
+    #endregion
+
+    #region Scepter
+    public void ScA1Bounce()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 61)
+        {
+            Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+            rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
+        }
+    }
+
+    public void ScA11()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 61)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(ScAttack11, transform.position, playerRotation);
+        }
+    }
+
+    public void ScA12()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 61)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(ScAttack12, transform.position, playerRotation);
+        }
+    }
+
+    public void ScA2()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 62)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(ScAttack2, transform.position, playerRotation);
+        }
+    }
+
+    public void ScA3()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 63)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(ScAttack3, HBPos, Quaternion.identity);
+            if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
+            {
+                Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
+                //rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                //rb.AddForce(0, 3, 0, ForceMode.Impulse);
+                //GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime += 0.3f;
+            }
+        }
+    }
+    #endregion
+
+    #region SawCleaver
+
+    public void SCA11()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 64)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SCAttack11, transform.position, playerRotation);
+        }
+    }
+
+    public void SCA12()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 64)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SCAttack12, transform.position, playerRotation);
+        }
+    }
+
+    public void SCA2()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 65)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Instantiate(SCAttack2, transform.position, playerRotation);
+        }
+    }
+
+    public void SCA3()
+    {
+        if (PlayerAnimator.GetInteger("Anim") == 66)
+        {
+            Quaternion playerRotation = this.transform.rotation;
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(SCAttack3, HBPos, Quaternion.identity);
         }
     }
     #endregion

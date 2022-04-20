@@ -104,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject CameraShoulders;
 
     public GameObject WAMHAttack1;
+    public bool SCA2 = false;
 
     #region items
     public GameObject AR;
@@ -130,9 +131,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject M;
     public GameObject V;
     public GameObject Sc;
+    public GameObject ScF;
     public GameObject F;
     public GameObject FFl;
     public GameObject SC;
+    public GameObject SCF;
 
     public GameObject SB;
 
@@ -876,9 +879,10 @@ public class PlayerMovement : MonoBehaviour
                     Sc.SetActive(false);
                     F.SetActive(false);
                     SC.SetActive(false);
+                    AttackChargeTime = 0.1f;
                     #endregion
                     break;
-                case 20: 
+                case 20: // done
                     #region Scepter Active
                     AR.SetActive(false);
                     BB.SetActive(false);
@@ -902,9 +906,10 @@ public class PlayerMovement : MonoBehaviour
                     Sc.SetActive(true);
                     F.SetActive(false);
                     SC.SetActive(false);
+                    AttackChargeTime = 0.1f;
                     #endregion
                     break;
-                case 21: 
+                case 21: //done
                     #region Fish Active
                     AR.SetActive(false);
                     BB.SetActive(false);
@@ -928,6 +933,7 @@ public class PlayerMovement : MonoBehaviour
                     Sc.SetActive(false);
                     F.SetActive(true);
                     SC.SetActive(false);
+                    AttackChargeTime = 0.1f;
                     #endregion
                     break;
                 case 22: 
@@ -954,6 +960,7 @@ public class PlayerMovement : MonoBehaviour
                     Sc.SetActive(false);
                     F.SetActive(false);
                     SC.SetActive(true);
+                    AttackChargeTime = 0.6f;
                     #endregion
                     break;
             }
@@ -1251,7 +1258,7 @@ public class PlayerMovement : MonoBehaviour
                             PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
                         }
                     }
-                    if (V.activeSelf == true && attackhit == 0 && AirTime <= 0 && Attack2Charging == false)
+                    if (V.activeSelf == true && attackhit == 0 && AirTime <= 0 && Attack2Charging == false && AttackRepeatTimer <= 0)
                     {
                         Attack2Charging = true;
                         PlayerAnimator.SetInteger("Anim", 37);
@@ -1350,6 +1357,31 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Attack2Charging = true;
                         PlayerAnimator.SetInteger("Anim", 60);
+                        if (LockedOn == true)
+                        {
+                            Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                            lockedenemy.y = 0;
+                            PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                        }
+                    }
+
+                    if (Sc.activeSelf == true && attackhit == 0 && AirTime <= 0 && Attack2Charging == false && AttackRepeatTimer <= 0)
+                    {
+                        Attack2Charging = true;
+                        PlayerAnimator.SetInteger("Anim", 63);
+                        if (LockedOn == true)
+                        {
+                            Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                            lockedenemy.y = 0;
+                            PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                        }
+                    }
+
+                    if (SC.activeSelf == true && attackhit == 0 && AirTime <= 0 && Attack2Charging == false)
+                    {
+                        Attack2Charging = true;
+                        SCA2 = false;
+                        PlayerAnimator.SetInteger("Anim", 66);
                         if (LockedOn == true)
                         {
                             Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
@@ -1594,20 +1626,34 @@ public class PlayerMovement : MonoBehaviour
 
                 a2.canceled += ctx =>
                 {
-                    if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || (PlayerAnimator.GetInteger("Anim") == 39 && Attack2Held >= 0.15) || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45 || PlayerAnimator.GetInteger("Anim") == 48 || PlayerAnimator.GetInteger("Anim") == 51 || PlayerAnimator.GetInteger("Anim") == 54 || PlayerAnimator.GetInteger("Anim") == 57 || PlayerAnimator.GetInteger("Anim") == 60))
+                    if (ctx.interaction is HoldInteraction && (Attack2Held < AttackChargeTime) && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || (PlayerAnimator.GetInteger("Anim") == 39 && Attack2Held >= 0.15) || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45 || PlayerAnimator.GetInteger("Anim") == 48 || PlayerAnimator.GetInteger("Anim") == 51 || PlayerAnimator.GetInteger("Anim") == 54 || PlayerAnimator.GetInteger("Anim") == 57 || PlayerAnimator.GetInteger("Anim") == 60 || PlayerAnimator.GetInteger("Anim") == 63))
                     {
                         Attack2Charging = false;
                         Attack2Held = 0;
                         attack2();
                     }
+
+                    if (Attack2Held < AttackChargeTime && SCA2 == false && PlayerAnimator.GetInteger("Anim") == 66)
+                    {
+                        SCA2 = true;
+                    }
                 };
             }
 
-            if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || PlayerAnimator.GetInteger("Anim") == 39 || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45 || PlayerAnimator.GetInteger("Anim") == 48 || PlayerAnimator.GetInteger("Anim") == 51 || PlayerAnimator.GetInteger("Anim") == 54 || PlayerAnimator.GetInteger("Anim") == 57 || PlayerAnimator.GetInteger("Anim") == 60))
+            if (Attack2Held > AttackChargeTime && SCA2 == true)
+            {
+                attack2();
+                Attack2Charging = false;
+                Attack2Held = 0;
+                SCA2 = false;
+            }
+
+            if (Attack2Held > AttackChargeTime && (PlayerAnimator.GetInteger("Anim") == 5 || PlayerAnimator.GetInteger("Anim") == 8 || PlayerAnimator.GetInteger("Anim") == 11 || PlayerAnimator.GetInteger("Anim") == 14 || PlayerAnimator.GetInteger("Anim") == 17 || PlayerAnimator.GetInteger("Anim") == 20 || PlayerAnimator.GetInteger("Anim") == 28 || PlayerAnimator.GetInteger("Anim") == 31 || PlayerAnimator.GetInteger("Anim") == 34 || PlayerAnimator.GetInteger("Anim") == 37 || PlayerAnimator.GetInteger("Anim") == 39 || PlayerAnimator.GetInteger("Anim") == 42 || PlayerAnimator.GetInteger("Anim") == 45 || PlayerAnimator.GetInteger("Anim") == 48 || PlayerAnimator.GetInteger("Anim") == 51 || PlayerAnimator.GetInteger("Anim") == 54 || PlayerAnimator.GetInteger("Anim") == 57 || PlayerAnimator.GetInteger("Anim") == 60 || PlayerAnimator.GetInteger("Anim") == 63 || PlayerAnimator.GetInteger("Anim") == 66) && SCA2 == false)
             {
                 attack3();
                 Attack2Charging = false;
                 Attack2Held = 0;
+                SCA2 = false;
             }
 
             #endregion
@@ -2189,6 +2235,81 @@ public class PlayerMovement : MonoBehaviour
             {
                 F.GetComponentInChildren<Renderer>().enabled = true;
                 FFl.GetComponentInChildren<Renderer>().enabled = false;
+            }
+            #endregion
+
+            #region Scepter
+            if (Sc.activeSelf == true && (PlayerAnimator.GetInteger("Anim") == 63))
+            {
+                Sc.GetComponentInChildren<Renderer>().enabled = false;
+                ScF.GetComponentInChildren<Renderer>().enabled = true;
+            }
+            else
+            {
+                Sc.GetComponentInChildren<Renderer>().enabled = true;
+                ScF.GetComponentInChildren<Renderer>().enabled = false;
+            }
+
+            if (PlayerAnimator.GetInteger("Anim") == 61)
+            {
+                if (attackfullstring >= 0.6)
+                {
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+
+                        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.75f);
+                    }
+                }
+                else if (attackfullstring >= 0.06)
+                {
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+
+                        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.4f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.4f);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * 0.4f, rb.velocity.y, PlayerMesh.forward.z * speed * 0.4f);
+                    }
+                }
+                else if (attackfullstring >= 0.01)
+                {
+                    if (LockedOn == true)
+                    {
+                        Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                        lockedenemy.y = 0;
+                        PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+
+                        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * -0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * -0.75f);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector3(PlayerMesh.forward.x * speed * -0.75f, rb.velocity.y, PlayerMesh.forward.z * speed * -0.75f);
+                    }
+                }
+            }
+            #endregion
+
+            #region SawCleaver
+            if (SC.activeSelf == true && (PlayerAnimator.GetInteger("Anim") == 66) && Attack2Charging == false)
+            {
+                SC.GetComponentInChildren<Renderer>().enabled = false;
+                SCF.GetComponentInChildren<Renderer>().enabled = true;
+            }
+            else
+            {
+                SC.GetComponentInChildren<Renderer>().enabled = true;
+                SCF.GetComponentInChildren<Renderer>().enabled = false;
             }
             #endregion
         }
@@ -2775,6 +2896,50 @@ public class PlayerMovement : MonoBehaviour
                 }
                 #endregion
 
+                #region Scepter
+
+                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && Sc.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 61 && attackhit == 0 && taptimer <= 0)
+                {
+                    AttackTime = 0.2f;
+                    AttackRepeatTimer = 1f;
+                    attackfullstring = 1.2f;
+                    AttackStringOn = true;
+                    PlayerAnimator.SetInteger("Anim", 61);
+                    attackhit = 1;
+                    taptimer = 0.05f;
+                }
+
+                if (Sc.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 61 && attackhit == 1 && taptimer <= 0)
+                {
+                    attackhit = 2;
+                    AttackTime += 0.7f;
+                    AttackRepeatTimer += 0.4f;
+                    taptimer = 0.1f;
+                }
+                #endregion
+
+                #region SawCleaver
+
+                if (AttackTime <= 0 && SC.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 64 && attackhit == 0 && taptimer <= 0)
+                {
+                    AttackTime = 1.2f;
+                    AttackRepeatTimer = 1.2f;
+                    attackfullstring = 2.2f;
+                    AttackStringOn = true;
+                    PlayerAnimator.SetInteger("Anim", 64);
+                    attackhit = 1;
+                    taptimer = 0.1f;
+                }
+
+                if (SC.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 64 && attackhit == 1 && taptimer <= 0)
+                {
+                    attackhit = 2;
+                    AttackTime += 0.5f;
+                    AttackRepeatTimer += 0.5f;
+                    taptimer = 0.1f;
+                }
+                #endregion
+
             }
         }
     }
@@ -3003,6 +3168,30 @@ public class PlayerMovement : MonoBehaviour
                     PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
                 }
             }
+
+            if (Sc.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            {
+                AttackTime = 1.2f;
+                AttackRepeatTimer = 1.2f;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 62);
+                Attack2Charging = false;
+                if (LockedOn == true)
+                {
+                    Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                    lockedenemy.y = 0;
+                    PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                }
+            }
+
+            if (SC.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
+            {
+                AttackTime = 1.2f;
+                AttackRepeatTimer = 1.2f;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 65);
+                Attack2Charging = false;
+            }
         }
     }
 
@@ -3096,6 +3285,14 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(0, 0, 0);
             }
 
+            if (V.activeSelf == true && dodge != true && kick != true)
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                AttackTime = 0.5f;
+                AttackRepeatTimer = 7f;
+                rb.velocity = new Vector3(0, 0, 0);
+            }
+
             if (WAMH.activeSelf == true && dodge != true && kick != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
@@ -3165,6 +3362,22 @@ public class PlayerMovement : MonoBehaviour
                 Rigidbody rb = GetComponent<Rigidbody>();
                 AttackTime = 0.65f;
                 AttackRepeatTimer = 0.4f;
+                rb.velocity = new Vector3(0, 0, 0);
+            }
+
+            if (Sc.activeSelf == true && dodge != true && kick != true)
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                AttackTime = 0.45f;
+                AttackRepeatTimer = 3f;
+                rb.velocity = new Vector3(0, 0, 0);
+            }
+
+            if (SC.activeSelf == true && dodge != true && kick != true)
+            {
+                Rigidbody rb = GetComponent<Rigidbody>();
+                AttackTime = 0.65f;
+                AttackRepeatTimer = 0.5f;
                 rb.velocity = new Vector3(0, 0, 0);
             }
         }

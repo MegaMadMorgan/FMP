@@ -2047,6 +2047,172 @@ public class EnemyStats : MonoBehaviour
                 }
                 #endregion
 
+                #region Scepter
+
+                if (collision.name == "ScA11(Clone)")
+                {
+                    health -= 0.5f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 7, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+                }
+
+                if (collision.name == "ScA12(Clone)")
+                {
+                    health -= 1f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 7f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 7, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+                }
+
+                if (collision.name == "ScA2(Clone)")
+                {
+                    health -= 2;
+
+                    Vector3 knockback = collision.transform.forward;
+
+                    Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 6f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                    recollision = 0.4f;
+                    Stun = 0.7f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
+                }
+
+                if (collision.name == "ScA3(Clone)")
+                {
+                    health -= 1;
+
+                    Vector3 knockback = collision.transform.forward;
+
+                    Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 4, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 2, 0, ForceMode.Impulse);
+                    recollision = 0.4f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
+                }
+                #endregion
+
+                #region SawCleaver
+
+                if (collision.name == "SCEPTA11(Clone)")
+                {
+                    health -= 1f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.8f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+                }
+
+                if (collision.name == "SCEPTA12(Clone)")
+                {
+                    health -= 1f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 4f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+                }
+
+                if (collision.name == "SCEPTA2(Clone)")
+                {
+                    health -= 1.5f;
+
+                    Vector3 knockback = collision.transform.forward;
+
+                    Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 6f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                    recollision = 0.4f;
+                    Stun = 0.7f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
+                }
+
+                if (collision.name == "SCEPTA3(Clone)")
+                {
+                    health -= 4;
+
+                    Vector3 knockback = collision.transform.forward;
+
+                    Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 12, 0, ForceMode.Impulse);
+                    recollision = 0.4f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
+                }
+                #endregion
+
                 #region Supers
                 if (collision.name == "HeadButtHB(Clone)")
                 {
@@ -2282,20 +2448,20 @@ public class EnemyStats : MonoBehaviour
             Instantiate(V, transform.position, transform.rotation);
         }
 
-        //if (itemnum == 20)
-        //{
-        //    Instantiate(Sc, transform.position, transform.rotation);
-        //}
+        if (itemnum == 20)
+        {
+            Instantiate(Sc, transform.position, transform.rotation);
+        }
 
         if (itemnum == 21)
         {
             Instantiate(F, transform.position, transform.rotation);
         }
 
-        //if (itemnum == 22)
-        //{
-        //    Instantiate(SC, transform.position, transform.rotation);
-        //}
+        if (itemnum == 22)
+        {
+            Instantiate(SC, transform.position, transform.rotation);
+        }
     }
 }
 
