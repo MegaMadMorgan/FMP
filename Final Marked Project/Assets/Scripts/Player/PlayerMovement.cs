@@ -2526,7 +2526,7 @@ public class PlayerMovement : MonoBehaviour
 
                 #region Bottle
 
-                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && B.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 19 && attackhit == 0 && taptimer <= 0)
+                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && (B.activeSelf == true || C.activeSelf == true) && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 19 && attackhit == 0 && taptimer <= 0)
                 {
                     AttackTime = 0.5f;
                     AttackRepeatTimer = 0.5f;
@@ -2537,7 +2537,7 @@ public class PlayerMovement : MonoBehaviour
                     taptimer = 0.1f;
                 }
 
-                if (B.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 19 && attackhit == 1 && taptimer <= 0)
+                if ((B.activeSelf == true || C.activeSelf == true) && PlayerAnimator.GetInteger("Anim") == 19 && attackhit == 1 && taptimer <= 0)
                 {
                     attackhit = 2;
                     AttackTime += 0.2f;
@@ -2545,37 +2545,7 @@ public class PlayerMovement : MonoBehaviour
                     taptimer = 0.1f;
                 }
 
-                if (B.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 19 && attackhit == 2 && taptimer <= 0)
-                {
-                    attackhit = 3;
-                    AttackTime += 0.7f;
-                    AttackRepeatTimer += 0.4f;
-                    taptimer = 0.1f;
-                }
-                #endregion
-
-                #region Cleaver
-
-                if (AttackTime <= 0 && AttackRepeatTimer <= 0 && C.activeSelf == true && dodge != true && kick != true && PlayerAnimator.GetInteger("Anim") != 19 && attackhit == 0 && taptimer <= 0)
-                {
-                    AttackTime = 0.5f;
-                    AttackRepeatTimer = 0.5f;
-                    attackfullstring = 1.2f;
-                    AttackStringOn = true;
-                    PlayerAnimator.SetInteger("Anim", 19);
-                    attackhit = 1;
-                    taptimer = 0.1f;
-                }
-
-                if (C.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 19 && attackhit == 1 && taptimer <= 0)
-                {
-                    attackhit = 2;
-                    AttackTime += 0.2f;
-                    AttackRepeatTimer += 0.4f;
-                    taptimer = 0.1f;
-                }
-
-                if (C.activeSelf == true && PlayerAnimator.GetInteger("Anim") == 19 && attackhit == 2 && taptimer <= 0)
+                if ((B.activeSelf == true || C.activeSelf == true) && PlayerAnimator.GetInteger("Anim") == 19 && attackhit == 2 && taptimer <= 0)
                 {
                     attackhit = 3;
                     AttackTime += 0.7f;

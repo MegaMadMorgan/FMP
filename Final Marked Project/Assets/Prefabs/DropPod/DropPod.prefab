@@ -140,13 +140,14 @@ MonoBehaviour:
   rb: {fileID: 3151508293951605996}
   recollision: 0
   notstunned: 0
+  PostureBreak: 0
   Healthbar: {fileID: 3418847035392427543}
   healthbarimage: {fileID: 3418847034879410896}
   bigcollisonrange: 3.05
   itemnum: 0
   lungetimer: 0
   EnemyMesh: {fileID: 5373113844826212811}
-  EnemyAnimator: {fileID: 0}
+  EnemyAnimator: {fileID: 3418847035276453825}
   StickyDynamite: {fileID: 8091395023690283447, guid: 8c68fac16d22c8a47be64c7a67c1dbf9, type: 3}
   AR: {fileID: 6619756690899153370, guid: 11deae8480774e54fab05a65b291583a, type: 3}
   BB: {fileID: 6217000117354906961, guid: 5bbc814c85b43bd469039b2fabb0cb17, type: 3}

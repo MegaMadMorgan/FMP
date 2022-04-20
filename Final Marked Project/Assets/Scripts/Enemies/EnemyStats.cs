@@ -62,6 +62,10 @@ public class EnemyStats : MonoBehaviour
         itemnum = Random.Range(1, 23);
         Stun = 0.5f;
         maxhealth = health;
+        if (name == "DropPod" || name == "DropPod(Clone)")
+        {
+            this.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 180f);
+        }
     }
 
     void Update()
