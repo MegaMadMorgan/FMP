@@ -16,6 +16,7 @@ public class EnemyStats : MonoBehaviour
     //bool isColliding;
     public float recollision;
     public bool notstunned = false;
+    public bool PostureBreak = false;
     bool noted;
 
     public Image Healthbar;
@@ -70,11 +71,23 @@ public class EnemyStats : MonoBehaviour
         if (Stun > 0 || !GroundCheck())
         {
             Stun -= Time.deltaTime;
-            notstunned = false;
-            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)")
+            if (this.name != "Heavy" && this.name != "Heavy(Clone)")
             {
-                gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                gameObject.GetComponent<EnemyNav>().enabled = false;
+                notstunned = false;
+                if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)")
+                {
+                    gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                    gameObject.GetComponent<EnemyNav>().enabled = false;
+                }
+            }
+            else if (PostureBreak == true)
+            {
+                notstunned = false;
+                if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)")
+                {
+                    gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                    gameObject.GetComponent<EnemyNav>().enabled = false;
+                }
             }
         }
 
@@ -89,16 +102,17 @@ public class EnemyStats : MonoBehaviour
             }
             else
             {
-                if (lungetimer <= 0 && this.name != "DropPod" && this.name != "DropPod(Clone)")
+                if (lungetimer <= 0)
                 {
                     EnemyAnimator.SetInteger("EAnim", 0);
                 }
             }
             notstunned = true;
+            PostureBreak = false;
         }
 
         //if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)")
-        if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true && this.name != "DropPod" && this.name != "DropPod(Clone)")
+        if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true)
         {
             EnemyAnimator.SetInteger("EAnim", 5);
         }
@@ -132,7 +146,7 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)")
+        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "Heavy" || name == "Heavy(Clone)")
         {
             if (lungetimer > 0) { lungetimer -= Time.deltaTime; rb.velocity = new Vector3(EnemyMesh.forward.x * 5, rb.velocity.y, EnemyMesh.forward.z * 5); gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 gameObject.GetComponent<EnemyNav>().enabled = false;
@@ -143,7 +157,7 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        if (recollision <= 0 && EnemyAnimator.GetInteger("EAnim") == 7 && this.name != "DropPod" && this.name != "DropPod(Clone)")
+        if (recollision <= 0 && EnemyAnimator.GetInteger("EAnim") == 7)
         {
             EnemyAnimator.SetInteger("EAnim", 5);
         }
@@ -301,6 +315,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -320,6 +339,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -428,6 +452,10 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -449,6 +477,10 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -556,6 +588,10 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -577,6 +613,10 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -664,6 +704,10 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -685,6 +729,10 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -870,6 +918,10 @@ public class EnemyStats : MonoBehaviour
                         direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                         direction = -direction.normalized;
 
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        {
+                            PostureBreak = true;
+                        }
 
                         StunFrameSwitch();
 
@@ -891,6 +943,10 @@ public class EnemyStats : MonoBehaviour
                         direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                         direction = -direction.normalized;
 
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        {
+                            PostureBreak = true;
+                        }
 
                         StunFrameSwitch();
 
@@ -915,6 +971,10 @@ public class EnemyStats : MonoBehaviour
                         direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                         direction = -direction.normalized;
 
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        {
+                            PostureBreak = true;
+                        }
 
                         StunFrameSwitch();
 
@@ -936,6 +996,10 @@ public class EnemyStats : MonoBehaviour
                         direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                         direction = -direction.normalized;
 
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        {
+                            PostureBreak = true;
+                        }
 
                         StunFrameSwitch();
 
@@ -960,6 +1024,10 @@ public class EnemyStats : MonoBehaviour
                         direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                         direction = -direction.normalized;
 
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        {
+                            PostureBreak = true;
+                        }
 
                         StunFrameSwitch();
 
@@ -981,6 +1049,10 @@ public class EnemyStats : MonoBehaviour
                         direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                         direction = -direction.normalized;
 
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        {
+                            PostureBreak = true;
+                        }
 
                         StunFrameSwitch();
 
@@ -1046,6 +1118,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1065,6 +1142,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -1088,6 +1170,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -1178,6 +1265,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1197,6 +1289,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -1321,6 +1418,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1379,6 +1481,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -1442,6 +1549,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1461,6 +1573,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -1524,6 +1641,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1543,6 +1665,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -1626,6 +1753,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1645,6 +1777,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -1728,6 +1865,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1747,6 +1889,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -1790,6 +1937,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1808,6 +1960,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -1829,6 +1986,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1847,6 +2009,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -1931,6 +2098,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1950,6 +2122,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -2014,6 +2191,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -2033,6 +2215,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -2096,6 +2283,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -2180,6 +2372,11 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -2199,6 +2396,11 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
+
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    {
+                        PostureBreak = true;
+                    }
 
                     StunFrameSwitch();
 
@@ -2333,14 +2535,29 @@ public class EnemyStats : MonoBehaviour
 
     void StunFrameSwitch()
     {
-        stunframe += 1;
-        if (stunframe % 2 == 0)
+        if (this.name != "Heavy" && this.name != "Heavy(Clone)")
         {
-            EnemyAnimator.SetInteger("EAnim", 1);
+            stunframe += 1;
+            if (stunframe % 2 == 0)
+            {
+                EnemyAnimator.SetInteger("EAnim", 1);
+            }
+            else
+            {
+                EnemyAnimator.SetInteger("EAnim", 2);
+            }
         }
-        else
+        else if (PostureBreak == true)
         {
-            EnemyAnimator.SetInteger("EAnim", 2);
+            stunframe += 1;
+            if (stunframe % 2 == 0)
+            {
+                EnemyAnimator.SetInteger("EAnim", 1);
+            }
+            else
+            {
+                EnemyAnimator.SetInteger("EAnim", 2);
+            }
         }
 
         Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;

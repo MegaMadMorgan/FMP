@@ -80,7 +80,11 @@ public class EnemyNav : MonoBehaviour
             {
                 AttackResetTimer = 2.75f;
             }
+            if (name == "Heavy" || name == "Heavy(Clone)")
+            {
+                AttackResetTimer = 1.25f;
             }
+        }
     }
 
     private void Patroling()
