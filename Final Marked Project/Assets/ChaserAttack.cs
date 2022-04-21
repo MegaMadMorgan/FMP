@@ -8,6 +8,10 @@ public class ChaserAttack : MonoBehaviour
     void lunge()
     {
         GetComponentInParent<EnemyStats>().lungetimer = 0.5f;
+        if (transform.parent.name == "Teleporter" || transform.parent.name == "Teleporter(Clone)")
+        {
+            GetComponentInParent<EnemyStats>().teleportAttack();
+        }
     }
 
     void attack()

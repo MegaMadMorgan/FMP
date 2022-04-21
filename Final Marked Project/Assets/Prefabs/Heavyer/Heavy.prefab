@@ -1695,7 +1695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58065c74bb65e5d4199c4d27dd4b5349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 5
   maxhealth: 0
   Stun: 0
   stunframe: 0
@@ -1703,6 +1703,10 @@ MonoBehaviour:
   rb: {fileID: 3543835641992870685}
   recollision: 0
   notstunned: 0
+  PostureBreak: 0
+  TeleportTimerMax: 0
+  TeleportTimer: 0
+  TeleportDirection: 0
   Healthbar: {fileID: 3543835642979930124}
   healthbarimage: {fileID: 3543835643688243380}
   bigcollisonrange: 1.48

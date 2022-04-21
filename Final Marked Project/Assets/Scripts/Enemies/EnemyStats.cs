@@ -19,6 +19,10 @@ public class EnemyStats : MonoBehaviour
     public bool PostureBreak = false;
     bool noted;
 
+    public float TeleportTimerMax;
+    public float TeleportTimer;
+    public int TeleportDirection;
+
     public Image Healthbar;
     public GameObject healthbarimage;
 
@@ -119,6 +123,14 @@ public class EnemyStats : MonoBehaviour
         if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true)
         {
             EnemyAnimator.SetInteger("EAnim", 5);
+
+            if (name == "Teleporter" || name == "Teleporter(Clone)")
+            {
+                Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
+                Quaternion lookRotation = Quaternion.LookRotation(dir);
+                Vector3 rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, Time.deltaTime * 99).eulerAngles;
+                this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+            }
         }
         //this is for showing the health bar
         if (transform.Find("TargetingConePivot"))
@@ -150,7 +162,7 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "Heavy" || name == "Heavy(Clone)")
+        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "Heavy" || name == "Heavy(Clone)" || name == "Teleporter" || name == "Teleporter(Clone)")
         {
             if (lungetimer > 0) { lungetimer -= Time.deltaTime; rb.velocity = new Vector3(EnemyMesh.forward.x * 5, rb.velocity.y, EnemyMesh.forward.z * 5); gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 gameObject.GetComponent<EnemyNav>().enabled = false;
@@ -161,9 +173,37 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        if (recollision <= 0 && EnemyAnimator.GetInteger("EAnim") == 7)
+        if (recollision <= 0 && EnemyAnimator.GetInteger("EAnim") == 7 && !(name == "Teleporter" || name == "Teleporter(Clone)"))
         {
             EnemyAnimator.SetInteger("EAnim", 5);
+        }
+
+        if (EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)"))
+        {
+            TeleportTimer -= Time.deltaTime;
+        }
+        else
+        {
+            TeleportTimer = TeleportTimerMax;
+        }
+
+        if (TeleportTimer <= 0 && EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)"))
+        {
+            TeleportTimer = TeleportTimerMax;
+            TeleportDirection = Random.Range(1, 3);
+        }
+
+        if (TeleportDirection != 0 && EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)"))
+        {
+            if (TeleportDirection == 1)
+            {
+                transform.position += (EnemyMesh.transform.right * 2.5f);
+            }
+            else if (TeleportDirection == 2)
+            {
+                transform.position += (EnemyMesh.transform.right *-2.5f);
+            }
+            TeleportDirection = 0;
         }
     }
 
@@ -2068,7 +2108,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
                     recollision = 0.2f;
-                    Stun = 0.6f;
+                    Stun = 0.8f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
                 }
 
@@ -2577,6 +2617,10 @@ public class EnemyStats : MonoBehaviour
         }
     }
 
+    public void teleportAttack()
+    {
+        transform.position += (this.transform.forward * 2.5f);
+    }
     public void spawnitem()
     {
         if (itemnum == 1)
