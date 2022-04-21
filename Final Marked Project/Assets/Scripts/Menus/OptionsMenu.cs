@@ -16,6 +16,8 @@ public class OptionsMenu : MonoBehaviour
     public Slider SFXSlider;
     public static float MusVol;
     public Slider MusSlider;
+    public static float MosSen = 200;
+    public Slider MosSlider;
     public static bool FullScreen = true;
     public Toggle FulScrn;
     public static int reso = -1;
@@ -26,6 +28,7 @@ public class OptionsMenu : MonoBehaviour
     {
         SFXSlider.value = SFXVol;
         MusSlider.value = MusVol;
+        MosSlider.value = MosSen;
         FulScrn.isOn = FullScreen;
         graphicsDropdown.value = quality;
 
@@ -77,6 +80,15 @@ public class OptionsMenu : MonoBehaviour
     {
         audioMixer.SetFloat("MusicVolume", volume);
         MusVol = volume;
+    }
+
+    public void SetMouseSensitivity(float Sensitivity)
+    {
+        //if (GameObject.Find("Main Camera") != null)
+        //{
+        //    GameObject.Find("Main Camera").GetComponentInChildren<MouseSensitivity>().Sensitivity = Sensitivity;
+        //}
+        MosSen = Sensitivity;
     }
 
     public void SetQuality (int qualityIndex)
