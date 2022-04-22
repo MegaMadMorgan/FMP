@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3151508293951605970}
   - component: {fileID: 3151508293951605971}
   - component: {fileID: 3151508293951605968}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DropPod
   m_TagString: Enemy
   m_Icon: {fileID: 0}

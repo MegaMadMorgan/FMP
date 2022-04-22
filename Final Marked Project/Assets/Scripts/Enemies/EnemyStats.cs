@@ -30,6 +30,8 @@ public class EnemyStats : MonoBehaviour
 
     public int itemnum;
 
+    public float healtimer;
+
     public float lungetimer;
     public Transform EnemyMesh;
 
@@ -85,7 +87,15 @@ public class EnemyStats : MonoBehaviour
                 if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)")
                 {
                     gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                    gameObject.GetComponent<EnemyNav>().enabled = false;
+
+                    if (gameObject.GetComponent<EnemyNav>() != null)
+                    {
+                        gameObject.GetComponent<EnemyNav>().enabled = false;
+                    }
+                    if (gameObject.GetComponent<EnemyHealerNav>() != null)
+                    {
+                        gameObject.GetComponent<EnemyHealerNav>().enabled = false;
+                    }
                 }
             }
             else if (PostureBreak == true)
@@ -94,7 +104,15 @@ public class EnemyStats : MonoBehaviour
                 if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)")
                 {
                     gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                    gameObject.GetComponent<EnemyNav>().enabled = false;
+
+                    if (gameObject.GetComponent<EnemyNav>() != null)
+                    {
+                        gameObject.GetComponent<EnemyNav>().enabled = false;
+                    }
+                    if (gameObject.GetComponent<EnemyHealerNav>() != null)
+                    {
+                        gameObject.GetComponent<EnemyHealerNav>().enabled = false;
+                    }
                 }
             }
         }
@@ -106,7 +124,14 @@ public class EnemyStats : MonoBehaviour
             if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)" && lungetimer <= 0)
             {
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
-                gameObject.GetComponent<EnemyNav>().enabled = true;
+                if (gameObject.GetComponent<EnemyNav>() != null)
+                {
+                    gameObject.GetComponent<EnemyNav>().enabled = true;
+                }
+                if (gameObject.GetComponent<EnemyHealerNav>() != null)
+                {
+                    gameObject.GetComponent<EnemyHealerNav>().enabled = true;
+                }
             }
             else
             {
@@ -115,12 +140,32 @@ public class EnemyStats : MonoBehaviour
                     EnemyAnimator.SetInteger("EAnim", 0);
                 }
             }
+
+            if ((this.name == "Healer" || this.name == "Healer(Clone)") && health <= maxhealth)
+            {
+                healtimer -= Time.deltaTime;
+
+                if (healtimer <= 0)
+                {
+                    healtimer = 0.75f;
+                    health += 0.75f;
+                }
+            }
             notstunned = true;
             PostureBreak = false;
         }
+        else
+        {
+            healtimer = 0.75f;
+        }
 
-        //if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)")
-        if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true)
+        if (health > maxhealth)
+        {
+            health = maxhealth;
+        }
+
+            //if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)")
+            if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true)
         {
             EnemyAnimator.SetInteger("EAnim", 5);
 
@@ -162,14 +207,28 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "Heavy" || name == "Heavy(Clone)" || name == "Teleporter" || name == "Teleporter(Clone)")
+        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "Heavy" || name == "Heavy(Clone)" || name == "Teleporter" || name == "Teleporter(Clone)" || name == "Healer" || name == "Healer(Clone)")
         {
             if (lungetimer > 0) { lungetimer -= Time.deltaTime; rb.velocity = new Vector3(EnemyMesh.forward.x * 5, rb.velocity.y, EnemyMesh.forward.z * 5); gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                gameObject.GetComponent<EnemyNav>().enabled = false;
+                if (gameObject.GetComponent<EnemyNav>() != null)
+                {
+                    gameObject.GetComponent<EnemyNav>().enabled = false;
+                }
+                if (gameObject.GetComponent<EnemyHealerNav>() != null)
+                {
+                    gameObject.GetComponent<EnemyHealerNav>().enabled = false;
+                }
             }
             if (lungetimer < 0 && notstunned == true)
             { lungetimer = 0; gameObject.GetComponent<NavMeshAgent>().enabled = true;
-                gameObject.GetComponent<EnemyNav>().enabled = true;
+                if (gameObject.GetComponent<EnemyNav>() != null)
+                {
+                    gameObject.GetComponent<EnemyNav>().enabled = true;
+                }
+                if (gameObject.GetComponent<EnemyHealerNav>() != null)
+                {
+                    gameObject.GetComponent<EnemyHealerNav>().enabled = true;
+                }
             }
         }
 
@@ -1367,7 +1426,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(knockback * -1f, ForceMode.Impulse);
                     if (GameObject.Find("Third-Person Player").transform.position.y >= 2.051)
                     {
-                        rb.AddForce(0, 10, 0, ForceMode.Impulse);
+                        rb.AddForce(0, 11, 0, ForceMode.Impulse);
                     }
                     else
                     {
@@ -1394,7 +1453,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(knockback * -1f, ForceMode.Impulse);
                     if (GameObject.Find("Third-Person Player").transform.position.y >= 2.051)
                     {
-                        rb.AddForce(0, 10, 0, ForceMode.Impulse);
+                        rb.AddForce(0, 11, 0, ForceMode.Impulse);
                     }
                     else
                     {
@@ -1421,7 +1480,7 @@ public class EnemyStats : MonoBehaviour
                     rb.AddForce(knockback * -1f, ForceMode.Impulse);
                     if (GameObject.Find("Third-Person Player").transform.position.y >= 2.051)
                     {
-                        rb.AddForce(0, 10, 0, ForceMode.Impulse);
+                        rb.AddForce(0, 11, 0, ForceMode.Impulse);
                     }
                     else
                     {
@@ -1471,7 +1530,7 @@ public class EnemyStats : MonoBehaviour
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse);
-                    rb.AddForce(0, 14, 0, ForceMode.Impulse);
+                    rb.AddForce(0, 15, 0, ForceMode.Impulse);
                     recollision = 0.2f;
                     Stun = 1f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.05f;

@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 3407714209763557719}
   - component: {fileID: 3407714209763557714}
   - component: {fileID: 6146406645597490694}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BouncerV1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
-  maxhealth: 0
+  maxhealth: 5
   Stun: 0
   stunframe: 0
   agent: {fileID: 0}

@@ -26,6 +26,7 @@ public class WaveManager : MonoBehaviour
     public GameObject DropPoder;
     public GameObject Heavyer;
     public GameObject Teleporter;
+    public GameObject Healer;
     public int whichenemy = 0;
 
     void Update()
@@ -75,7 +76,7 @@ public class WaveManager : MonoBehaviour
         {
             if (GameObject.FindGameObjectsWithTag("Enemy").Length <= WaveNum - 1) // 0.1
             {
-                whichenemy = Random.Range(0, 7);
+                whichenemy = Random.Range(0, 8);
                 GameObject enemy = null;
                 if (whichenemy == 0)
                 {
@@ -104,6 +105,10 @@ public class WaveManager : MonoBehaviour
                 if (whichenemy == 6)
                 {
                     enemy = Teleporter;
+                }
+                if (whichenemy == 7)
+                {
+                    enemy = Healer;
                 }
 
                 if (multiaxis == 1)

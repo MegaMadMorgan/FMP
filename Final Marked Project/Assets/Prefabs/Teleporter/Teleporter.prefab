@@ -6003,7 +6003,7 @@ GameObject:
   - component: {fileID: 8344616600403204477}
   - component: {fileID: 8344616600403204478}
   - component: {fileID: 8344616600403204479}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teleporter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -6071,8 +6071,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58065c74bb65e5d4199c4d27dd4b5349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  maxhealth: 0
+  health: 5
+  maxhealth: 5
   Stun: 0
   stunframe: 0
   agent: {fileID: 8344616600403204477}

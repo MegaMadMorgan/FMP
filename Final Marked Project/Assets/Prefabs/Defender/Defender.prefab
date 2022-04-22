@@ -15264,7 +15264,7 @@ GameObject:
   - component: {fileID: 2553725932810682873}
   - component: {fileID: 2553725932810682872}
   - component: {fileID: 2553725932810682867}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Defender
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -15333,7 +15333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
-  maxhealth: 0
+  maxhealth: 5
   Stun: 0
   stunframe: 0
   agent: {fileID: 2553725932810682873}
