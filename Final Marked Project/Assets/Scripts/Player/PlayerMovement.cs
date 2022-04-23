@@ -84,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
     private InputAction s2;
     private InputAction s3;
     private InputAction s4;
+    private InputAction InteractThrow;
     private InputAction VC;
     PlayerActions controls;
 
@@ -167,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
         s2 = controls.PlayerCon.Super2;
         s3 = controls.PlayerCon.Super3;
         s4 = controls.PlayerCon.Super4;
+        InteractThrow = controls.PlayerCon.InteractThrow;
         VC = controls.PlayerCon.ViewChange;
         Movement.Enable();
         a1.Enable();
@@ -175,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
         s2.Enable();
         s3.Enable();
         s4.Enable();
+        InteractThrow.Enable();
         VC.Enable();
     }
 
@@ -341,7 +344,6 @@ public class PlayerMovement : MonoBehaviour
             #endregion
 
             #region weapon active number
-
             switch (WeaponActiveNum)
             {
                 case 0: // done
@@ -933,10 +935,10 @@ public class PlayerMovement : MonoBehaviour
                     Sc.SetActive(false);
                     F.SetActive(true);
                     SC.SetActive(false);
-                    AttackChargeTime = 0.1f;
+                    AttackChargeTime = 0.2f;
                     #endregion
                     break;
-                case 22: 
+                case 22: //done
                     #region Saw-Cleaver Active
                     AR.SetActive(false);
                     BB.SetActive(false);
@@ -976,7 +978,7 @@ public class PlayerMovement : MonoBehaviour
             #endregion
 
             #region super attack 1
-                s1.started += ctx =>
+            s1.started += ctx =>
             {
                 if (SpressTimer <= 0.001f && PowerMeter >= 1 && AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && PlayerDamagedTimer <= 0 && Health >= 0.0001)
                 {
@@ -1139,6 +1141,28 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
+            #endregion
+
+            #region throwing item
+            if (CollidingWithItem == false)
+            {
+                InteractThrow.started += ctx =>
+                {
+                    if (AttackTime <= 0 && Attack2Charging == false && dodge == false && kick == false && PlayerDamagedTimer <= 0 && Health >= 0.0001 && PlayerAnimator.GetInteger("Anim") != 67 && WeaponActiveNum != 0 && CollidingWithItem == false)
+                    {
+                        PlayerAnimator.SetInteger("Anim", 67);
+                        AttackTime = 0.4f;
+                        AttackRepeatTimer = 0.4f;
+                        attackfullstring = 0.4f;
+                        if (LockedOn == true)
+                        {
+                            Vector3 lockedenemy = GetComponent<EnemyLockOn>().targetingConePivot.transform.position - this.transform.position;
+                            lockedenemy.y = 0;
+                            PlayerMesh.rotation = Quaternion.LookRotation(lockedenemy);
+                        }
+                    }
+                };
+            }
             #endregion
 
             #region Heavy Attacks and cancels
@@ -3330,8 +3354,8 @@ public class PlayerMovement : MonoBehaviour
             if (F.activeSelf == true && dodge != true && kick != true)
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
-                AttackTime = 0.65f;
-                AttackRepeatTimer = 0.4f;
+                AttackTime = 0.85f;
+                AttackRepeatTimer = 0.85f;
                 rb.velocity = new Vector3(0, 0, 0);
             }
 

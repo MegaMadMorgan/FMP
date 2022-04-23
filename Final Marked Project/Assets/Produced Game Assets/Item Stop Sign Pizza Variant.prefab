@@ -1041,6 +1041,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f0da6003-38a4-4df8-9f4a-139cbb504a8d
     m_ActionName: PlayerCon/Counter[/Keyboard/q,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 91e359e8-8cf6-496f-a819-e0bfaedef46b
+    m_ActionName: PlayerCon/Attack3[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c84850a3-92e1-4397-9d48-56a9b435098f
+    m_ActionName: PlayerCon/MovementLockOn[/Keyboard/z,/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 05f06ffd-5377-4e48-b01a-638492621017
+    m_ActionName: PlayerCon/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c0814acb-7e1f-43c1-bda5-1373447d75b7
+    m_ActionName: PlayerCon/ViewChange[/Keyboard/x]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerCon
@@ -1060,6 +1076,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerrange: 0
   weaponnum: 0
+  existtimer: 12
+  AR: {fileID: 6619756690899153370, guid: 11deae8480774e54fab05a65b291583a, type: 3}
+  BB: {fileID: 6217000117354906961, guid: 5bbc814c85b43bd469039b2fabb0cb17, type: 3}
+  B: {fileID: 4312518766310831654, guid: 6e2c9b82b9845ae418031f31a691b71b, type: 3}
+  C: {fileID: 4740673457122078325, guid: f916337da6e772e48b09615e39018268, type: 3}
+  FF: {fileID: 393426422073767201, guid: 086bc0c7b37b64d4a9fecaf528ef50a1, type: 3}
+  FP: {fileID: 5066753078287813816, guid: 0ea1acdde0e81cc49b40f54b792abe4e, type: 3}
+  GC: {fileID: 3213451741065818981, guid: 854cab6f5da2e6e41b5c7ff243f4ac03, type: 3}
+  KK: {fileID: 8445921229723378479, guid: 63e69b21a7f693c4fa9d8f5e5020f59c, type: 3}
+  LDLS: {fileID: 5918276408780150942, guid: c6c95cb04228ac74888da330c42f10d3, type: 3}
+  S: {fileID: 7504188684580594609, guid: b37b557eafecd1f4384aa2838150b8f1, type: 3}
+  SBB: {fileID: 4744875072539618029, guid: 83208aa4991c9414bb484a8895a36a9f, type: 3}
+  SH: {fileID: 517034865318677587, guid: fd7b2f0d05a46454ea29dfd8c7402456, type: 3}
+  SS: {fileID: 5144499244367671884, guid: 133ada47827dd3641b5d6bf7b141875d, type: 3}
+  SSPV: {fileID: 8133797323072776663}
+  UB: {fileID: 3999865831411808467, guid: 5ed06fd121f43ef4fafb8208bbfc7fdc, type: 3}
+  WAMH: {fileID: 7898569216902159077, guid: 950f89a4e40a8bd45997524b0ac49587, type: 3}
+  D: {fileID: 3768986420324579067, guid: 5534412cc1081af4596d6f85ee8fdd8b, type: 3}
+  M: {fileID: 2769385532664193990, guid: e6ffae4273566b04096e93c4cf19dde7, type: 3}
+  V: {fileID: 6771889578325313763, guid: 8c820e459c3d85849bb4a619f5c8cf1f, type: 3}
+  Sc: {fileID: 8332926931993836696, guid: de97190fb93ef144dafbbaeed1764747, type: 3}
+  F: {fileID: 8896681539242248539, guid: fd78b392d3c27244db545a2c69408759, type: 3}
+  SC: {fileID: 7326298793116021316, guid: 6dcf5722854614e4b81777b25e7d6c34, type: 3}
 --- !u!1 &8290077542806814708
 GameObject:
   m_ObjectHideFlags: 0

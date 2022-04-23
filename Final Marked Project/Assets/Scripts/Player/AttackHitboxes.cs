@@ -6,6 +6,7 @@ public class AttackHitboxes : MonoBehaviour
 {
     public Animator PlayerAnimator;
 
+    #region Attack Hitboxes
     public GameObject BBAttack11;
     public GameObject BBAttack12;
     public GameObject BBAttack13;
@@ -98,6 +99,235 @@ public class AttackHitboxes : MonoBehaviour
     public GameObject SCAttack3;
     public GameObject Headbutt;
     public GameObject PIZZA;
+    #endregion
+
+    #region Thrown Items
+    public GameObject AR;
+    public GameObject BB;
+    public GameObject B;
+    public GameObject C;
+    public GameObject FF;
+    public GameObject FP;
+    public GameObject GC;
+    public GameObject KK;
+    public GameObject LDLS;
+    public GameObject S;
+    public GameObject SBB;
+    public GameObject SH;
+    public GameObject SS;
+    public GameObject SSPV;
+    public GameObject UB;
+    public GameObject WAMH;
+    public GameObject D;
+    public GameObject M;
+    public GameObject V;
+    public GameObject Sc;
+    public GameObject F;
+    public GameObject SC;
+    #endregion
+
+    #region Throw The Item
+    public void Throw()
+    {
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 1)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(AR, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 2)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(BB, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 3)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(B, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 4)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(C, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 5)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(FF, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 6)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(FP, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 7)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(GC, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 8)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(KK, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 9)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(LDLS, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 10)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(S, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 11)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(SBB, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 12)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(SH, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 13)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(SS, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 14)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(SSPV, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 15)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(UB, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 16)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(WAMH, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 17)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(D, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 18)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(M, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 19)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(V, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 20)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(Sc, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 21)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(F, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+
+        if (transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum == 22)
+        {
+            Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+            Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+            Vector3 HBPos = playerPos + (playerDirection * 0.8f);
+            Instantiate(SC, HBPos, Random.rotation);
+            transform.GetComponentInParent<PlayerMovement>().WeaponActiveNum = 0;
+        }
+    }
+    #endregion
 
     #region Baseball Bat
     public void BBA1()

@@ -11,6 +11,29 @@ public class ItemCollision : MonoBehaviour
     public int weaponnum;
     public float existtimer = 12;
 
+    public GameObject AR;
+    public GameObject BB;
+    public GameObject B;
+    public GameObject C;
+    public GameObject FF;
+    public GameObject FP;
+    public GameObject GC;
+    public GameObject KK;
+    public GameObject LDLS;
+    public GameObject S;
+    public GameObject SBB;
+    public GameObject SH;
+    public GameObject SS;
+    public GameObject SSPV;
+    public GameObject UB;
+    public GameObject WAMH;
+    public GameObject D;
+    public GameObject M;
+    public GameObject V;
+    public GameObject Sc;
+    public GameObject F;
+    public GameObject SC;
+
     private void Awake()
     {
         transform.rotation = Random.rotation;
@@ -110,7 +133,6 @@ public class ItemCollision : MonoBehaviour
             weaponnum = 22;
         }
 
-
         if (existtimer <= Time.deltaTime)
         {
             Destroy(gameObject);
@@ -136,11 +158,173 @@ public class ItemCollision : MonoBehaviour
 
     public void pickup()
     {
-        if (triggerrange == true)
+        PlayerMovement PlayerMovementScript = ItemParent.transform.GetComponent<PlayerMovement>();
+        if (triggerrange == true && PlayerMovementScript.AttackTime <= 0)
         {
-            PlayerMovement PlayerMovementScript = ItemParent.transform.GetComponent<PlayerMovement>();
+            if (PlayerMovementScript.WeaponActiveNum == 0)
+            {
+                PlayerMovementScript.WeaponActiveNum = weaponnum;
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 1)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(AR, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 2)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(BB, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 3)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(B, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 4)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(C, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 5)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(FF, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 6)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(FP, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 7)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(GC, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 8)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(KK, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 9)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(LDLS, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 10)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(S, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 11)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(SBB, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 12)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(SH, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 13)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(SS, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 14)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(SSPV, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 15)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(UB, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 16)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(WAMH, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 17)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(D, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 18)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(M, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 19)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(V, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 20)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(Sc, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 21)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(F, HBPos, Random.rotation);
+            }
+            else if (PlayerMovementScript.WeaponActiveNum == 22)
+            {
+                Vector3 playerPos = GameObject.Find("Third-Person Player").transform.position;
+                Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
+                Vector3 HBPos = playerPos + (playerDirection * -0.8f);
+                Instantiate(SC, HBPos, Random.rotation);
+            }
             PlayerMovementScript.WeaponActiveNum = weaponnum;
-            Destroy(gameObject);
+            PlayerMovementScript.CollidingWithItem = false;
+            PlayerMovementScript.AttackTime = 0.4f;
+            PlayerMovementScript.AttackRepeatTimer = 0.4f;
+            PlayerMovementScript.attackfullstring = 0.4f;
+            Destroy(transform.root.gameObject);
         }
     }
 }

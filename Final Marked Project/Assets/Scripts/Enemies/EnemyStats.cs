@@ -281,7 +281,7 @@ public class EnemyStats : MonoBehaviour
 
         if (collision.tag == "PlayerAttack")
         {
-                #region kick
+            #region kick
                 if (collision.name == "KickHB(Clone)" && !(this.name == "Defender(Clone)" && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7)))
                 {
                 health -= 1;
@@ -319,6 +319,28 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 1.5f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+            }
+            #endregion
+
+            #region Items
+            if (collision.name == "ThrownItemHB")
+            {
+                health -= 0.5f;
+
+                Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                direction = -direction.normalized;
+
+                StunFrameSwitch();
+
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                recollision = 0.2f;
+                Stun = 0.6f;
                 GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
             #endregion
