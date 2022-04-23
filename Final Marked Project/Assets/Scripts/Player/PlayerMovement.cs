@@ -3375,7 +3375,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(0, 0, 0);
             }
         }
-    } // lol
+    }
 
     public void Dodge()
     {
