@@ -19,6 +19,9 @@ public class EnemyStats : MonoBehaviour
     public bool PostureBreak = false;
     bool noted;
 
+    public float projectiletimermax = Random.Range(6, 10);
+    public float projectiletimer = Random.Range(6, 10);
+
     public float TeleportTimerMax;
     public float TeleportTimer;
     public int TeleportDirection;
@@ -38,6 +41,7 @@ public class EnemyStats : MonoBehaviour
     public Animator EnemyAnimator;
 
     public GameObject StickyDynamite;
+    public GameObject Explosion;
 
     public GameObject AR;
     public GameObject BB;
@@ -63,6 +67,12 @@ public class EnemyStats : MonoBehaviour
     public GameObject SC;
     public GameObject SB;
 
+    public GameObject FireBall;
+
+    int rotatex;
+    int rotatey;
+    public bool explode = false;
+
     private void Awake()
     {
         itemnum = Random.Range(1, 23);
@@ -71,6 +81,24 @@ public class EnemyStats : MonoBehaviour
         if (name == "DropPod" || name == "DropPod(Clone)")
         {
             this.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 180f);
+        }
+        rotatex = Random.Range(1, 4);
+        rotatey = Random.Range(1, 4);
+
+        projectiletimermax = Random.Range(6, 10);
+        projectiletimer = Random.Range(6, 10);
+    }
+
+    private void FixedUpdate()
+    {
+        if (this.name == "Flyer" || this.name == "Flyer(Clone)")
+        {
+            projectiletimer -= Time.deltaTime;
+            if (projectiletimer <= 0)
+            {
+                projectiletimer = projectiletimermax;
+                Instantiate(FireBall, new Vector3(transform.position.x, 5, transform.position.z), transform.rotation);
+            }
         }
     }
 
@@ -207,7 +235,7 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "Heavy" || name == "Heavy(Clone)" || name == "Teleporter" || name == "Teleporter(Clone)" || name == "Healer" || name == "Healer(Clone)")
+        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "Heavy" || name == "Heavy(Clone)" || name == "Teleporter" || name == "Teleporter(Clone)" || name == "Healer" || name == "Healer(Clone)" || name == "Flyer" || name == "Flyer(Clone)")
         {
             if (lungetimer > 0) { lungetimer -= Time.deltaTime; rb.velocity = new Vector3(EnemyMesh.forward.x * 5, rb.velocity.y, EnemyMesh.forward.z * 5); gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 if (gameObject.GetComponent<EnemyNav>() != null)
@@ -263,6 +291,36 @@ public class EnemyStats : MonoBehaviour
                 transform.position += (EnemyMesh.transform.right *-2.5f);
             }
             TeleportDirection = 0;
+        }
+
+
+        if (explode == true)
+        {
+            transform.position += this.transform.up;
+            if (rotatex == 1)
+            {
+                transform.Rotate(new Vector3(5, 0, 0));
+            }
+            if (rotatex == 2)
+            {
+                transform.Rotate(new Vector3(-5, 0, 0));
+            }
+            if (rotatex == 3)
+            {
+                transform.Rotate(new Vector3(0, 0, 0));
+            }
+            if (rotatey == 1)
+            {
+                transform.Rotate(new Vector3(0, 0, 5));
+            }
+            if (rotatey == 2)
+            {
+                transform.Rotate(new Vector3(0, 0, -5));
+            }
+            if (rotatey == 3)
+            {
+                transform.Rotate(new Vector3(0, 0, 0));
+            }
         }
     }
 
@@ -328,20 +386,29 @@ public class EnemyStats : MonoBehaviour
             {
                 health -= 0.5f;
 
-                Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+                if (name != "Flyer" && name != "Flyer(Clone)")
+                {
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
 
-                Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
-                direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
-                direction = -direction.normalized;
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
 
-                StunFrameSwitch();
+                    StunFrameSwitch();
 
-                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
-                rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
-                rb.AddForce(0, 4, 0, ForceMode.Impulse);
-                recollision = 0.2f;
-                Stun = 0.6f;
-                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
+                    rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+                }
+
+                if ((this.name == "Flyer" || this.name == "Flyer(Clone)"))
+                {
+                    health = 0;
+                    Instantiate(Explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+                }
             }
             #endregion
 

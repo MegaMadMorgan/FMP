@@ -13,6 +13,8 @@ public class EnemyNav : MonoBehaviour
 
     public string State;
 
+    public bool flying = true;
+
     //Patroling
     public Vector3 WalkPoint;
     bool WalkPointSet;
@@ -44,6 +46,14 @@ public class EnemyNav : MonoBehaviour
 
     private void Update()
     {
+
+        if ((this.name == "Flyer" || this.name == "Flyer(Clone)") && flying == true)
+        {
+            Vector3 pos = transform.position;
+            pos.y = 5;
+            transform.position = pos;
+        }
+
         //Check for sight and attack range
         PlayerInSightRange = Physics.CheckSphere(transform.position, SightRange, WhatIsPlayer);
         PlayerInAttackRange = Physics.CheckSphere(transform.position, AttackRange, WhatIsPlayer);
@@ -84,6 +94,26 @@ public class EnemyNav : MonoBehaviour
             {
                 AttackResetTimer = 1.25f;
             }
+            if (name == "Flyer" || name == "Flyer(Clone)")
+            {
+                AttackResetTimer = 1.25f;
+            }
+        }
+
+        if ((this.name == "Flyer" || this.name == "Flyer(Clone)") && flying == true)
+        {
+            if (transform.position.y > 5)
+            {
+                Vector3 pos = transform.position;
+                pos.y -= 1;
+                transform.position = pos;
+            }
+            else
+            {
+                Vector3 pos = transform.position;
+                pos.y = 5;
+                transform.position = pos;
+            }
         }
     }
 
@@ -115,7 +145,28 @@ public class EnemyNav : MonoBehaviour
                 }
             }
 
-            if (WalkPointIdleTimer <= 0) { GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 4); } else { GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 0); }
+            if (WalkPointIdleTimer <= 0) 
+            {
+                if ((this.name != "Flyer" && this.name != "Flyer(Clone)") || flying == false)
+                {
+                    GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 4);
+                }
+                else
+                {
+                    GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 7);
+                }
+            } 
+            else 
+            {
+                if ((this.name != "Flyer" && this.name != "Flyer(Clone)") || flying == false)
+                {
+                    GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 0);
+                }
+                else
+                {
+                    GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 5);
+                }
+            }
 
             Vector3 DistanceToWalkPoint = transform.position - WalkPoint;
 
@@ -152,7 +203,14 @@ public class EnemyNav : MonoBehaviour
         EnemyStats ES = GetComponent<EnemyStats>();
         if (ES.notstunned == true)
         {
-            GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 3);
+            if ((this.name != "Flyer" && this.name != "Flyer(Clone)") || flying == false)
+            {
+                GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 3);
+            }
+            else
+            {
+                GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 7);
+            }
             agent.SetDestination(player.position);
             State = "Chasing";
            // gameObject.GetComponent<NavMeshAgent>().enabled = true;
@@ -175,7 +233,7 @@ public class EnemyNav : MonoBehaviour
 
                 if (ReadyingAttack == false && AttackResetTimer <= 0) { TimeUntilAttack = Random.Range(1, 2); agent.SetDestination(transform.position); }
 
-                if (TimeUntilAttack >= 0.0001 && GetComponentInParent<EnemyStats>().recollision <= 0)
+                if (TimeUntilAttack >= 0.0001 && GetComponentInParent<EnemyStats>().recollision <= 0 && (this.name != "Flyer" && this.name != "Flyer(Clone)"))
                 {
 
                     if (GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") != 7)
@@ -183,6 +241,13 @@ public class EnemyNav : MonoBehaviour
                         ReadyingAttack = true;
 
                         GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 5);
+
+                        if ((this.name == "Flyer" || this.name == "Flyer(Clone)") && flying == true)
+                        {
+                            Vector3 pos = transform.position;
+                            pos.y = 5;
+                            transform.position = pos;
+                        }
                         
                         Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
                         Quaternion lookRotation = Quaternion.LookRotation(dir);

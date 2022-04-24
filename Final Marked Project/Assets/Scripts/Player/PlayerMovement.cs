@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     public float taptimer = 0;
     public float attackfullstring;
 
+    bool knockback = false;
+
     public float speed;
     public float JumpForce;
 
@@ -336,11 +338,15 @@ public class PlayerMovement : MonoBehaviour
 
             PlayerDamagedTimer -= Time.deltaTime;
 
-            if (PlayerDamagedTimer >= 0.0001)
+            if (PlayerDamagedTimer >= 0.0001 && knockback == true)
             {
                 rb.velocity = new Vector3(-PlayerMesh.forward.x * 3, rb.velocity.y, -PlayerMesh.forward.z * 3);
             }
 
+            if (PlayerDamagedTimer <= 0)
+            {
+                knockback = false;
+            }
             #endregion
 
             #region weapon active number
@@ -3421,6 +3427,7 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 20;
+                knockback = true;
             }
 
             if (collision.name == "ChaserAHB")
@@ -3430,6 +3437,7 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 35;
+                knockback = true;
             }
 
             if (collision.name == "DefenderAHB")
@@ -3439,6 +3447,7 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 20;
+                knockback = true;
             }
 
             if (collision.name == "DropPodAHB")
@@ -3448,6 +3457,7 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 35;
+                knockback = true;
             }
 
             if (collision.name == "HeavyAHB")
@@ -3457,6 +3467,17 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 15;
+                knockback = true;
+            }
+
+            if (collision.name == "FireBallAHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 15;
+                knockback = false;
             }
         }
     }
