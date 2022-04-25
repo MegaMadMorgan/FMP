@@ -6050,6 +6050,8 @@ MonoBehaviour:
   WhatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
+  Healthbar: {fileID: 0}
+  healthbarimage: {fileID: 4958239564717631053}
   WalkPoint: {x: 0, y: 0, z: 0}
   WalkPointSet: 0
   WalkPointRange: 0

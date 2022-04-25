@@ -9,6 +9,8 @@ public class FlyNavagation : MonoBehaviour
 
     public LayerMask WhatIsPlayer;
 
+    public GameObject healthbarimage;
+
     //Patroling
     public Vector3 WalkPoint;
     public bool WalkPointSet = false;
@@ -82,6 +84,16 @@ public class FlyNavagation : MonoBehaviour
         if (luckydeath == true)
         {
             rotateTimer -= Time.fixedDeltaTime;
+        }
+
+        //this is for showing the health bar
+        if (transform.Find("TargetingConePivot"))
+        {
+            healthbarimage.SetActive(true);
+        }
+        else
+        {
+            healthbarimage.SetActive(false);
         }
     }
 
