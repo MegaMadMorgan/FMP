@@ -89,19 +89,6 @@ public class EnemyStats : MonoBehaviour
         projectiletimer = Random.Range(6, 10);
     }
 
-    private void FixedUpdate()
-    {
-        if (this.name == "Flyer" || this.name == "Flyer(Clone)")
-        {
-            projectiletimer -= Time.deltaTime;
-            if (projectiletimer <= 0)
-            {
-                projectiletimer = projectiletimermax;
-                Instantiate(FireBall, new Vector3(transform.position.x, 5, transform.position.z), transform.rotation);
-            }
-        }
-    }
-
     void Update()
     {
         Healthbar.fillAmount = health / maxhealth;
@@ -215,7 +202,7 @@ public class EnemyStats : MonoBehaviour
             healthbarimage.SetActive(false);
         }
 
-            if (health <= 0) 
+        if (health <= 0) 
         {
             if (transform.Find("TargetingConePivot"))
             {
@@ -235,7 +222,7 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "Heavy" || name == "Heavy(Clone)" || name == "Teleporter" || name == "Teleporter(Clone)" || name == "Healer" || name == "Healer(Clone)" || name == "Flyer" || name == "Flyer(Clone)")
+        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "Heavy" || name == "Heavy(Clone)" || name == "Teleporter" || name == "Teleporter(Clone)" || name == "Healer" || name == "Healer(Clone)" || name == "GroundedFly" || name == "GroundedFly(Clone)")
         {
             if (lungetimer > 0) { lungetimer -= Time.deltaTime; rb.velocity = new Vector3(EnemyMesh.forward.x * 5, rb.velocity.y, EnemyMesh.forward.z * 5); gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 if (gameObject.GetComponent<EnemyNav>() != null)
