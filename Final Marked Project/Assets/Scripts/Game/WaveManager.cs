@@ -144,6 +144,7 @@ public class WaveManager : MonoBehaviour
         {
             EnemiesCleared = true;
             WaveNum += 1;
+            this.GetComponent<LightingManager>().TimeOfDay += 1;
         }
     }
 }
