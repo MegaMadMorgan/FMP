@@ -5,6 +5,10 @@ using UnityEngine;
 public class ExplosionHitbox : MonoBehaviour
 {
     float timer = 0.3f;
+    private void Awake()
+    {
+        FindObjectOfType<SoundManager>().PlaySound("Boom");
+    }
     void Update()
     {
         timer -= Time.deltaTime;

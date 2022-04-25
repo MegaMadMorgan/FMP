@@ -991,6 +991,7 @@ public class PlayerMovement : MonoBehaviour
                     PowerMeter -= 1;
                     Health += 10;
                     SpressTimer = 0.2f;
+                    FindObjectOfType<SoundManager>().PlaySound("Heal");
                 }
             };
 
@@ -1008,6 +1009,7 @@ public class PlayerMovement : MonoBehaviour
                     Super2Timer = 5;
                     PowerMeter -= 1;
                     SpressTimer = 0.2f;
+                    FindObjectOfType<SoundManager>().PlaySound("Heal");
                     if (gameObject.GetComponent<EnemyLockOn>().temp == false)
                     {
                         gameObject.GetComponent<EnemyLockOn>().temp = true;
@@ -1048,6 +1050,7 @@ public class PlayerMovement : MonoBehaviour
                     Super3Timer = 2;
                     PowerMeter -= 3;
                     SpressTimer = 0.2f;
+                    FindObjectOfType<SoundManager>().PlaySound("Heal");
                 }
             };
 
@@ -1070,6 +1073,7 @@ public class PlayerMovement : MonoBehaviour
                     Super4Timer = 5;
                     PowerMeter -= 4;
                     SpressTimer = 0.2f;
+                    FindObjectOfType<SoundManager>().PlaySound("Heal");
                     if (gameObject.GetComponent<EnemyLockOn>().temp == false)
                     {
                         gameObject.GetComponent<EnemyLockOn>().temp = true;

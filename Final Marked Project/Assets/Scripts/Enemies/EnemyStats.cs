@@ -339,6 +339,8 @@ public class EnemyStats : MonoBehaviour
 
                 StunFrameSwitch();
 
+                FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 16, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 7, 0, ForceMode.Impulse);
@@ -359,6 +361,8 @@ public class EnemyStats : MonoBehaviour
 
                 StunFrameSwitch();
 
+                FindObjectOfType<SoundManager>().PlaySound("Clash");
+
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -372,6 +376,8 @@ public class EnemyStats : MonoBehaviour
             if (collision.name == "ThrownItemHB")
             {
                 health -= 0.5f;
+
+                FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                 if (name != "Flyer" && name != "Flyer(Clone)")
                 {
@@ -416,6 +422,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -435,6 +443,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -456,6 +466,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 16, 0, ForceMode.Impulse);
@@ -475,6 +487,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 8, ForceMode.Impulse); // was direction
@@ -501,6 +515,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 24, 0, ForceMode.Impulse);
@@ -526,6 +542,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("DeepPunch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -534,7 +552,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
                 #endregion
-
+                // sounds
                 #region Spiked Baseball Bat
 
                 if (collision.name == "SBBA11(Clone)")
@@ -547,8 +565,9 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
@@ -568,8 +587,9 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -589,8 +609,9 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1.0f, ForceMode.Impulse); // was direction
@@ -610,8 +631,9 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 8, ForceMode.Impulse); // was direction
@@ -638,6 +660,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 6, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -663,6 +687,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("DeepPunch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 18, 0, ForceMode.Impulse);
@@ -671,7 +697,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
                 #endregion
-
+                // sounds
                 #region Stop Sign
                 if (collision.name == "SSA11(Clone)")
                 {
@@ -683,6 +709,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -704,6 +731,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -725,6 +753,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -746,6 +775,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -772,6 +802,8 @@ public class EnemyStats : MonoBehaviour
                         PostureBreak = true;
                     }
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -792,6 +824,8 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     if (this.name == "Heavy" || this.name == "Heavy(Clone)")
                     {
                         PostureBreak = true;
@@ -808,7 +842,7 @@ public class EnemyStats : MonoBehaviour
                 }
 
                 #endregion
-
+                // sounds
                 #region Stop Sign Pizza Varient
                 if (collision.name == "SSPVA11(Clone)")
                 {
@@ -820,6 +854,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -841,6 +876,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -862,6 +898,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -890,6 +927,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("DeepPunch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 20, 0, ForceMode.Impulse);
@@ -913,6 +952,8 @@ public class EnemyStats : MonoBehaviour
                         PostureBreak = true;
                     }
 
+                    FindObjectOfType<SoundManager>().PlaySound("DeepPunch");
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -924,7 +965,7 @@ public class EnemyStats : MonoBehaviour
                 }
 
                 #endregion
-
+                // sounds
                 #region Bottle
 
                 if (collision.name == "BA11(Clone)")
@@ -941,6 +982,8 @@ public class EnemyStats : MonoBehaviour
 
 
                         StunFrameSwitch();
+
+                        FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                         rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -962,6 +1005,7 @@ public class EnemyStats : MonoBehaviour
 
 
                         StunFrameSwitch();
+                        FindObjectOfType<SoundManager>().PlaySound("Stab");
 
                         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                         rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -984,6 +1028,7 @@ public class EnemyStats : MonoBehaviour
                         direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                         direction = -direction.normalized;
 
+                        FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                         StunFrameSwitch();
 
@@ -1005,8 +1050,10 @@ public class EnemyStats : MonoBehaviour
                         direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                         direction = -direction.normalized;
 
+                        FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                         StunFrameSwitch();
+                        FindObjectOfType<SoundManager>().PlaySound("Stab");
 
                         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                         rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -1031,6 +1078,7 @@ public class EnemyStats : MonoBehaviour
                             direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                             direction = -direction.normalized;
 
+                            FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                             StunFrameSwitch();
 
@@ -1054,6 +1102,7 @@ public class EnemyStats : MonoBehaviour
 
 
                             StunFrameSwitch();
+                            FindObjectOfType<SoundManager>().PlaySound("Stab");
 
                             rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                             rb.AddForce(knockback * 2f, ForceMode.Impulse); // was direction
@@ -1073,6 +1122,7 @@ public class EnemyStats : MonoBehaviour
                         direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                         direction = -direction.normalized;
 
+                        FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                         StunFrameSwitch();
 
@@ -1104,6 +1154,8 @@ public class EnemyStats : MonoBehaviour
 
                         StunFrameSwitch();
 
+                        FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                         rb.AddForce(knockback * 0, ForceMode.Impulse); // was direction
                         rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
@@ -1128,6 +1180,7 @@ public class EnemyStats : MonoBehaviour
                         }
 
                         StunFrameSwitch();
+                        FindObjectOfType<SoundManager>().PlaySound("Stab");
 
                         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                         rb.AddForce(knockback * 0, ForceMode.Impulse); // was direction
@@ -1157,6 +1210,8 @@ public class EnemyStats : MonoBehaviour
 
                         StunFrameSwitch();
 
+                        FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                         rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                         rb.AddForce(0, 8.5f, 0, ForceMode.Impulse);
@@ -1181,6 +1236,8 @@ public class EnemyStats : MonoBehaviour
                         }
 
                         StunFrameSwitch();
+
+                        FindObjectOfType<SoundManager>().PlaySound("Stab");
 
                         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                         rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
@@ -1210,6 +1267,8 @@ public class EnemyStats : MonoBehaviour
 
                         StunFrameSwitch();
 
+                        FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                         rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                         rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -1235,6 +1294,8 @@ public class EnemyStats : MonoBehaviour
 
                         StunFrameSwitch();
 
+                        FindObjectOfType<SoundManager>().PlaySound("Stab");
+
                         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                         rb.AddForce(knockback * 12, ForceMode.Impulse); // was direction
                         rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -1244,7 +1305,7 @@ public class EnemyStats : MonoBehaviour
                     }
                 }
                 #endregion
-
+                // sounds
                 #region Foam Finger
 
                 if (collision.name == "FFA11(Clone)")
@@ -1258,6 +1319,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
@@ -1278,6 +1341,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 7f, ForceMode.Impulse); // was direction
@@ -1304,6 +1369,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * -1f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 15, 0, ForceMode.Impulse);
@@ -1329,6 +1396,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Boom");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 8, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 15, 0, ForceMode.Impulse);
@@ -1337,7 +1406,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
                 #endregion
-
+                // sounds
                 #region Dynamite
 
                 if (collision.name == "DA1(Clone)")
@@ -1357,6 +1426,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -1372,7 +1443,7 @@ public class EnemyStats : MonoBehaviour
                 }
 
                 #endregion
-
+                // sounds
                 #region Mirror
                 if (collision.name == "MA11(Clone)")
                 {
@@ -1385,6 +1456,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Slice");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -1406,6 +1479,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Slice");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 7, 0, ForceMode.Impulse);
@@ -1425,6 +1500,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Slice");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 7f, ForceMode.Impulse); // was direction
@@ -1451,6 +1528,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 16f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, -12, 0, ForceMode.Impulse);
@@ -1476,6 +1555,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Slice");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 15, 0, ForceMode.Impulse);
@@ -1484,7 +1565,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.05f;
                 }
                 #endregion
-
+                // sounds
                 #region Volt
                 if (collision.name == "VA11(Clone)")
                 {
@@ -1497,6 +1578,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Slice");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * -1f, ForceMode.Impulse);
@@ -1525,6 +1608,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Slice");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * -1f, ForceMode.Impulse);
                     if (GameObject.Find("Third-Person Player").transform.position.y >= 2.051)
@@ -1551,6 +1636,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * -1f, ForceMode.Impulse);
@@ -1579,6 +1666,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 7f, ForceMode.Impulse); 
                     rb.AddForce(0, 15, 0, ForceMode.Impulse);
@@ -1604,6 +1693,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Slice");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse);
                     rb.AddForce(0, 15, 0, ForceMode.Impulse);
@@ -1624,6 +1715,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Shock");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 7f, ForceMode.Impulse);
                     rb.AddForce(0, 7, 0, ForceMode.Impulse);
@@ -1632,7 +1725,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.05f;
                 }
                 #endregion
-
+                // sounds
                 #region Whack-A-Mole Hammer
                 if (collision.name == "WAMHA1(Clone)")
                 {
@@ -1643,6 +1736,8 @@ public class EnemyStats : MonoBehaviour
                     Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
+
+                    FindObjectOfType<SoundManager>().PlaySound("Squeak");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse);
@@ -1668,6 +1763,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Squeak");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse);
                     rb.AddForce(0, -7, 0, ForceMode.Impulse);
@@ -1676,7 +1773,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.05f;
                 }
                 #endregion
-
+                // sounds
                 #region Sledge Hammer
                 if (collision.name == "SA11(Clone)")
                 {
@@ -1689,6 +1786,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse);
@@ -1709,6 +1808,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 7f, ForceMode.Impulse);
@@ -1735,6 +1836,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 10f, ForceMode.Impulse);
                     rb.AddForce(0, 8, 0, ForceMode.Impulse);
@@ -1760,6 +1863,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("DeepPunch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 6f, ForceMode.Impulse);
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -1768,7 +1873,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
                 }
                 #endregion
-
+                // sounds
                 #region Squeaky Hammer
                 if (collision.name == "SHA11(Clone)")
                 {
@@ -1781,6 +1886,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Squeak");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse);
@@ -1801,6 +1908,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Squeak");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 2f, ForceMode.Impulse);
@@ -1827,6 +1936,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Squeak");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 5f, ForceMode.Impulse);
                     rb.AddForce(0, 8, 0, ForceMode.Impulse);
@@ -1850,6 +1961,8 @@ public class EnemyStats : MonoBehaviour
                         PostureBreak = true;
                     }
 
+                    FindObjectOfType<SoundManager>().PlaySound("Squeak");
+
                     StunFrameSwitch();
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
@@ -1860,7 +1973,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
                 }
                 #endregion
-
+                // sounds
                 #region Legally Different Laser Sword
                 if (collision.name == "LDLSA11(Clone)")
                 {
@@ -1873,6 +1986,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("LaserSlash");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -1894,6 +2009,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("LaserSlash");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 7, 0, ForceMode.Impulse);
@@ -1913,6 +2030,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("LaserSlash");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 7f, ForceMode.Impulse); // was direction
@@ -1939,6 +2058,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("LaserSlash");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 16f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -1964,6 +2085,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("LaserSlash");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 15, 0, ForceMode.Impulse);
@@ -1972,7 +2095,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.05f;
                 }
                 #endregion
-
+                // sounds
                 #region Uber-Blase
                 if (collision.name == "UBA11(Clone)")
                 {
@@ -1985,6 +2108,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("LaserSlash");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -2006,6 +2131,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("LaserSlash");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 7, 0, ForceMode.Impulse);
@@ -2025,6 +2152,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("LaserSlash");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 7f, ForceMode.Impulse); // was direction
@@ -2051,6 +2180,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("LaserSlash");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 16f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -2076,6 +2207,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("LaserSlash");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 4f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 18, 0, ForceMode.Impulse);
@@ -2084,7 +2217,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
                 #endregion
-
+                // sounds
                 #region Kitchen Knife
                 if (collision.name == "KKA1(Clone)")
                 {
@@ -2097,6 +2230,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("DeepStab");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1f, ForceMode.Impulse); // was direction
@@ -2123,6 +2258,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Stab");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
                     recollision = 0.2f;
@@ -2146,6 +2283,8 @@ public class EnemyStats : MonoBehaviour
                     }
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Stab");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 4f, ForceMode.Impulse); // was direction
@@ -2172,6 +2311,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Stab");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
                     recollision = 0.2f;
@@ -2196,6 +2337,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Stab");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 4f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 8, 0, ForceMode.Impulse);
@@ -2204,7 +2347,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
                 #endregion
-
+                // sounds
                 #region Golf Club
 
                 if (collision.name == "GCA11(Clone)")
@@ -2218,6 +2361,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
@@ -2239,6 +2384,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -2258,6 +2405,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 0f, ForceMode.Impulse); // was direction
@@ -2284,6 +2433,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 24, 0, ForceMode.Impulse);
@@ -2309,6 +2460,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("DeepPunch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -2317,7 +2470,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
                 #endregion
-
+                // sounds
                 #region Fish
 
                 if (collision.name == "FA11(Clone)")
@@ -2331,6 +2484,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
@@ -2351,6 +2506,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1f, ForceMode.Impulse); // was direction
@@ -2377,6 +2534,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 5.2f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 24, 0, ForceMode.Impulse);
@@ -2402,6 +2561,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("DeepPunch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -2410,7 +2571,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
                 #endregion
-
+                // sounds
                 #region Scepter
 
                 if (collision.name == "ScA11(Clone)")
@@ -2424,6 +2585,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
@@ -2444,6 +2607,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 7f, ForceMode.Impulse); // was direction
@@ -2470,6 +2635,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 6f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 4, 0, ForceMode.Impulse);
@@ -2490,6 +2657,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Shock");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 4, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 2, 0, ForceMode.Impulse);
@@ -2498,7 +2667,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
                 #endregion
-
+                // sounds PARTIALLY
                 #region SawCleaver
 
                 if (collision.name == "SCEPTA11(Clone)")
@@ -2512,6 +2681,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Slice");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
@@ -2532,6 +2703,8 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
+
+                    FindObjectOfType<SoundManager>().PlaySound("Slice");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 4f, ForceMode.Impulse); // was direction
@@ -2558,6 +2731,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("Slice");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 6f, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -2583,6 +2758,8 @@ public class EnemyStats : MonoBehaviour
 
                     StunFrameSwitch();
 
+                    FindObjectOfType<SoundManager>().PlaySound("DeepSlice");
+
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 18, ForceMode.Impulse); // was direction
                     rb.AddForce(0, 12, 0, ForceMode.Impulse);
@@ -2591,7 +2768,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
                 #endregion
-
+                // sounds
                 #region Supers
                 if (collision.name == "HeadButtHB(Clone)")
                 {
@@ -2603,6 +2780,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -2623,6 +2801,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -2643,6 +2822,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -2662,6 +2842,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    FindObjectOfType<SoundManager>().PlaySound("Punch");
 
                     StunFrameSwitch();
 
@@ -2673,6 +2854,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
                 }
                 #endregion
+
             }
             else
             {

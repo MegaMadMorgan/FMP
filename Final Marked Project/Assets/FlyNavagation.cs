@@ -268,8 +268,9 @@ public class FlyNavagation : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.tag == "PlayerAttack" && EnemyAnimator.GetInteger("EAnim") == 0)
+        if (collision.tag == "PlayerAttack")
         {
+            FindObjectOfType<SoundManager>().PlaySound("Punch");
             if (success == 1)
             {
                 ded = true;
