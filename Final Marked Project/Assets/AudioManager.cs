@@ -70,25 +70,25 @@ public class AudioManager : MonoBehaviour
             if ((DayTrackList == 4 || DayTrackList == 0) && TrackRunTime <= 0)
             {
                 play("NightMusic1");
-                TrackRunTime = 147;
+                TrackRunTime = 248;
                 DayTrackList += 1;
             }
             if ((DayTrackList == 5 || DayTrackList == 1) && TrackRunTime <= 0)
             {
                 play("NightMusic2");
-                TrackRunTime = 178;
+                TrackRunTime = 157;
                 DayTrackList += 1;
             }
             if ((DayTrackList == 6 || DayTrackList == 2) && TrackRunTime <= 0)
             {
                 play("NightMusic3");
-                TrackRunTime = 156;
+                TrackRunTime = 145;
                 DayTrackList += 1;
             }
             if ((DayTrackList == 7 || DayTrackList == 3) && TrackRunTime <= 0)
             {
                 play("NightMusic4");
-                TrackRunTime = 169;
+                TrackRunTime = 451;
                 DayTrackList = 4;
             }
         }
