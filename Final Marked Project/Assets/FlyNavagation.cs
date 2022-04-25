@@ -39,6 +39,7 @@ public class FlyNavagation : MonoBehaviour
     bool luckydeath = false;
     public GameObject Explosion;
     float rotateTimer = 0.75f;
+    float existTimer = 3;
 
     bool activate = false;
 
@@ -47,8 +48,11 @@ public class FlyNavagation : MonoBehaviour
         player = GameObject.Find("Third-Person Player").transform;
         rotatex = Random.Range(1, 4);
         rotatey = Random.Range(1, 4);
-        success = Random.Range(1, 6);
-        transform.rotation = Quaternion.identity;
+        success = Random.Range(1, 3);
+        if (luckydeath == false)
+        {
+            transform.rotation = Quaternion.identity;
+        }
     }
 
     private void Update()
@@ -84,6 +88,27 @@ public class FlyNavagation : MonoBehaviour
         if (luckydeath == true)
         {
             rotateTimer -= Time.fixedDeltaTime;
+            existTimer -= Time.fixedDeltaTime;
+            if (existTimer <= 0)
+            {
+                if (transform.Find("TargetingConePivot"))
+                {
+                    GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = false;
+                    noted = true;
+                }
+                else if (noted == true)
+                {
+                    Destroy(gameObject);
+                    GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = true;
+                    Instantiate(Explosion, transform.position, transform.rotation);
+
+                }
+                else
+                {
+                    Destroy(gameObject);
+                    Instantiate(Explosion, transform.position, transform.rotation);
+                }
+            }
         }
 
         //this is for showing the health bar
@@ -163,14 +188,17 @@ public class FlyNavagation : MonoBehaviour
             }
         }
 
-        if (transform.position.y > 5)
+        if (transform.position.y > 5 && luckydeath == false)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - 0.05f, transform.position.z);
-            transform.rotation = Quaternion.identity;
+            if (luckydeath == false)
+            {
+                transform.rotation = Quaternion.identity;
+            }
 
         }
 
-        if (transform.position.y < 5)
+        if (transform.position.y < 5 && luckydeath == false)
         {
             transform.position = new Vector3(transform.position.x, 5, transform.position.z);
         }
@@ -178,19 +206,22 @@ public class FlyNavagation : MonoBehaviour
 
     private void Patroling()
     {
-        if (WalkPointSet == false || WalkPointIdleTimer <= 0) { SearchWalkPoint(); }
-        Vector3 WalkToPoint = (transform.position - WalkPoint).normalized / 25;
+        if (luckydeath == false)
+            {
+                if (WalkPointSet == false || WalkPointIdleTimer <= 0) { SearchWalkPoint(); }
+                Vector3 WalkToPoint = (transform.position - WalkPoint).normalized / 25;
 
-        if (WalktoPointTimer > 0 && transform.position.y == 5)
-        {
-            this.transform.rotation = Quaternion.LookRotation(WalkToPoint);
-            transform.position += WalkToPoint;
-            EnemyAnimator.SetInteger("EAnim", 1);
-        }
-        else
-        {
-            EnemyAnimator.SetInteger("EAnim", 0);
-        }
+                if (WalktoPointTimer > 0 && transform.position.y == 5)
+                {
+                    this.transform.rotation = Quaternion.LookRotation(WalkToPoint);
+                    transform.position += WalkToPoint;
+                    EnemyAnimator.SetInteger("EAnim", 1);
+                }
+                else
+                {
+                    EnemyAnimator.SetInteger("EAnim", 0);
+                }
+            }
     }
 
     private void SearchWalkPoint()
@@ -202,7 +233,10 @@ public class FlyNavagation : MonoBehaviour
         WalkPoint = new Vector3(transform.position.x + RandomX, transform.position.y, transform.position.z + RandomZ);
         WalktoPointTimer = Random.Range(0.5f, 3.5f);
         WalkPointIdleTimer = WalktoPointTimer + Random.Range(2.5f, 5.5f);
-        transform.rotation = Quaternion.identity;
+        if (luckydeath == false)
+        {
+            transform.rotation = Quaternion.identity;
+        }
         WalkPointSet = true;
         TimeUntilAttack = 0;
     }
@@ -230,7 +264,7 @@ public class FlyNavagation : MonoBehaviour
     {
         if (collision.tag == "PlayerAttack" && EnemyAnimator.GetInteger("EAnim") == 0)
         {
-            if (success <= 4)
+            if (success == 1)
             {
                 ded = true;
             }
@@ -239,7 +273,10 @@ public class FlyNavagation : MonoBehaviour
                 luckydeath = true;
             }
         }
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
         if (luckydeath == true && collision.gameObject.layer == 7)
         {
             if (transform.Find("TargetingConePivot"))
