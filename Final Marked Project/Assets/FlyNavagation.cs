@@ -31,6 +31,7 @@ public class FlyNavagation : MonoBehaviour
     public GameObject GroundedVer;
     bool noted;
     bool ded = false;
+    bool yforced = false;
 
     // lucky death
     public int success;
@@ -198,7 +199,12 @@ public class FlyNavagation : MonoBehaviour
 
         }
 
-        if (transform.position.y < 5 && luckydeath == false)
+        if (transform.position.y <= 5 && luckydeath == false)
+        {
+            yforced = true;
+        }
+
+        if (yforced == true)
         {
             transform.position = new Vector3(transform.position.x, 5, transform.position.z);
         }

@@ -19,15 +19,35 @@ public class WaveManager : MonoBehaviour
     private float SpawnRangeZmax;
     private int multiaxis = 0; // mechanism for complicated enviroments
 
-    public GameObject Bouncer;
-    public GameObject Chaser;
-    public GameObject Defender;
-    public GameObject Bigger;
-    public GameObject DropPoder;
-    public GameObject Heavyer;
-    public GameObject Teleporter;
-    public GameObject Healer;
-    public GameObject Flyer;
+    public GameObject Bouncer1;
+    public GameObject Chaser1;
+    public GameObject Defender1;
+    public GameObject Bigger1;
+    public GameObject DropPoder1;
+    public GameObject Heavyer1;
+    public GameObject Teleporter1;
+    public GameObject Healer1;
+    public GameObject Flyer1;
+
+    public GameObject Bouncer2;
+    public GameObject Chaser2;
+    public GameObject Defender2;
+    public GameObject Bigger2;
+    public GameObject DropPoder2;
+    public GameObject Heavyer2;
+    public GameObject Teleporter2;
+    public GameObject Healer2;
+    public GameObject Flyer2;
+
+    public GameObject Bouncer3;
+    public GameObject Chaser3;
+    public GameObject Defender3;
+    public GameObject Bigger3;
+    public GameObject DropPoder3;
+    public GameObject Heavyer3;
+    public GameObject Teleporter3;
+    public GameObject Healer3;
+    public GameObject Flyer3;
     public int whichenemy = 0;
 
     void Update()
@@ -81,39 +101,39 @@ public class WaveManager : MonoBehaviour
                 GameObject enemy = null;
                 if (whichenemy == 0)
                 {
-                    enemy = Bouncer;
+                    enemy = Bouncer1;
                 }
                 if (whichenemy == 1)
                 {
-                    enemy = Chaser;
+                    enemy = Chaser1;
                 }
                 if (whichenemy == 2)
                 {
-                    enemy = Defender;
+                    enemy = Defender1;
                 }
                 if (whichenemy == 3)
                 {
-                    enemy = Bigger;
+                    enemy = Bigger1;
                 }
                 if (whichenemy == 4)
                 {
-                    enemy = DropPoder;
+                    enemy = DropPoder1;
                 }
                 if (whichenemy == 5)
                 {
-                    enemy = Heavyer;
+                    enemy = Heavyer1;
                 }
                 if (whichenemy == 6)
                 {
-                    enemy = Teleporter;
+                    enemy = Teleporter1;
                 }
                 if (whichenemy == 7)
                 {
-                    enemy = Healer;
+                    enemy = Healer1;
                 }
                 if (whichenemy == 8)
                 {
-                    enemy = Flyer;
+                    enemy = Flyer1;
                 }
 
                 if (multiaxis == 1)
