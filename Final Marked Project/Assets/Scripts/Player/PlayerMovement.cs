@@ -3433,6 +3433,52 @@ public class PlayerMovement : MonoBehaviour
                 Health -= 20;
                 knockback = true;
             }
+            if (collision.name == "BouncerV2AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 30;
+                knockback = true;
+            }
+            if (collision.name == "BouncerV3AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 40;
+                knockback = true;
+            }
+
+            if (collision.name == "TeleporterAHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 20;
+                knockback = true;
+            }
+            if (collision.name == "TeleporterV2AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 20;
+                knockback = true;
+            }
+            if (collision.name == "TeleporterV3AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 20;
+                knockback = true;
+            }
 
             if (collision.name == "ChaserAHB")
             {
@@ -3441,6 +3487,24 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 35;
+                knockback = true;
+            }
+            if (collision.name == "ChaserV2AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 45;
+                knockback = true;
+            }
+            if (collision.name == "ChaserV3AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 55;
                 knockback = true;
             }
 
@@ -3453,6 +3517,24 @@ public class PlayerMovement : MonoBehaviour
                 Health -= 20;
                 knockback = true;
             }
+            if (collision.name == "DefenderV2AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 30;
+                knockback = true;
+            }
+            if (collision.name == "DefenderV3AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 40;
+                knockback = true;
+            }
 
             if (collision.name == "DropPodAHB")
             {
@@ -3463,6 +3545,52 @@ public class PlayerMovement : MonoBehaviour
                 Health -= 35;
                 knockback = true;
             }
+            if (collision.name == "DropPodV2AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 45;
+                knockback = true;
+            }
+            if (collision.name == "DropPodV3AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 55;
+                knockback = true;
+            }
+
+            if (collision.name == "BiggerAHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 35;
+                knockback = true;
+            }
+            if (collision.name == "BiggerV2AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 45;
+                knockback = true;
+            }
+            if (collision.name == "BiggerV3AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 55;
+                knockback = true;
+            }
 
             if (collision.name == "HeavyAHB")
             {
@@ -3471,6 +3599,24 @@ public class PlayerMovement : MonoBehaviour
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 25);
                 Health -= 15;
+                knockback = true;
+            }
+            if (collision.name == "HeavyV2AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 25;
+                knockback = true;
+            }
+            if (collision.name == "HeavyV3AHB")
+            {
+                PlayerDamagedTimer = 0.75f;
+                Attack2Charging = false;
+                Attack2Held = 0;
+                PlayerAnimator.SetInteger("Anim", 25);
+                Health -= 35;
                 knockback = true;
             }
 

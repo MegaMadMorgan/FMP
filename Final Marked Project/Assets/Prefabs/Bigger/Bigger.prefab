@@ -167,6 +167,8 @@ MonoBehaviour:
   recollision: 0
   notstunned: 0
   PostureBreak: 0
+  projectiletimermax: 0
+  projectiletimer: 0
   TeleportTimerMax: 0
   TeleportTimer: 0
   TeleportDirection: 0
@@ -174,10 +176,12 @@ MonoBehaviour:
   healthbarimage: {fileID: 2735857359855405172}
   bigcollisonrange: 1.48
   itemnum: 0
+  healtimer: 0
   lungetimer: 0
   EnemyMesh: {fileID: 5442478262477664916}
   EnemyAnimator: {fileID: 2118870989964699886}
   StickyDynamite: {fileID: 8091395023690283447, guid: 8c68fac16d22c8a47be64c7a67c1dbf9, type: 3}
+  Explosion: {fileID: 0}
   AR: {fileID: 6619756690899153370, guid: 11deae8480774e54fab05a65b291583a, type: 3}
   BB: {fileID: 6217000117354906961, guid: 5bbc814c85b43bd469039b2fabb0cb17, type: 3}
   B: {fileID: 4312518766310831654, guid: 6e2c9b82b9845ae418031f31a691b71b, type: 3}
@@ -201,6 +205,8 @@ MonoBehaviour:
   F: {fileID: 8896681539242248539, guid: fd78b392d3c27244db545a2c69408759, type: 3}
   SC: {fileID: 7326298793116021316, guid: 6dcf5722854614e4b81777b25e7d6c34, type: 3}
   SB: {fileID: 0}
+  FireBall: {fileID: 0}
+  explode: 0
 --- !u!195 &7955883998607810239
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -244,6 +250,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   State: 
+  flying: 1
   WalkPoint: {x: 0, y: 0, z: 0}
   WalkPointRange: 5
   WalktoPointTimer: 3.5
@@ -1136,6 +1143,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1873869180151645402, guid: 7909e93a9ef097a429110bdbc1fa4343, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e3762d00888803418f957639b5fd872, type: 2}
     - target: {fileID: -1785394856068752837, guid: 7909e93a9ef097a429110bdbc1fa4343, type: 3}
       propertyPath: m_IsActive
       value: 0

@@ -14,7 +14,7 @@ public class DropPod : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (door.GetFloat("DoorTimer") <= -0.01)
         {
@@ -34,6 +34,10 @@ public class DropPod : MonoBehaviour
         else
         {
             HB.SetActive(false);
+            if (GetComponentInParent<EnemyStats>().Stun <= 0 && (transform.name == "DropPodBoss" || transform.name == "DropPodBoss(Clone)" || transform.name == "DropPodV3" || transform.name == "DropPodV3(Clone)"))
+            {
+                transform.Rotate(0, 5, 0, Space.Self);
+            }
         }
     }
 }

@@ -15341,6 +15341,8 @@ MonoBehaviour:
   recollision: 0
   notstunned: 0
   PostureBreak: 0
+  projectiletimermax: 0
+  projectiletimer: 0
   TeleportTimerMax: 0
   TeleportTimer: 0
   TeleportDirection: 0
@@ -15348,10 +15350,12 @@ MonoBehaviour:
   healthbarimage: {fileID: 7248320508297046892}
   bigcollisonrange: 1.42
   itemnum: 0
+  healtimer: 0
   lungetimer: 0
   EnemyMesh: {fileID: 2206273683695822755}
   EnemyAnimator: {fileID: 3835609110521756334}
   StickyDynamite: {fileID: 8091395023690283447, guid: 8c68fac16d22c8a47be64c7a67c1dbf9, type: 3}
+  Explosion: {fileID: 0}
   AR: {fileID: 6619756690899153370, guid: 11deae8480774e54fab05a65b291583a, type: 3}
   BB: {fileID: 6217000117354906961, guid: 5bbc814c85b43bd469039b2fabb0cb17, type: 3}
   B: {fileID: 4312518766310831654, guid: 6e2c9b82b9845ae418031f31a691b71b, type: 3}
@@ -15375,6 +15379,8 @@ MonoBehaviour:
   F: {fileID: 8896681539242248539, guid: fd78b392d3c27244db545a2c69408759, type: 3}
   SC: {fileID: 7326298793116021316, guid: 6dcf5722854614e4b81777b25e7d6c34, type: 3}
   SB: {fileID: 0}
+  FireBall: {fileID: 0}
+  explode: 0
 --- !u!195 &2553725932810682873
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -15418,6 +15424,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   State: 
+  flying: 1
   WalkPoint: {x: 0, y: 0, z: 0}
   WalkPointRange: 5
   WalktoPointTimer: 3.5
@@ -15429,7 +15436,7 @@ MonoBehaviour:
   AttackResetTimer: 0
   rb: {fileID: 6446452578116964005}
   SightRange: 12
-  AttackRange: 4
+  AttackRange: 2
   PlayerInSightRange: 0
   PlayerInAttackRange: 0
 --- !u!114 &2553725932810682867
@@ -19208,8 +19215,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6050651322315956233, guid: 4b3e43a4707f9f349845a0c40df908af, type: 3}
-  - {fileID: -563087162461414072, guid: 4b3e43a4707f9f349845a0c40df908af, type: 3}
+  - {fileID: 2100000, guid: 10b4ed68146cf6748a8e64e42ff4d504, type: 2}
+  - {fileID: 2100000, guid: 10b4ed68146cf6748a8e64e42ff4d504, type: 2}
   - {fileID: -7720851650173870308, guid: 4b3e43a4707f9f349845a0c40df908af, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0

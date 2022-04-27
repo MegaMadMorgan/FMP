@@ -103,6 +103,8 @@ MonoBehaviour:
   recollision: 0
   notstunned: 0
   PostureBreak: 0
+  projectiletimermax: 0
+  projectiletimer: 0
   TeleportTimerMax: 0
   TeleportTimer: 0
   TeleportDirection: 0
@@ -110,10 +112,12 @@ MonoBehaviour:
   healthbarimage: {fileID: 8778175109894003688}
   bigcollisonrange: 1.05
   itemnum: 0
+  healtimer: 0
   lungetimer: 0
   EnemyMesh: {fileID: 0}
   EnemyAnimator: {fileID: 6871466517003157270}
   StickyDynamite: {fileID: 8091395023690283447, guid: 8c68fac16d22c8a47be64c7a67c1dbf9, type: 3}
+  Explosion: {fileID: 0}
   AR: {fileID: 6619756690899153370, guid: 11deae8480774e54fab05a65b291583a, type: 3}
   BB: {fileID: 6217000117354906961, guid: 5bbc814c85b43bd469039b2fabb0cb17, type: 3}
   B: {fileID: 4312518766310831654, guid: 6e2c9b82b9845ae418031f31a691b71b, type: 3}
@@ -137,6 +141,8 @@ MonoBehaviour:
   F: {fileID: 8896681539242248539, guid: fd78b392d3c27244db545a2c69408759, type: 3}
   SC: {fileID: 7326298793116021316, guid: 6dcf5722854614e4b81777b25e7d6c34, type: 3}
   SB: {fileID: 0}
+  FireBall: {fileID: 0}
+  explode: 0
 --- !u!114 &6146406645597490694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -843,6 +849,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1568336891790585727, guid: 310c57cb16800834da34af430f27d98e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8e9bf562959e631499b484af06cd6bf8, type: 2}
     - target: {fileID: 1688848427115033660, guid: 310c57cb16800834da34af430f27d98e, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1167,6 +1177,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7985679920333615290, guid: 310c57cb16800834da34af430f27d98e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8e9bf562959e631499b484af06cd6bf8, type: 2}
     - target: {fileID: 8051601406745965501, guid: 310c57cb16800834da34af430f27d98e, type: 3}
       propertyPath: m_IsActive
       value: 0

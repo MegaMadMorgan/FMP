@@ -21,6 +21,11 @@ public class SoundManager : MonoBehaviour
         }
 
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Sound");
+
+        if (SceneManager.GetActiveScene().name != "City_Centre")
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void PlaySound(string name)
@@ -39,6 +44,10 @@ public class SoundManager : MonoBehaviour
             s.source.pitch = UnityEngine.Random.Range(0.8f, 1.5f);
         }
         s.source.Play();
+        if (SceneManager.GetActiveScene().name != "City_Centre")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
 

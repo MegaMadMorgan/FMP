@@ -47,7 +47,7 @@ public class EnemyNav : MonoBehaviour
     private void Update()
     {
 
-        if ((this.name == "Flyer" || this.name == "Flyer(Clone)") && flying == true)
+        if ((this.name == "Flyer" || this.name == "Flyer(Clone)" || this.name == "FlyerV2" || this.name == "FlyerV2(Clone)" || this.name == "FlyerV3" || this.name == "FlyerV3(Clone)") && flying == true)
         {
             Vector3 pos = transform.position;
             pos.y = 5;
@@ -78,29 +78,29 @@ public class EnemyNav : MonoBehaviour
         {
             GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 6);
             ReadyingAttack = false;
-            if (name == "Chaser" || name == "Chaser(Clone)")
+            if (name == "Chaser" || name == "Chaser(Clone)" || name == "ChaserV2" || name == "ChaserV2(Clone)" || name == "ChaserV3" || name == "ChaserV3(Clone)")
             {
                 AttackResetTimer = 1.25f;
             }
-            if (name == "Defender" || name == "Defender(Clone)")
+            if (name == "Defender" || name == "Defender(Clone)" || name == "DefenderV2" || name == "DefenderV2(Clone)" || name == "DefenderV3" || name == "DefenderV3(Clone)")
             {
                 AttackResetTimer = 0.8f;
             }
-            if (name == "Bigger" || name == "Bigger(Clone)")
+            if (name == "Bigger" || name == "Bigger(Clone)" || name == "BiggerV2" || name == "BiggerV2(Clone)" || name == "BiggerV3" || name == "BiggerV3(Clone)")
             {
                 AttackResetTimer = 2.75f;
             }
-            if (name == "Heavy" || name == "Heavy(Clone)")
+            if (name == "Heavy" || name == "Heavy(Clone)" || name == "HeavyV2" || name == "HeavyV2(Clone)" || name == "HeavyV3" || name == "HeavyV3(Clone)")
             {
                 AttackResetTimer = 1.25f;
             }
-            if (name == "Flyer" || name == "Flyer(Clone)")
+            if (name == "Flyer" || name == "Flyer(Clone)" || name == "FlyerV2" || name == "FlyerV2(Clone)" || name == "FlyerV3" || name == "FlyerV3(Clone)")
             {
                 AttackResetTimer = 1.25f;
             }
         }
 
-        if ((this.name == "Flyer" || this.name == "Flyer(Clone)") && flying == true)
+        if ((this.name == "Flyer" || this.name == "Flyer(Clone)" || this.name == "FlyerV2" || this.name == "FlyerV2(Clone)" || this.name == "FlyerV3" || this.name == "FlyerV3(Clone)") && flying == true)
         {
             if (transform.position.y > 5)
             {
@@ -119,7 +119,7 @@ public class EnemyNav : MonoBehaviour
 
     private void Patroling()
     {
-        if (this.name == "Bigger" || this.name == "Bigger(Clone)")
+        if (this.name == "Bigger" || this.name == "Bigger(Clone)" || this.name == "BiggerV2" || this.name == "BiggerV2(Clone)" || this.name == "BiggerV3" || this.name == "BiggerV3(Clone)")
         {
             agent.speed = 1;
         }
@@ -147,7 +147,7 @@ public class EnemyNav : MonoBehaviour
 
             if (WalkPointIdleTimer <= 0) 
             {
-                if ((this.name != "Flyer" && this.name != "Flyer(Clone)") || flying == false)
+                if ((this.name != "Flyer" && this.name != "Flyer(Clone)" && this.name != "FlyerV2" && this.name != "FlyerV2(Clone)" && this.name != "FlyerV3" && this.name != "FlyerV3(Clone)") || flying == false)
                 {
                     GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 4);
                 }
@@ -158,7 +158,7 @@ public class EnemyNav : MonoBehaviour
             } 
             else 
             {
-                if ((this.name != "Flyer" && this.name != "Flyer(Clone)") || flying == false)
+                if ((this.name != "Flyer" && this.name != "Flyer(Clone)" && this.name != "FlyerV2" && this.name != "FlyerV2(Clone)" && this.name != "FlyerV3" && this.name != "FlyerV3(Clone)") || flying == false)
                 {
                     GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 0);
                 }
@@ -203,7 +203,7 @@ public class EnemyNav : MonoBehaviour
         EnemyStats ES = GetComponent<EnemyStats>();
         if (ES.notstunned == true)
         {
-            if ((this.name != "Flyer" && this.name != "Flyer(Clone)") || flying == false)
+            if ((this.name != "Flyer" && this.name != "Flyer(Clone)" && this.name != "FlyerV2" && this.name != "FlyerV2(Clone)" && this.name != "FlyerV3" && this.name != "FlyerV3(Clone)") || flying == false)
             {
                 GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 3);
             }
@@ -233,7 +233,7 @@ public class EnemyNav : MonoBehaviour
 
                 if (ReadyingAttack == false && AttackResetTimer <= 0) { TimeUntilAttack = Random.Range(1, 2); agent.SetDestination(transform.position); }
 
-                if (TimeUntilAttack >= 0.0001 && GetComponentInParent<EnemyStats>().recollision <= 0 && (this.name != "Flyer" && this.name != "Flyer(Clone)"))
+                if (TimeUntilAttack >= 0.0001 && GetComponentInParent<EnemyStats>().recollision <= 0 && (this.name != "Flyer" && this.name != "Flyer(Clone)" && this.name != "FlyerV2" && this.name != "FlyerV2(Clone)" && this.name != "FlyerV3" && this.name != "FlyerV3(Clone)"))
                 {
 
                     if (GetComponentInParent<EnemyStats>().EnemyAnimator.GetInteger("EAnim") != 7)
@@ -242,7 +242,7 @@ public class EnemyNav : MonoBehaviour
 
                         GetComponentInParent<EnemyStats>().EnemyAnimator.SetInteger("EAnim", 5);
 
-                        if ((this.name == "Flyer" || this.name == "Flyer(Clone)") && flying == true)
+                        if ((this.name == "Flyer" || this.name == "Flyer(Clone)" || this.name == "FlyerV2" || this.name == "FlyerV2(Clone)" || this.name == "FlyerV3" || this.name == "FlyerV3(Clone)") && flying == true)
                         {
                             Vector3 pos = transform.position;
                             pos.y = 5;

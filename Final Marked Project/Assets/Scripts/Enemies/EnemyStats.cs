@@ -78,7 +78,7 @@ public class EnemyStats : MonoBehaviour
         itemnum = Random.Range(1, 23);
         Stun = 0.5f;
         maxhealth = health;
-        if (name == "DropPod" || name == "DropPod(Clone)")
+        if (name == "DropPod" || name == "DropPod(Clone)" || name == "DropPodV2" || name == "DropPodV2(Clone)" || name == "DropPodV3" || name == "DropPodV3(Clone)" || name == "DropPodBoss" || name == "DropPodBoss(Clone)")
         {
             this.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 180f);
         }
@@ -93,13 +93,14 @@ public class EnemyStats : MonoBehaviour
     {
         Healthbar.fillAmount = health / maxhealth;
         recollision -= Time.deltaTime;
+
         if (Stun > 0 || !GroundCheck())
         {
             Stun -= Time.deltaTime;
-            if (this.name != "Heavy" && this.name != "Heavy(Clone)")
+            if (this.name != "Heavy" && this.name != "Heavy(Clone)" && this.name != "HeavyV2" && this.name != "HeavyV2(Clone)" && this.name != "HeavyV3" && this.name != "HeavyV3(Clone)" && this.name != "HeavyBoss" && this.name != "HeavyBoss(Clone)")
             {
                 notstunned = false;
-                if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)")
+                if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "BouncerV2" && this.name != "BouncerV2(Clone)" && this.name != "BouncerV3" && this.name != "BouncerV3(Clone)" && this.name != "BouncerBoss" && this.name != "BouncerBoss(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)" && this.name != "DropPodV2" && this.name != "DropPodV2(Clone)" && this.name != "DropPodV3" && this.name != "DropPodV3(Clone)" && this.name != "DropPodBoss" && this.name != "DropPodBoss(Clone)")
                 {
                     gameObject.GetComponent<NavMeshAgent>().enabled = false;
 
@@ -116,7 +117,7 @@ public class EnemyStats : MonoBehaviour
             else if (PostureBreak == true)
             {
                 notstunned = false;
-                if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)")
+                if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "BouncerV2" && this.name != "BouncerV2(Clone)" && this.name != "BouncerV3" && this.name != "BouncerV3(Clone)" && this.name != "BouncerBoss" && this.name != "BouncerBoss(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)" && this.name != "DropPodV2" && this.name != "DropPodV2(Clone)" && this.name != "DropPodV3" && this.name != "DropPodV3(Clone)" && this.name != "DropPodBoss" && this.name != "DropPodBoss(Clone)")
                 {
                     gameObject.GetComponent<NavMeshAgent>().enabled = false;
 
@@ -136,7 +137,7 @@ public class EnemyStats : MonoBehaviour
         {
             Stun = 0;
             stunframe = 0;
-            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)" && lungetimer <= 0)
+            if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "BouncerV2" && this.name != "BouncerV2(Clone)" && this.name != "BouncerV3" && this.name != "BouncerV3(Clone)" && this.name != "BouncerBoss" && this.name != "BouncerBoss(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)" && this.name != "DropPodV2" && this.name != "DropPodV2(Clone)" && this.name != "DropPodV3" && this.name != "DropPodV3(Clone)" && this.name != "DropPodBoss" && this.name != "DropPodBoss(Clone)" && lungetimer <= 0)
             {
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 if (gameObject.GetComponent<EnemyNav>() != null)
@@ -156,7 +157,7 @@ public class EnemyStats : MonoBehaviour
                 }
             }
 
-            if ((this.name == "Healer" || this.name == "Healer(Clone)") && health <= maxhealth)
+            if ((this.name == "Healer" || this.name == "Healer(Clone)" || this.name == "HealerV2" || this.name == "HealerV2(Clone)" || this.name == "HealerV3" || this.name == "HealerV3(Clone)") && health <= maxhealth)
             {
                 healtimer -= Time.deltaTime;
 
@@ -179,12 +180,12 @@ public class EnemyStats : MonoBehaviour
             health = maxhealth;
         }
 
-            //if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)")
-            if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true)
+        //if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)")
+        if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true)
         {
             EnemyAnimator.SetInteger("EAnim", 5);
 
-            if (name == "Teleporter" || name == "Teleporter(Clone)")
+            if (name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)")
             {
                 Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
                 Quaternion lookRotation = Quaternion.LookRotation(dir);
@@ -222,7 +223,7 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "Heavy" || name == "Heavy(Clone)" || name == "Teleporter" || name == "Teleporter(Clone)" || name == "Healer" || name == "Healer(Clone)" || name == "GroundedFly" || name == "GroundedFly(Clone)")
+        if (name == "Chaser" || name == "Chaser(Clone)" || name == "ChaserV2" || name == "ChaserV2(Clone)" || name == "ChaserV3" || name == "ChaserV3(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "DefenderV2" || name == "DefenderV2(Clone)" || name == "DefenderV3" || name == "DefenderV3(Clone)" || name == "DefenderBoss" || name == "DefenderBoss(Clone)" || name == "Bigger" || name == "Bigger(Clone)" || name == "BiggerV2" || name == "BiggerV2(Clone)" || name == "BiggerV3" || name == "BiggerV3(Clone)" || name == "Heavy" || name == "Heavy(Clone)" || name == "HeavyV2" || name == "HeavyV2(Clone)" || name == "HeavyV3" || name == "HeavyV3(Clone)" || name == "HeavyBoss" || name == "HeavyBoss(Clone)" || name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)" || name == "Healer" || name == "Healer(Clone)" || name == "HealerV2" || name == "HealerV2(Clone)" || name == "HealerV3" || name == "HealerV3(Clone)" || name == "GroundedFly" || name == "GroundedFly(Clone)" || name == "GroundedFlyV2" || name == "GroundedFlyV2(Clone)" || name == "GroundedFlyV3" || name == "GroundedFlyV3(Clone)")
         {
             if (lungetimer > 0) { lungetimer -= Time.deltaTime; rb.velocity = new Vector3(EnemyMesh.forward.x * 5, rb.velocity.y, EnemyMesh.forward.z * 5); gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 if (gameObject.GetComponent<EnemyNav>() != null)
@@ -247,12 +248,12 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        if (recollision <= 0 && EnemyAnimator.GetInteger("EAnim") == 7 && !(name == "Teleporter" || name == "Teleporter(Clone)"))
+        if (recollision <= 0 && EnemyAnimator.GetInteger("EAnim") == 7 && !(name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)"))
         {
             EnemyAnimator.SetInteger("EAnim", 5);
         }
 
-        if (EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)"))
+        if (EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)"))
         {
             TeleportTimer -= Time.deltaTime;
         }
@@ -261,13 +262,13 @@ public class EnemyStats : MonoBehaviour
             TeleportTimer = TeleportTimerMax;
         }
 
-        if (TeleportTimer <= 0 && EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)"))
+        if (TeleportTimer <= 0 && EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)"))
         {
             TeleportTimer = TeleportTimerMax;
             TeleportDirection = Random.Range(1, 3);
         }
 
-        if (TeleportDirection != 0 && EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)"))
+        if (TeleportDirection != 0 && EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)"))
         {
             if (TeleportDirection == 1)
             {
@@ -327,7 +328,7 @@ public class EnemyStats : MonoBehaviour
         if (collision.tag == "PlayerAttack")
         {
             #region kick
-                if (collision.name == "KickHB(Clone)" && !(this.name == "Defender(Clone)" && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7)))
+                if (collision.name == "KickHB(Clone)" && !((this.name == "Defender(Clone)" || this.name == "DefenderV2(Clone)" || this.name == "DefenderV3(Clone)" || this.name == "DefenderBoss(Clone)" || this.name == "DefenderBoss") && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7)))
                 {
                 health -= 1;
 
@@ -349,7 +350,9 @@ public class EnemyStats : MonoBehaviour
                 GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
             }
 
-            if (collision.name == "KickHB(Clone)" && this.name == "Defender(Clone)" && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7))
+            
+
+            if (collision.name == "KickHB(Clone)" && (this.name == "Defender(Clone)" || this.name == "DefenderV2(Clone)" || this.name == "DefenderV3(Clone)") && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7))
             {
                 health -= 0.25f;
 
@@ -368,6 +371,27 @@ public class EnemyStats : MonoBehaviour
                 rb.AddForce(0, 4, 0, ForceMode.Impulse);
                 recollision = 0.2f;
                 Stun = 1.5f;
+                GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
+            }
+
+            if (collision.name == "KickHB(Clone)" && (this.name == "DefenderBoss(Clone)" || this.name == "DefenderBoss") && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7))
+            {
+
+                Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                direction = -direction.normalized;
+
+                StunFrameSwitch();
+
+                FindObjectOfType<SoundManager>().PlaySound("Clash");
+
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                rb.AddForce(knockback * 1.5f, ForceMode.Impulse); // was direction
+                rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                recollision = 0.2f;
+                Stun = 0.79f;
                 GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
             #endregion
@@ -406,7 +430,7 @@ public class EnemyStats : MonoBehaviour
             #endregion
 
             //blocking check
-            if (!((EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7) && (name == "Defender" || name == "Defender(Clone)")))
+            if (!((EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7) && (name == "Defender" || name == "Defender(Clone)" || name == "DefenderV2" || name == "DefenderV2(Clone)" || name == "DefenderV3" || name == "DefenderV3(Clone)" || name == "DefenderBoss" || name == "DefenderBoss(Clone)")))
             {
                 #region Baseball Bat
 
@@ -508,7 +532,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -535,7 +559,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -653,7 +677,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -680,7 +704,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -797,7 +821,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -826,7 +850,7 @@ public class EnemyStats : MonoBehaviour
 
                     FindObjectOfType<SoundManager>().PlaySound("Punch");
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -920,7 +944,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -947,7 +971,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1147,7 +1171,7 @@ public class EnemyStats : MonoBehaviour
                         direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                         direction = -direction.normalized;
 
-                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                         {
                             PostureBreak = true;
                         }
@@ -1174,7 +1198,7 @@ public class EnemyStats : MonoBehaviour
                         direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                         direction = -direction.normalized;
 
-                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                         {
                             PostureBreak = true;
                         }
@@ -1203,7 +1227,7 @@ public class EnemyStats : MonoBehaviour
                         direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                         direction = -direction.normalized;
 
-                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                         {
                             PostureBreak = true;
                         }
@@ -1230,7 +1254,7 @@ public class EnemyStats : MonoBehaviour
                         direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                         direction = -direction.normalized;
 
-                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                         {
                             PostureBreak = true;
                         }
@@ -1260,7 +1284,7 @@ public class EnemyStats : MonoBehaviour
                         direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                         direction = -direction.normalized;
 
-                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                         {
                             PostureBreak = true;
                         }
@@ -1287,7 +1311,7 @@ public class EnemyStats : MonoBehaviour
                         direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                         direction = -direction.normalized;
 
-                        if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                        if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                         {
                             PostureBreak = true;
                         }
@@ -1362,7 +1386,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1389,7 +1413,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1419,7 +1443,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1521,7 +1545,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1548,7 +1572,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1686,7 +1710,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1756,7 +1780,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1829,7 +1853,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1856,7 +1880,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1929,7 +1953,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -1956,7 +1980,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2051,7 +2075,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2078,7 +2102,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2173,7 +2197,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2200,7 +2224,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2251,7 +2275,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2277,7 +2301,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2304,7 +2328,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2330,7 +2354,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2426,7 +2450,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2453,7 +2477,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2527,7 +2551,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2554,7 +2578,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2628,7 +2652,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2667,7 +2691,7 @@ public class EnemyStats : MonoBehaviour
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.3f;
                 }
                 #endregion
-                // sounds PARTIALLY
+                // sounds
                 #region SawCleaver
 
                 if (collision.name == "SCEPTA11(Clone)")
@@ -2724,7 +2748,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2751,7 +2775,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
-                    if (this.name == "Heavy" || this.name == "Heavy(Clone)")
+                    if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
                     }
@@ -2772,7 +2796,7 @@ public class EnemyStats : MonoBehaviour
                 #region Supers
                 if (collision.name == "HeadButtHB(Clone)")
                 {
-                    health -= 500;
+                    health -= 15;
 
                     Vector3 knockback = collision.transform.forward;
 
@@ -2814,7 +2838,7 @@ public class EnemyStats : MonoBehaviour
 
                 if (collision.name == "PepperoniPizza(Clone)" && GameObject.Find("PepperoniPizza(Clone)").GetComponent<Pizza>().existtimer >= 4) // (Clone)
                 {
-                    health -= 100;
+                    health -= 20;
 
                     Vector3 knockback = collision.transform.forward;
 
@@ -2834,7 +2858,7 @@ public class EnemyStats : MonoBehaviour
                 }
                 if (collision.name == "PepperoniPizza")
                 {
-                    health -= 1;
+                    health -= 20;
 
                     Vector3 knockback = collision.transform.forward;
 
@@ -2896,7 +2920,7 @@ public class EnemyStats : MonoBehaviour
 
     void StunFrameSwitch()
     {
-        if (this.name != "Heavy" && this.name != "Heavy(Clone)")
+        if (this.name != "Heavy" && this.name != "Heavy(Clone)" && this.name != "HeavyV2" && this.name != "HeavyV2(Clone)" && this.name != "HeavyV3" && this.name != "HeavyV3(Clone)" && this.name != "HeavyBoss" && this.name != "HeavyBoss(Clone)")
         {
             stunframe += 1;
             if (stunframe % 2 == 0)
@@ -2924,7 +2948,7 @@ public class EnemyStats : MonoBehaviour
         Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, Time.deltaTime * 99).eulerAngles;
-        if (this.name == "DropPod" || this.name == "DropPod(Clone)")
+        if (this.name == "DropPod" || this.name == "DropPod(Clone)" || this.name == "DropPodV2" || this.name == "DropPodV2(Clone)" || this.name == "DropPodV3" || this.name == "DropPodV3(Clone)" || this.name == "DropPodBoss" || this.name == "DropPodBoss(Clone)")
         {
             this.transform.rotation = Quaternion.Euler(0f, rotation.y-90, 180f);
         }

@@ -134,6 +134,11 @@ public class FlyNavagation : MonoBehaviour
             if (WalktoPointTimer > 0) { WalktoPointTimer -= Time.deltaTime; } else { WalktoPointTimer = 0; }
         }
 
+        if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().WeaponActiveNum == 0 && GameObject.FindGameObjectsWithTag("ItemHitBox").Length <= 0.9 && GameObject.FindGameObjectsWithTag("PlayerAttack").Length <= 0.9)
+        {
+            luckydeath = true;
+        }
+
         if (luckydeath == true)
         {
             transform.position += this.transform.up/2;
@@ -204,7 +209,7 @@ public class FlyNavagation : MonoBehaviour
             yforced = true;
         }
 
-        if (yforced == true)
+        if (yforced == true && luckydeath == false)
         {
             transform.position = new Vector3(transform.position.x, 5, transform.position.z);
         }
