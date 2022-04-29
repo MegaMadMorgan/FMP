@@ -6,6 +6,8 @@ public class TargetPlayer : MonoBehaviour
 {
     Vector3 startPosition;
     Vector3 playerPosition;
+
+    float existtimer = 15f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,5 +19,32 @@ public class TargetPlayer : MonoBehaviour
     void FixedUpdate()
     {
         transform.position += (playerPosition - startPosition).normalized / 25;
+        if (existtimer <= 0)
+        {
+            Destroy(transform.root.gameObject);
+        }
+
+        existtimer -= Time.deltaTime;
     }
-}
+
+    private void Update()
+    {
+        
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            Destroy(transform.root.gameObject);
+        }
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            Destroy(transform.root.gameObject);
+        }
+    }
+    }
