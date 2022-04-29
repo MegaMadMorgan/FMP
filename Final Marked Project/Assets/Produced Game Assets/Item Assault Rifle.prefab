@@ -889,7 +889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerrange: 0
   weaponnum: 0
-  existtimer: 12
+  existtimer: 30
   AR: {fileID: 6619756690899153370}
   BB: {fileID: 6217000117354906961, guid: 5bbc814c85b43bd469039b2fabb0cb17, type: 3}
   B: {fileID: 4312518766310831654, guid: 6e2c9b82b9845ae418031f31a691b71b, type: 3}
