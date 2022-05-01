@@ -2943,6 +2943,27 @@ public class EnemyStats : MonoBehaviour
                 recollision = 0.4f;
                 Stun = 0.6f;
             }
+
+            if (collision.tag == "IGNOREMECAMERA" && Stun <= 0)
+            {
+                if (transform.position.x >= 0)
+                {
+                    transform.position -= new Vector3(-2.5f, 0, 0);
+                }
+                if (transform.position.x <= 0)
+                {
+                    transform.position -= new Vector3(2.5f, 0, 0);
+                }
+
+                if (transform.position.y <= 0)
+                {
+                    transform.position -= new Vector3(0, 0, 2.5f);
+                }
+                if (transform.position.y >= 0)
+                {
+                    transform.position -= new Vector3(0, 0, -2.5f);
+                }
+            }
         }
     }
 
