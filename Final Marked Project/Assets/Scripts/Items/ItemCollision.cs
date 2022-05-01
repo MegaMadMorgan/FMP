@@ -10,6 +10,7 @@ public class ItemCollision : MonoBehaviour
     public bool triggerrange = false;
     public int weaponnum;
     public float existtimer = 12;
+    public Rigidbody rb;
 
     public GameObject AR;
     public GameObject BB;
@@ -37,6 +38,11 @@ public class ItemCollision : MonoBehaviour
     private void Awake()
     {
         transform.rotation = Random.rotation;
+    }
+
+    private void Start()
+    {
+        rb.AddForce(0, 16, 0, ForceMode.Impulse);
     }
 
     private void Update()
@@ -144,16 +150,15 @@ public class ItemCollision : MonoBehaviour
         if (collision.tag == "Player")
         {
             triggerrange = true;
-            PlayerMovement PlayerMovementScript = ItemParent.transform.GetComponent<PlayerMovement>();
-            PlayerMovementScript.CollidingWithItem = true;
+            GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().CollidingWithItem = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         triggerrange = false; 
-        PlayerMovement PlayerMovementScript = ItemParent.transform.GetComponent<PlayerMovement>(); 
-        PlayerMovementScript.CollidingWithItem = false;
+        //PlayerMovement PlayerMovementScript = ItemParent.transform.GetComponent<PlayerMovement>(); // PlayerMovement PlayerMovementScript = ItemParent.transform.GetComponent<PlayerMovement>(); 
+        GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().CollidingWithItem = false;
     }
 
     public void pickup()

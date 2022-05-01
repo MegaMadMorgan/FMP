@@ -3620,7 +3620,7 @@ public class PlayerMovement : MonoBehaviour
                 knockback = true;
             }
 
-            if (collision.name == "FireBallAHB")
+            if (collision.name == "FireBallAHB" || collision.name == "FireBallAHB(Clone)")
             {
                 PlayerDamagedTimer = 0.75f;
                 Attack2Charging = false;

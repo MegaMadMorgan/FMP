@@ -257,6 +257,7 @@ MonoBehaviour:
   triggerrange: 0
   weaponnum: 0
   existtimer: 30
+  rb: {fileID: 6522990700884441140}
   AR: {fileID: 6619756690899153370, guid: 11deae8480774e54fab05a65b291583a, type: 3}
   BB: {fileID: 6217000117354906961}
   B: {fileID: 4312518766310831654, guid: 6e2c9b82b9845ae418031f31a691b71b, type: 3}

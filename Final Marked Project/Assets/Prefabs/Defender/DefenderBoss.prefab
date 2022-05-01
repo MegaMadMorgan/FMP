@@ -1302,7 +1302,9 @@ MonoBehaviour:
   EnemyMesh: {fileID: 3354870511958257919}
   EnemyAnimator: {fileID: 3354870511958257917}
   StickyDynamite: {fileID: 8091395023690283447, guid: 8c68fac16d22c8a47be64c7a67c1dbf9, type: 3}
-  Explosion: {fileID: 0}
+  Explosion: {fileID: 3348672068602076124, guid: 06db961246894e84f9a6d16b001786bb, type: 3}
+  Poof: {fileID: 7655075575662438263, guid: d40e931646cd5d745b7e7cc3971ca2b7, type: 3}
+  PoofDeath: {fileID: 7820464126993619581, guid: 2ffeb21f23dd80547b36cc4200cda789, type: 3}
   AR: {fileID: 6619756690899153370, guid: 11deae8480774e54fab05a65b291583a, type: 3}
   BB: {fileID: 6217000117354906961, guid: 5bbc814c85b43bd469039b2fabb0cb17, type: 3}
   B: {fileID: 4312518766310831654, guid: 6e2c9b82b9845ae418031f31a691b71b, type: 3}

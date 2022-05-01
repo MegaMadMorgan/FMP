@@ -42,6 +42,8 @@ public class EnemyStats : MonoBehaviour
 
     public GameObject StickyDynamite;
     public GameObject Explosion;
+    public GameObject Poof;
+    public GameObject PoofDeath;
 
     public GameObject AR;
     public GameObject BB;
@@ -215,11 +217,13 @@ public class EnemyStats : MonoBehaviour
                 spawnitem();
                 Destroy(gameObject);
                 GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = true;
+                Instantiate(PoofDeath, transform.position, transform.rotation);
             }
             else
             {
                 spawnitem();
                 Destroy(gameObject);
+                Instantiate(PoofDeath, transform.position, transform.rotation);
             }
         }
 
@@ -266,6 +270,7 @@ public class EnemyStats : MonoBehaviour
         {
             TeleportTimer = TeleportTimerMax;
             TeleportDirection = Random.Range(1, 3);
+            Instantiate(Poof, transform.position, transform.rotation);
         }
 
         if (TeleportDirection != 0 && EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)"))
