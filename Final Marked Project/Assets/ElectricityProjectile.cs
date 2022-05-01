@@ -8,8 +8,11 @@ public class ElectricityProjectile : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Quaternion HBRotation = GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerMesh.transform.rotation;
-        this.transform.rotation = HBRotation;
+        if (this.name != "GunShot")
+        {
+            Quaternion HBRotation = GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerMesh.transform.rotation;
+            this.transform.rotation = HBRotation;
+        }
     }
 
     // Update is called once per frame
@@ -17,7 +20,10 @@ public class ElectricityProjectile : MonoBehaviour
     {
         EXIST -= Time.deltaTime;
         if (EXIST <= 0) { Destroy(gameObject); }
-        Quaternion HBRotation = GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerMesh.transform.rotation;
-        this.transform.rotation = HBRotation;
+        if (this.name != "GunShot")
+        {
+            Quaternion HBRotation = GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PlayerMesh.transform.rotation;
+            this.transform.rotation = HBRotation;
+        }
     }
 }

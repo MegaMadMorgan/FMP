@@ -48,11 +48,6 @@ public class PlayerAttackAngle : MonoBehaviour
             Vector3 HBPos = playerPos + (playerDirection * 1.5f);
             transform.position = HBPos;
         }
-        else if (this.gameObject.name == "ARProjectile")
-        {
-            Vector3 HBPos = playerPos + (playerDirection * 0.6f);
-            transform.position += Vector3.forward;
-        }
         else if (this.gameObject.name == "FFA3(Clone)")
         {
             Vector3 HBPos = playerPos + (playerDirection * 0.6f);

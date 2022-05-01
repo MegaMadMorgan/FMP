@@ -450,6 +450,28 @@ public class EnemyStats : MonoBehaviour
             //blocking check
             if (!((EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7) && (name == "Defender" || name == "Defender(Clone)" || name == "DefenderV2" || name == "DefenderV2(Clone)" || name == "DefenderV3" || name == "DefenderV3(Clone)" || name == "DefenderBoss" || name == "DefenderBoss(Clone)")))
             {
+                #region AK
+                if (collision.name == "ARProjectile")
+                {
+                    health -= 0.75f;
+
+                    Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
+
+                    Vector3 direction = GameObject.Find("Third-Person Player").transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
+                    direction.y = GameObject.Find("Third-Person Player").transform.rotation.y;
+                    direction = -direction.normalized;
+
+                    StunFrameSwitch();
+
+                    rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+                    rb.AddForce(knockback * 7f, ForceMode.Impulse);
+                    rb.AddForce(0, 7, 0, ForceMode.Impulse);
+                    recollision = 0.2f;
+                    Stun = 0.6f;
+                    GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.05f;
+                }
+                #endregion
+                //sounds
                 #region Baseball Bat
 
                 if (collision.name == "BBA11(Clone)")
@@ -1747,7 +1769,7 @@ public class EnemyStats : MonoBehaviour
 
                 if (collision.name == "ElectricityProjectileHB")
                 {
-                    health -= 1f;
+                    health -= 0.75f;
 
                     Vector3 knockback = GameObject.Find("Third-Person Player").transform.forward;
 
@@ -1756,8 +1778,6 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
-
-                    FindObjectOfType<SoundManager>().PlaySound("Shock");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 7f, ForceMode.Impulse);
@@ -2689,7 +2709,7 @@ public class EnemyStats : MonoBehaviour
 
                 if (collision.name == "ScA3(Clone)")
                 {
-                    health -= 1;
+                    health -= 0.75f;
 
                     Vector3 knockback = collision.transform.forward;
 
@@ -2698,8 +2718,6 @@ public class EnemyStats : MonoBehaviour
                     direction = -direction.normalized;
 
                     StunFrameSwitch();
-
-                    FindObjectOfType<SoundManager>().PlaySound("Shock");
 
                     rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                     rb.AddForce(knockback * 4, ForceMode.Impulse); // was direction

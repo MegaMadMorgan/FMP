@@ -156,8 +156,6 @@ public class PlayerMovement : MonoBehaviour
         PlayerAnimator.applyRootMotion = false;
         Cam = Camera.main;
         stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
-
-        // throwaway line for the beta
         WeaponActiveNum = 2;
     }
 
@@ -1818,10 +1816,6 @@ public class PlayerMovement : MonoBehaviour
             }
             #endregion
 
-            #region Assault Rifle
-
-            #endregion
-
             #region Stop Sign
             if (PlayerAnimator.GetInteger("Anim") == 7 && (SS.activeSelf == true || SSPV.activeSelf == true))
             {
@@ -2991,8 +2985,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (AR.activeSelf == true && dodge != true && kick != true && AttackTime <= 0)
             {
-                AttackTime = 1.2f;
-                AttackRepeatTimer = 0.3f;
+                AttackTime = 1.6f;
+                AttackRepeatTimer = 1.6f;
                 Attack2Held = 0;
                 PlayerAnimator.SetInteger("Anim", 18);
                 Attack2Charging = false;

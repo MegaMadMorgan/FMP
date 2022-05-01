@@ -507,6 +507,7 @@ public class AttackHitboxes : MonoBehaviour
     {
         Quaternion playerRotation = this.transform.rotation;
         Instantiate(bullet, (transform.TransformPoint(Vector3.forward * 2)) + (transform.up * 1.5f), playerRotation);
+        FindObjectOfType<SoundManager>().PlaySound("Shock");
     }
     #endregion
 
@@ -844,6 +845,7 @@ public class AttackHitboxes : MonoBehaviour
             Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
             Vector3 HBPos = playerPos + (playerDirection * 0.8f);
             Instantiate(VAttack3, HBPos, Quaternion.identity);
+            FindObjectOfType<SoundManager>().PlaySound("Shock");
             if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
             {
                 Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
@@ -1280,6 +1282,7 @@ public class AttackHitboxes : MonoBehaviour
             Vector3 playerDirection = GameObject.Find("Third-Person Player").transform.forward;
             Vector3 HBPos = playerPos + (playerDirection * 0.8f);
             Instantiate(ScAttack3, HBPos, Quaternion.identity);
+            FindObjectOfType<SoundManager>().PlaySound("Shock");
             if (GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().AirTime >= 0.1)
             {
                 Rigidbody rb = transform.parent.GetComponent<Rigidbody>();
