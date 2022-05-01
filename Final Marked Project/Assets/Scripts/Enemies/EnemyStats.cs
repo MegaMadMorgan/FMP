@@ -310,6 +310,11 @@ public class EnemyStats : MonoBehaviour
                 transform.Rotate(new Vector3(0, 0, 0));
             }
         }
+
+        if (transform.position.y <= 0)
+        {
+            health = -1;
+        }
     }
 
     //power growth dynamic

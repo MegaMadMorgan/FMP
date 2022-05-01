@@ -9,6 +9,7 @@ TagManager:
   - ItemHitBox
   - PlayerDamage
   - music
+  - IGNOREMECAMERA
   layers:
   - Default
   - TransparentFX
