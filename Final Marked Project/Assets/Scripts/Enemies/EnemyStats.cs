@@ -216,12 +216,20 @@ public class EnemyStats : MonoBehaviour
             {
                 spawnitem();
                 Destroy(gameObject);
+                int deathsound = Random.Range(1, 4);
+                if (deathsound == 1) { FindObjectOfType<SoundManager>().PlaySound("Death1"); }
+                if (deathsound == 2) { FindObjectOfType<SoundManager>().PlaySound("Death2"); }
+                if (deathsound == 3) { FindObjectOfType<SoundManager>().PlaySound("Death3"); }
                 GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = true;
                 Instantiate(PoofDeath, transform.position, transform.rotation);
             }
             else
             {
                 spawnitem();
+                int deathsound = Random.Range(1, 4);
+                if (deathsound == 1) { FindObjectOfType<SoundManager>().PlaySound("Death1"); }
+                if (deathsound == 2) { FindObjectOfType<SoundManager>().PlaySound("Death2"); }
+                if (deathsound == 3) { FindObjectOfType<SoundManager>().PlaySound("Death3"); }
                 Destroy(gameObject);
                 Instantiate(PoofDeath, transform.position, transform.rotation);
             }
