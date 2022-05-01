@@ -11,6 +11,7 @@ public class ItemCollision : MonoBehaviour
     public int weaponnum;
     public float existtimer = 12;
     public Rigidbody rb;
+    public bool bounce = true;
 
     public GameObject AR;
     public GameObject BB;
@@ -42,7 +43,10 @@ public class ItemCollision : MonoBehaviour
 
     private void Start()
     {
-        rb.AddForce(0, 16, 0, ForceMode.Impulse);
+        if (bounce == true)
+        {
+            rb.AddForce(0, 16, 0, ForceMode.Impulse);
+        }
     }
 
     private void Update()

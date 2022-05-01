@@ -13,7 +13,8 @@ public class ThrownItemCollision : MonoBehaviour
         if (Enemy.tag != "Player" && GetComponentInParent<ThrowItem>().ThrowTime >= 0.2 && hit == false)
         {
             hit = true;
-            Instantiate(ActualItem, this.transform.position, this.transform.rotation);
+            GameObject item = Instantiate(ActualItem, this.transform.position, this.transform.rotation) as GameObject;
+            item.GetComponent<ItemCollision>().bounce = false;
             Destroy(transform.root.gameObject);
         }
     }
