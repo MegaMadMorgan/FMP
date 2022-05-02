@@ -6,45 +6,59 @@ using UnityEngine.UI;
 
 public class EnemyStats : MonoBehaviour
 {
+    //initialising Variables
+    
+    //health
     public float health;
     public float maxhealth;
+    //stuns
     public float Stun;
     public int stunframe = 0;
-    //bool isGrounded;
+
+    //extras
     public NavMeshAgent agent;
     public Rigidbody rb;
-    //bool isColliding;
     public float recollision;
     public bool notstunned = false;
     public bool PostureBreak = false;
     bool noted;
 
-    public float projectiletimermax = Random.Range(6, 10);
-    public float projectiletimer = Random.Range(6, 10);
-
+    //teleporting
     public float TeleportTimerMax;
     public float TeleportTimer;
     public int TeleportDirection;
 
+    //health bar
     public Image Healthbar;
     public GameObject healthbarimage;
 
+    //floor collision
     public float bigcollisonrange = 3.05f;
 
+    //item spawn
     public int itemnum;
 
+    //healer timer
     public float healtimer;
 
+    //attack lunge
     public float lungetimer;
     public Transform EnemyMesh;
 
+    //enemy animations
     public Animator EnemyAnimator;
 
+    //dynamite effects
     public GameObject StickyDynamite;
     public GameObject Explosion;
+
+    //teleport effect
     public GameObject Poof;
+
+    //death effect
     public GameObject PoofDeath;
 
+    //items to spawn upon death
     public GameObject AR;
     public GameObject BB;
     public GameObject B;
@@ -69,124 +83,146 @@ public class EnemyStats : MonoBehaviour
     public GameObject SC;
     public GameObject SB;
 
-    public GameObject FireBall;
-
-    int rotatex;
-    int rotatey;
-    public bool explode = false;
-
     private void Awake()
     {
+        // randomly choose the number that represents the item you're gonna spawn
         itemnum = Random.Range(1, 23);
+
+        // set stun for when falling to not magnet yourself to terrain with the navagation systems
         Stun = 0.5f;
+
+        // set health max at start
         maxhealth = health;
+
+        // randomise rotation if you're a droppod enemy
         if (name == "DropPod" || name == "DropPod(Clone)" || name == "DropPodV2" || name == "DropPodV2(Clone)" || name == "DropPodV3" || name == "DropPodV3(Clone)" || name == "DropPodBoss" || name == "DropPodBoss(Clone)")
         {
             this.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 180f);
         }
-        rotatex = Random.Range(1, 4);
-        rotatey = Random.Range(1, 4);
-
-        projectiletimermax = Random.Range(6, 10);
-        projectiletimer = Random.Range(6, 10);
     }
 
     void Update()
     {
+        //update healthbar
         Healthbar.fillAmount = health / maxhealth;
+
+        //countdown for check for when the enemy can get attacked again
         recollision -= Time.deltaTime;
 
+        //if stunned and/or not touching ground
         if (Stun > 0 || !GroundCheck())
         {
+            //countdown the stun time
             Stun -= Time.deltaTime;
+
+            //if not a heavy enemy
             if (this.name != "Heavy" && this.name != "Heavy(Clone)" && this.name != "HeavyV2" && this.name != "HeavyV2(Clone)" && this.name != "HeavyV3" && this.name != "HeavyV3(Clone)" && this.name != "HeavyBoss" && this.name != "HeavyBoss(Clone)")
             {
+                // you're stunned
                 notstunned = false;
+
+                // if you're not an enemy that doesnt have a navmesh
                 if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "BouncerV2" && this.name != "BouncerV2(Clone)" && this.name != "BouncerV3" && this.name != "BouncerV3(Clone)" && this.name != "BouncerBoss" && this.name != "BouncerBoss(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)" && this.name != "DropPodV2" && this.name != "DropPodV2(Clone)" && this.name != "DropPodV3" && this.name != "DropPodV3(Clone)" && this.name != "DropPodBoss" && this.name != "DropPodBoss(Clone)")
                 {
+                    //disable the nav stuff!
                     gameObject.GetComponent<NavMeshAgent>().enabled = false;
 
                     if (gameObject.GetComponent<EnemyNav>() != null)
                     {
                         gameObject.GetComponent<EnemyNav>().enabled = false;
-                    }
-                    if (gameObject.GetComponent<EnemyHealerNav>() != null)
-                    {
-                        gameObject.GetComponent<EnemyHealerNav>().enabled = false;
                     }
                 }
-            }
+            } // relating back to the not a heavy bit, if you're a heavy and your posture is broken (by a heavy/secondary attack)
             else if (PostureBreak == true)
             {
+                // you're stunned
                 notstunned = false;
+
+                // if you're not an enemy that doesnt have a navmesh
                 if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "BouncerV2" && this.name != "BouncerV2(Clone)" && this.name != "BouncerV3" && this.name != "BouncerV3(Clone)" && this.name != "BouncerBoss" && this.name != "BouncerBoss(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)" && this.name != "DropPodV2" && this.name != "DropPodV2(Clone)" && this.name != "DropPodV3" && this.name != "DropPodV3(Clone)" && this.name != "DropPodBoss" && this.name != "DropPodBoss(Clone)")
                 {
+                    //disable the nav stuff!
                     gameObject.GetComponent<NavMeshAgent>().enabled = false;
 
                     if (gameObject.GetComponent<EnemyNav>() != null)
                     {
                         gameObject.GetComponent<EnemyNav>().enabled = false;
-                    }
-                    if (gameObject.GetComponent<EnemyHealerNav>() != null)
-                    {
-                        gameObject.GetComponent<EnemyHealerNav>().enabled = false;
                     }
                 }
             }
         }
 
+        // if you arent stunned and on the ground
         if (Stun <= 0 && GroundCheck())
         {
+            // stun is at zero
             Stun = 0;
+
+            // stunframe is at zero
             stunframe = 0;
+
+            // if you're not an enemy that doesnt have a navmesh
             if (this.name != "BouncerV1" && this.name != "BouncerV1(Clone)" && this.name != "BouncerV2" && this.name != "BouncerV2(Clone)" && this.name != "BouncerV3" && this.name != "BouncerV3(Clone)" && this.name != "BouncerBoss" && this.name != "BouncerBoss(Clone)" && this.name != "DropPod" && this.name != "DropPod(Clone)" && this.name != "DropPodV2" && this.name != "DropPodV2(Clone)" && this.name != "DropPodV3" && this.name != "DropPodV3(Clone)" && this.name != "DropPodBoss" && this.name != "DropPodBoss(Clone)" && lungetimer <= 0)
             {
+                //enable the nav stuff!
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 if (gameObject.GetComponent<EnemyNav>() != null)
                 {
                     gameObject.GetComponent<EnemyNav>().enabled = true;
                 }
-                if (gameObject.GetComponent<EnemyHealerNav>() != null)
-                {
-                    gameObject.GetComponent<EnemyHealerNav>().enabled = true;
-                }
             }
             else
             {
+                // otherwise if you arent lunging, be in the idle animation
                 if (lungetimer <= 0)
                 {
                     EnemyAnimator.SetInteger("EAnim", 0);
                 }
             }
 
+            // if you're a healer and lower on health then usual
             if ((this.name == "Healer" || this.name == "Healer(Clone)" || this.name == "HealerV2" || this.name == "HealerV2(Clone)" || this.name == "HealerV3" || this.name == "HealerV3(Clone)") && health <= maxhealth)
             {
+                // heal timer is counting down
                 healtimer -= Time.deltaTime;
 
+                // if heal timer is up
                 if (healtimer <= 0)
                 {
+                    // heal timer is reset
                     healtimer = 0.75f;
+
+                    // heal enemy by 0.75 (same amount as damage for ranged attacks for a reason)
                     health += 0.75f;
                 }
             }
+
+            // you arent stunned
             notstunned = true;
+
+            // your posture isnt broken
             PostureBreak = false;
         }
         else
         {
+            // heal timer is reset
             healtimer = 0.75f;
         }
 
+        // if health is more then max
         if (health > maxhealth)
         {
+            // set it to max again
             health = maxhealth;
         }
 
-        //if (name == "Chaser" || name == "Chaser(Clone)" || name == "Defender" || name == "Defender(Clone)")
+        // if in stun animations and stun isnt true
         if ((EnemyAnimator.GetInteger("EAnim") == 1 || EnemyAnimator.GetInteger("EAnim") == 2) && notstunned == true)
         {
+            // go to fighting animation
             EnemyAnimator.SetInteger("EAnim", 5);
 
+            // if you're a teleporter, face the player
             if (name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)")
             {
                 Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
@@ -195,181 +231,211 @@ public class EnemyStats : MonoBehaviour
                 this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
             }
         }
-        //this is for showing the health bar
+
+        // if locked on
         if (transform.Find("TargetingConePivot"))
         {
+            // turn on health bar
             healthbarimage.SetActive(true);
         }
         else
         {
+            // otherwise turn off the health bar
             healthbarimage.SetActive(false);
         }
 
+        // if out of health
         if (health <= 0) 
         {
+            // if lock on object is still in object as child
             if (transform.Find("TargetingConePivot"))
             {
+                // set lock on to false
                 GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = false;
+                // set a bool to check if this process has been activated
                 noted = true;
             }
-            else if (noted == true)
+            else if (noted == true) // if process has been activated
             {
+                // spawn weapons
                 spawnitem();
+                // destroy enemy
                 Destroy(gameObject);
+
+                // play a random death sound
                 int deathsound = Random.Range(1, 4);
                 if (deathsound == 1) { FindObjectOfType<SoundManager>().PlaySound("Death1"); }
                 if (deathsound == 2) { FindObjectOfType<SoundManager>().PlaySound("Death2"); }
                 if (deathsound == 3) { FindObjectOfType<SoundManager>().PlaySound("Death3"); }
+
+                // set lock on again to the next closest enemy that exists
                 GameObject.Find("Third-Person Player").GetComponent<EnemyLockOn>().temp = true;
+
+                // spawn a effect that communicate's the enemy's dead
                 Instantiate(PoofDeath, transform.position, transform.rotation);
             }
             else
             {
+                // spawn weapons
                 spawnitem();
+
+                // destroy enemy
                 int deathsound = Random.Range(1, 4);
+
+                // play a random death sound
                 if (deathsound == 1) { FindObjectOfType<SoundManager>().PlaySound("Death1"); }
                 if (deathsound == 2) { FindObjectOfType<SoundManager>().PlaySound("Death2"); }
                 if (deathsound == 3) { FindObjectOfType<SoundManager>().PlaySound("Death3"); }
+
+                // destroy this object
                 Destroy(gameObject);
+
+                // spawn a effect that communicate's the enemy's dead
                 Instantiate(PoofDeath, transform.position, transform.rotation);
             }
         }
 
+        // if you're an enemy
         if (name == "Chaser" || name == "Chaser(Clone)" || name == "ChaserV2" || name == "ChaserV2(Clone)" || name == "ChaserV3" || name == "ChaserV3(Clone)" || name == "Defender" || name == "Defender(Clone)" || name == "DefenderV2" || name == "DefenderV2(Clone)" || name == "DefenderV3" || name == "DefenderV3(Clone)" || name == "DefenderBoss" || name == "DefenderBoss(Clone)" || name == "Bigger" || name == "Bigger(Clone)" || name == "BiggerV2" || name == "BiggerV2(Clone)" || name == "BiggerV3" || name == "BiggerV3(Clone)" || name == "Heavy" || name == "Heavy(Clone)" || name == "HeavyV2" || name == "HeavyV2(Clone)" || name == "HeavyV3" || name == "HeavyV3(Clone)" || name == "HeavyBoss" || name == "HeavyBoss(Clone)" || name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)" || name == "Healer" || name == "Healer(Clone)" || name == "HealerV2" || name == "HealerV2(Clone)" || name == "HealerV3" || name == "HealerV3(Clone)" || name == "GroundedFly" || name == "GroundedFly(Clone)" || name == "GroundedFlyV2" || name == "GroundedFlyV2(Clone)" || name == "GroundedFlyV3" || name == "GroundedFlyV3(Clone)")
         {
-            if (lungetimer > 0) { lungetimer -= Time.deltaTime; rb.velocity = new Vector3(EnemyMesh.forward.x * 5, rb.velocity.y, EnemyMesh.forward.z * 5); gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            // if lunging at player (lunge time is how long the lunge lasts for)
+            if (lungetimer > 0) 
+            { 
+                // countdown lunge timer
+                lungetimer -= Time.deltaTime; 
+
+                // lunge forwards
+                rb.velocity = new Vector3(EnemyMesh.forward.x * 5, rb.velocity.y, EnemyMesh.forward.z * 5);
+
+                // enemy navagation stuff is disabled
+                gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 if (gameObject.GetComponent<EnemyNav>() != null)
                 {
                     gameObject.GetComponent<EnemyNav>().enabled = false;
                 }
-                if (gameObject.GetComponent<EnemyHealerNav>() != null)
-                {
-                    gameObject.GetComponent<EnemyHealerNav>().enabled = false;
-                }
             }
+
+            // if not lunging at player and not stunned
             if (lungetimer < 0 && notstunned == true)
-            { lungetimer = 0; gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            { 
+                // set lunge timer to zero
+                lungetimer = 0;
+
+                // enemy navagation stuff is enabled
+                gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 if (gameObject.GetComponent<EnemyNav>() != null)
                 {
                     gameObject.GetComponent<EnemyNav>().enabled = true;
                 }
-                if (gameObject.GetComponent<EnemyHealerNav>() != null)
-                {
-                    gameObject.GetComponent<EnemyHealerNav>().enabled = true;
-                }
             }
         }
 
+        // if you're a teleporter, you're not hit and you're in animation 7
         if (recollision <= 0 && EnemyAnimator.GetInteger("EAnim") == 7 && !(name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)"))
         {
+            // play prepare for attack animation
             EnemyAnimator.SetInteger("EAnim", 5);
         }
 
+        // while preparing to attack
         if (EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)"))
         {
+            //count down teleport timer
             TeleportTimer -= Time.deltaTime;
         }
         else
         {
+            // otherwise reset it
             TeleportTimer = TeleportTimerMax;
         }
 
+        // while preparing to attack and teleport timer equal to zero
         if (TeleportTimer <= 0 && EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)"))
         {
+            // reset teleport timer
             TeleportTimer = TeleportTimerMax;
+
+            //randomise teleport direction
             TeleportDirection = Random.Range(1, 3);
+
+            // spawn a teleport effect
             Instantiate(Poof, transform.position, transform.rotation);
         }
 
+        // if teleport direction isnt zero and in appropate animation and are appropiate enemy
         if (TeleportDirection != 0 && EnemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fighting Idle") && (name == "Teleporter" || name == "Teleporter(Clone)" || name == "TeleporterV2" || name == "TeleporterV2(Clone)" || name == "TeleporterV3" || name == "TeleporterV3(Clone)" || name == "TeleporterBoss" || name == "TeleporterBoss(Clone)"))
         {
+            // either teleport right
             if (TeleportDirection == 1)
             {
                 transform.position += (EnemyMesh.transform.right * 2.5f);
             }
-            else if (TeleportDirection == 2)
+            else if (TeleportDirection == 2) // or teleport left
             {
                 transform.position += (EnemyMesh.transform.right *-2.5f);
             }
+
+            // and reset direction afterwards
             TeleportDirection = 0;
         }
 
-
-        if (explode == true)
-        {
-            transform.position += this.transform.up;
-            if (rotatex == 1)
-            {
-                transform.Rotate(new Vector3(5, 0, 0));
-            }
-            if (rotatex == 2)
-            {
-                transform.Rotate(new Vector3(-5, 0, 0));
-            }
-            if (rotatex == 3)
-            {
-                transform.Rotate(new Vector3(0, 0, 0));
-            }
-            if (rotatey == 1)
-            {
-                transform.Rotate(new Vector3(0, 0, 5));
-            }
-            if (rotatey == 2)
-            {
-                transform.Rotate(new Vector3(0, 0, -5));
-            }
-            if (rotatey == 3)
-            {
-                transform.Rotate(new Vector3(0, 0, 0));
-            }
-        }
-
+        // if below map... die
         if (transform.position.y <= 0)
         {
             health = -1;
         }
     }
 
-    //power growth dynamic
-    //chip damage = 0.1
-    // knock away = 0.2
-    // fully charged = 0.3
-
+    // on collision with a hitbox
     void OnTriggerEnter(Collider collision)
     {
+        // i want to note that here there will be a lot of repeated code so i will annotate the first few but the rest since it's repitition will not be annotated
+        
+        // set rb to be this object's rigidbody
         Rigidbody rb = GetComponent<Rigidbody>();
 
-        //transform.LookAt(GameObject.Find("Third-Person Player").transform, new Vector3(0,0,0));
-
-
-
+        // if colliding with an object that has the tag "PlayerAttack"
         if (collision.tag == "PlayerAttack")
         {
             #region kick
-                if (collision.name == "KickHB(Clone)" && !((this.name == "Defender(Clone)" || this.name == "DefenderV2(Clone)" || this.name == "DefenderV3(Clone)" || this.name == "DefenderBoss(Clone)" || this.name == "DefenderBoss") && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7)))
-                {
+            // if colliding with kick hitbox and is not a defender whose using shield
+            if (collision.name == "KickHB(Clone)" && !((this.name == "Defender(Clone)" || this.name == "DefenderV2(Clone)" || this.name == "DefenderV3(Clone)" || this.name == "DefenderBoss(Clone)" || this.name == "DefenderBoss") && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7)))
+            {
+                // take away one health
                 health -= 1;
 
+                // set knockback to be collision's angle of forward
                 Vector3 knockback = collision.transform.forward;
 
+                // optional use, direction
                 Vector3 direction = collision.transform.position - transform.position; // checks the position between the enemy and the hitbox for the direction to be launched
                 direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                 direction = -direction.normalized;
 
+                //switch stun frame (for if already stunned)
                 StunFrameSwitch();
 
+                // play a punch sound effect
                 FindObjectOfType<SoundManager>().PlaySound("Punch");
 
+                // knock back direction
                 rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
                 rb.AddForce(knockback * 16, ForceMode.Impulse); // was direction
                 rb.AddForce(0, 7, 0, ForceMode.Impulse);
+
+                // time until able to be hit again set
                 recollision = 0.1f;
+
+                // time to be stunned for set
                 Stun = 0.6f;
+
+                // boost player's power meter!
                 GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.2f;
             }
 
-            
+            // below you'll notice it's pretty much the same as above with some variables changed, and here you'll get what i mean!
 
+            // if colliding with kick hitbox and is a defender whose using shield
             if (collision.name == "KickHB(Clone)" && (this.name == "Defender(Clone)" || this.name == "DefenderV2(Clone)" || this.name == "DefenderV3(Clone)") && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7))
             {
                 health -= 0.25f;
@@ -392,6 +458,7 @@ public class EnemyStats : MonoBehaviour
                 GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
             }
 
+            // if colliding with kick hitbox and is a defender Boss whose using shield
             if (collision.name == "KickHB(Clone)" && (this.name == "DefenderBoss(Clone)" || this.name == "DefenderBoss") && (EnemyAnimator.GetInteger("EAnim") == 5 || EnemyAnimator.GetInteger("EAnim") == 7))
             {
 
@@ -572,6 +639,8 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+
+                    // if hitting a heavy with this attack, break the posture and allow for stun as long as the combo is continued
                     if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
@@ -599,6 +668,7 @@ public class EnemyStats : MonoBehaviour
                     direction.y = collision.GetComponent<PlayerAttackAngle>().AttackAngle;
                     direction = -direction.normalized;
 
+                    // if hitting a heavy with this attack, break the posture and allow for stun as long as the combo is continued
                     if (this.name == "Heavy" || this.name == "Heavy(Clone)" || this.name == "HeavyV2" || this.name == "HeavyV2(Clone)" || this.name == "HeavyV3" || this.name == "HeavyV3(Clone)" || this.name == "HeavyBoss" || this.name == "HeavyBoss(Clone)")
                     {
                         PostureBreak = true;
@@ -1499,8 +1569,10 @@ public class EnemyStats : MonoBehaviour
                     Stun = 0.6f;
                     GameObject.Find("Third-Person Player").GetComponent<PlayerMovement>().PowerMeter += 0.1f;
 
+                    // if there's no sticky dynamite on the enemy
                     if (GameObject.Find("StickyDynamite(Clone)") == null)
                     {
+                        // create the sticky dynamite as a child of this enemy
                         var Stick = Instantiate(StickyDynamite, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
                         Stick.transform.parent = this.transform;
                     }
@@ -2918,13 +2990,19 @@ public class EnemyStats : MonoBehaviour
             }
             else
             {
-                Debug.Log("cant hit me lol");
+                // if hit but shield is up
+
+                // delay ability to attack by 0.5f
                 this.GetComponent<EnemyNav>().TimeUntilAttack += 0.5f;
+
+                // make sure animation stays
                 EnemyAnimator.SetInteger("EAnim", 7);
+
+                // time until able to be attacked again is set
                 recollision = 0.2f;
             }
 
-            //if attack hits with and without shield up
+            //if attack hits regardless of anything
             if (collision.name == "ExplosionHitBox")
             {
                 health -= 1.5f;
@@ -2943,43 +3021,31 @@ public class EnemyStats : MonoBehaviour
                 recollision = 0.4f;
                 Stun = 0.6f;
             }
+        }
 
-            if (collision.tag == "IGNOREMECAMERA" && Stun <= 0)
-            {
-                if (transform.position.x >= 0)
-                {
-                    transform.position -= new Vector3(-2.5f, 0, 0);
-                }
-                if (transform.position.x <= 0)
-                {
-                    transform.position -= new Vector3(2.5f, 0, 0);
-                }
-
-                if (transform.position.y <= 0)
-                {
-                    transform.position -= new Vector3(0, 0, 2.5f);
-                }
-                if (transform.position.y >= 0)
-                {
-                    transform.position -= new Vector3(0, 0, -2.5f);
-                }
-            }
+        // if inside object you shouldnt be, set health to -1... e.g. die
+        if (collision.gameObject.tag == "IGNOREMECAMERA" && Stun <= 0)
+        {
+            health = -1;
         }
     }
 
 
     public bool GroundCheck()
     {
-
-            return Physics.Raycast(transform.position, Vector3.down, bigcollisonrange);
-
+        //return if touching ground
+        return Physics.Raycast(transform.position, Vector3.down, bigcollisonrange);
     }
 
     void StunFrameSwitch()
     {
+        // if not a heavy enemy
         if (this.name != "Heavy" && this.name != "Heavy(Clone)" && this.name != "HeavyV2" && this.name != "HeavyV2(Clone)" && this.name != "HeavyV3" && this.name != "HeavyV3(Clone)" && this.name != "HeavyBoss" && this.name != "HeavyBoss(Clone)")
         {
+            // add one to stunframe
             stunframe += 1;
+
+            // change stun animation if stunframe is changed
             if (stunframe % 2 == 0)
             {
                 EnemyAnimator.SetInteger("EAnim", 1);
@@ -2989,9 +3055,12 @@ public class EnemyStats : MonoBehaviour
                 EnemyAnimator.SetInteger("EAnim", 2);
             }
         }
-        else if (PostureBreak == true)
+        else if (PostureBreak == true) // if posture is broken for the heavies
         {
+            // add one to stunframe
             stunframe += 1;
+
+            // change stun animation if stunframe is changed
             if (stunframe % 2 == 0)
             {
                 EnemyAnimator.SetInteger("EAnim", 1);
@@ -3002,9 +3071,12 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
+        // face player
         Vector3 dir = GameObject.Find("Third-Person Player").transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, Time.deltaTime * 99).eulerAngles;
+
+        // make sure drop pod isnt upside-down in stun frame!
         if (this.name == "DropPod" || this.name == "DropPod(Clone)" || this.name == "DropPodV2" || this.name == "DropPodV2(Clone)" || this.name == "DropPodV3" || this.name == "DropPodV3(Clone)" || this.name == "DropPodBoss" || this.name == "DropPodBoss(Clone)")
         {
             this.transform.rotation = Quaternion.Euler(0f, rotation.y-90, 180f);
@@ -3017,8 +3089,11 @@ public class EnemyStats : MonoBehaviour
 
     public void teleportAttack()
     {
+        // teleport forwards when called
         transform.position += (this.transform.forward * 2.5f);
     }
+
+    // check what item number was set to and spawn the appropiate item
     public void spawnitem()
     {
         if (itemnum == 1)

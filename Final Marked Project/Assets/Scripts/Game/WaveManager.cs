@@ -7,12 +7,10 @@ using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
+    //initialising Variables
     public int WaveNum;
-    public int WaveCount;
-    public int WaveChapter;
     public bool EnemiesCleared;
     Scene CurrentScene;
-    string SceneName;
     private float SpawnRangeXmin;
     private float SpawnRangeXmax;
     private float SpawnRangeY;
@@ -20,6 +18,7 @@ public class WaveManager : MonoBehaviour
     private float SpawnRangeZmax;
     private int multiaxis = 1; // mechanism for complicated enviroments
 
+    // enemies spawned (difficulty 1)
     public GameObject Bouncer1;
     public GameObject Chaser1;
     public GameObject Defender1;
@@ -30,6 +29,7 @@ public class WaveManager : MonoBehaviour
     public GameObject Healer1;
     public GameObject Flyer1;
 
+    // enemies spawned (difficulty 2)
     public GameObject Bouncer2;
     public GameObject Chaser2;
     public GameObject Defender2;
@@ -40,6 +40,7 @@ public class WaveManager : MonoBehaviour
     public GameObject Healer2;
     public GameObject Flyer2;
 
+    // enemies spawned (difficulty 3)
     public GameObject Bouncer3;
     public GameObject Chaser3;
     public GameObject Defender3;
@@ -49,9 +50,11 @@ public class WaveManager : MonoBehaviour
     public GameObject Teleporter3;
     public GameObject Healer3;
     public GameObject Flyer3;
+
+    //int that decides which enemy to spawn
     public int whichenemy = 0;
 
-
+    // Bosses spawned
     public GameObject BossBouncer;
     public GameObject BossTeleporter;
     public GameObject BossDefender;
@@ -60,25 +63,18 @@ public class WaveManager : MonoBehaviour
 
     public void Awake()
     {
+        //pick a random number to decide which enemy should spawn
         whichenemy = Random.Range(0, 9);
     }
 
     void FixedUpdate()
     {
+        // get current scene
         CurrentScene = SceneManager.GetActiveScene();
-        if (CurrentScene.name == "Park")
-        {
-            // set size of arena and spawn locations
-        }
 
-        if (CurrentScene.name == "SuperStore")
-        {
-            // set size of arena and spawn locations
-        }
-
+        //set where enemies can spawn in the "City_Centre" scene
         if (CurrentScene.name == "City_Centre")
         {
-            //these are not accurate spawn ranges
             if (multiaxis == 0)
             {
                 SpawnRangeXmin = -3;
@@ -97,6 +93,7 @@ public class WaveManager : MonoBehaviour
             }
         }
 
+        //set where enemies can spawn in the "Main" scene
         if (CurrentScene.name == "Main")
         {
             SpawnRangeXmin = -12;
@@ -106,10 +103,12 @@ public class WaveManager : MonoBehaviour
             SpawnRangeZmax = 12;
         }
         
+        //when the round ends spawn the appropiate amount of enemies (unless it's a boss round)
         if (EnemiesCleared)
         {
             if ((GameObject.FindGameObjectsWithTag("Enemy").Length <= WaveNum) && !(WaveNum % 10 == 0)) //&& !(WaveNum % 10 == 0)
             {                
+                //randomisation based spawning choice for each enemy
                 GameObject enemy = null;
                 if (whichenemy == 0 && WaveNum <= 10)
                 {
@@ -249,6 +248,7 @@ public class WaveManager : MonoBehaviour
                     whichenemy = Random.Range(0, 9);
                 }
 
+                //setting where the next enemy should spawn
                 if (multiaxis == 1)
                 {
                     multiaxis = 0;
@@ -261,7 +261,7 @@ public class WaveManager : MonoBehaviour
                 }
             }
 
-
+            //if it is a boss wave, spawn a boss enemy (similar code to above so i wont annotate it)
             if (WaveNum % 10 == 0 && (GameObject.FindGameObjectsWithTag("Enemy").Length <= 2))
             {
                 whichenemy = Random.Range(1, 6);
@@ -303,16 +303,17 @@ public class WaveManager : MonoBehaviour
             }
         }
 
+        // when we've finished spawning in more enemies
         if ((GameObject.FindGameObjectsWithTag("Enemy").Length >= WaveNum) || (WaveNum % 10 == 0 && GameObject.FindGameObjectsWithTag("Enemy").Length >=1))
         {
             EnemiesCleared = false;
         }
 
+        // when all enemies in the scene are defeated, set to next wave and move the time of day ahead by an hour
         if (GameObject.FindGameObjectWithTag("Enemy") == null)
         {
             EnemiesCleared = true;
             WaveNum += 1;
-            WaveCount += 1;
             this.GetComponent<LightingManager>().TimeOfDay += 1;
         }
     }

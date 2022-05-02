@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
+    //initialising Variables
+
     [Header("Base Option drag-ins")]
     public AudioMixer audioMixer;
     public TMPro.TMP_Dropdown resolutionDropdown;
@@ -26,20 +28,24 @@ public class OptionsMenu : MonoBehaviour
 
     private void Start()
     {
+        // setting values from pre-established ones
         SFXSlider.value = SFXVol;
         MusSlider.value = MusVol;
         MosSlider.value = MosSen;
         FulScrn.isOn = FullScreen;
         graphicsDropdown.value = quality;
-
         resolutions = Screen.resolutions;
 
+        // clear resolution drop down for checking the resolutions again
         resolutionDropdown.ClearOptions();
 
+        // set options as a new list
         List<string> options = new List<string>();
 
+        // set resolution index to zero
         int currentResolutionIndex = 0;
 
+        // for each resolution, get it's width and height and add it to the list as a string
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
@@ -51,7 +57,10 @@ public class OptionsMenu : MonoBehaviour
             }
         }
 
+        // add an option to the resolutions dropdown
         resolutionDropdown.AddOptions(options);
+
+        //  set resolutions if no resolutions
         if (reso == -1)
         {
             resolutionDropdown.value = currentResolutionIndex;
@@ -60,9 +69,11 @@ public class OptionsMenu : MonoBehaviour
         {
             resolutionDropdown.value = reso;
         }
+        // and refresh it
         resolutionDropdown.RefreshShownValue();
     }
 
+    // setting resolution
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
@@ -70,33 +81,34 @@ public class OptionsMenu : MonoBehaviour
         reso = resolutionIndex;
     }
 
+    // setting audio volume
     public void SetSFXVolume (float volume)
     {
         audioMixer.SetFloat("SFXVolume", volume);
         SFXVol = volume;
     }
 
+    // setting music volume
     public void SetMusicVolume (float volume)
     {
         audioMixer.SetFloat("MusicVolume", volume);
         MusVol = volume;
     }
 
+    // setting mouse sensitivity 
     public void SetMouseSensitivity(float Sensitivity)
     {
-        //if (GameObject.Find("Main Camera") != null)
-        //{
-        //    GameObject.Find("Main Camera").GetComponentInChildren<MouseSensitivity>().Sensitivity = Sensitivity;
-        //}
         MosSen = Sensitivity;
     }
 
+    // setting game quality
     public void SetQuality (int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
         quality = qualityIndex;
     }
 
+    // setting fullscreen on or off
     public void SetFullScreen (bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
