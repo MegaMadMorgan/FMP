@@ -20400,14 +20400,12 @@ MonoBehaviour:
   recollision: 0
   notstunned: 0
   PostureBreak: 0
-  projectiletimermax: 0
-  projectiletimer: 0
   TeleportTimerMax: 0
   TeleportTimer: 0
   TeleportDirection: 0
   Healthbar: {fileID: 9130476473790687560}
   healthbarimage: {fileID: 9130476474052666296}
-  bigcollisonrange: 1.05
+  bigcollisonrange: 1.25
   itemnum: 0
   healtimer: 0.75
   lungetimer: 0
@@ -20440,8 +20438,6 @@ MonoBehaviour:
   F: {fileID: 8896681539242248539, guid: fd78b392d3c27244db545a2c69408759, type: 3}
   SC: {fileID: 7326298793116021316, guid: 6dcf5722854614e4b81777b25e7d6c34, type: 3}
   SB: {fileID: 0}
-  FireBall: {fileID: 0}
-  explode: 0
 --- !u!195 &9130476474776945719
 NavMeshAgent:
   m_ObjectHideFlags: 0
