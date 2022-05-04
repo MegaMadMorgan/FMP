@@ -13,6 +13,7 @@ public class ItemCollision : MonoBehaviour
     public float existtimer = 12;
     public Rigidbody rb;
     public bool bounce = true;
+    public float collisiontimer = 0;
 
     //items to spawn
     public GameObject AR;
@@ -42,6 +43,7 @@ public class ItemCollision : MonoBehaviour
     {
         //randomise this object's rotation
         transform.rotation = Random.rotation;
+
     }
 
     private void Start()
@@ -49,7 +51,7 @@ public class ItemCollision : MonoBehaviour
         //make object bounce unless set otherwise in spawn
         if (bounce == true) // for fixing collision issues with player upon enemy's death
         {
-            rb.AddForce(0, 16, 0, ForceMode.Impulse);
+            rb.AddForce(0, 20, 0, ForceMode.Impulse);
         }
     }
 
@@ -57,6 +59,9 @@ public class ItemCollision : MonoBehaviour
     {
         //time to exist for countdown
         existtimer -= Time.deltaTime;
+
+        //time until collision count down
+        collisiontimer -= Time.deltaTime;
 
         // this object's parent is the player
         ItemParent = GameObject.Find("Third-Person Player");
@@ -150,6 +155,16 @@ public class ItemCollision : MonoBehaviour
         if (this.name == "Item Saw Cleaver(Clone)" || this.name == "Item Saw Cleaver")
         {
             weaponnum = 22;
+        }
+
+        // disable collision if above 0
+        if (collisiontimer >= 0)
+        {
+            Physics.IgnoreCollision(this.GetComponent<Collider>(), GetComponent<Collider>(), true);
+        }
+        else
+        {
+            Physics.IgnoreCollision(this.GetComponent<Collider>(), GetComponent<Collider>(), false);
         }
 
         //destroy if exist timer is finished
